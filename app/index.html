@@ -58,7 +58,17 @@
   /* ---------- chat messages ---------- */
   .msg { margin:0 0 20px; max-width:760px; }
   .msg .who { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:5px; }
-  .answer { white-space:pre-wrap; line-height:1.62; color:var(--text); }
+  .answer { line-height:1.62; color:var(--text); }
+  .answer > :first-child { margin-top:0; } .answer > :last-child { margin-bottom:0; }
+  .answer p { margin:0 0 12px; }
+  .answer ul, .answer ol { margin:8px 0 12px; padding-left:22px; }
+  .answer li { margin:3px 0; padding-left:2px; }
+  .answer strong { font-weight:700; color:var(--text); }
+  .answer em { font-style:italic; }
+  .answer code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.92em;
+                 background:var(--blue-soft); padding:1px 5px; border-radius:5px; }
+  .answer a { color:var(--blue-d); text-decoration:underline; text-underline-offset:2px; }
+  .answer a:hover { color:var(--blue); }
   .answer .cmark { color:var(--blue); font-weight:700; }
   /* ---------- inputs / buttons ---------- */
   form { display:flex; gap:10px; padding:16px 24px; border-top:1px solid var(--line); background:var(--surface); }
@@ -278,10 +288,40 @@ const exWrap=document.getElementById('examples');
 EXAMPLES.forEach(t=>{const c=document.createElement('span');c.className='chip';c.textContent=t;
   c.onclick=()=>{qInput.value=t;askChat();};exWrap.appendChild(c);});
 
-function renderAnswer(el,text){
-  el.innerHTML = text.replace(/[&<>]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[ch]))
-                     .replace(/\[(\d+)\]/g,'<span class="cmark">[$1]</span>');
+// Markdown → safe HTML for assistant answers. The model is told to emit markdown
+// (**bold**, bullets, [n] citations); we render it instead of showing raw asterisks.
+// XSS boundary: we HTML-escape the ENTIRE string FIRST, so no live tag from the model
+// (or from RAG-retrieved text it echoes) can survive. We then re-introduce only a fixed,
+// known-safe tag set (strong/em/code/a/p/ul/ol/li/br/span.cmark). Links are scheme-locked
+// to http(s) and quote-neutralized, so no javascript: URIs or attribute breakouts.
+function mdEscape(s){ return s.replace(/[&<>]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[ch])); }
+function mdInline(t){
+  // links [text](http(s)://url) FIRST so the citation pass doesn't grab the [text] part
+  t=t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,(m,txt,url)=>
+      '<a href="'+url.replace(/"/g,'%22')+'" target="_blank" rel="noopener">'+txt+'</a>');
+  t=t.replace(/\[(\d+)\]/g,'<span class="cmark">[$1]</span>');   // [n] citation markers
+  t=t.replace(/\*\*([^*]+?)\*\*/g,'<strong>$1</strong>');         // **bold**
+  t=t.replace(/(^|[^*])\*([^*\n]+?)\*/g,'$1<em>$2</em>');         // *italic* (bold already consumed)
+  t=t.replace(/`([^`]+?)`/g,'<code>$1</code>');                   // `code`
+  return t;
 }
+function renderMarkdown(raw){
+  const lines=mdEscape(raw).split(/\r?\n/);
+  let html='', list=null, para=[];
+  const closeList=()=>{ if(list){ html+='</'+list+'>'; list=null; } };
+  const flushPara=()=>{ if(para.length){ html+='<p>'+para.map(mdInline).join('<br>')+'</p>'; para=[]; } };
+  for(const line of lines){
+    const b=/^\s*[-*]\s+(.*)$/.exec(line);          // - bullet  /  * bullet
+    const n=/^\s*\d+\.\s+(.*)$/.exec(line);         // 1. numbered
+    if(b){ flushPara(); if(list!=='ul'){ closeList(); html+='<ul>'; list='ul'; } html+='<li>'+mdInline(b[1])+'</li>'; }
+    else if(n){ flushPara(); if(list!=='ol'){ closeList(); html+='<ol>'; list='ol'; } html+='<li>'+mdInline(n[1])+'</li>'; }
+    else if(line.trim()===''){ flushPara(); closeList(); }   // blank line = paragraph break
+    else { closeList(); para.push(line); }
+  }
+  flushPara(); closeList();
+  return html;
+}
+function renderAnswer(el,text){ el.innerHTML = renderMarkdown(text); }
 function renderCitations(list){
   citesEl.innerHTML='';
   list.forEach(c=>{const isVid=c.type==='youtube';const a=document.createElement('a');
