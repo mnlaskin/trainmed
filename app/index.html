@@ -209,7 +209,7 @@
       <button class="tab active" id="tab-chat" onclick="showView('chat')">Knowledge Assistant</button>
       <button class="tab" id="tab-rp" onclick="showView('rp')">Roleplay Trainer</button>
     </nav>
-    <div id="status">connecting…</div>
+    <div id="status" hidden></div>
   </header>
 
   <!-- ============ KNOWLEDGE CHATBOT ============ -->
@@ -301,12 +301,20 @@ function showView(v){
   if(v==='rp' && !rpLoaded) loadScenarios();
 }
 
-// ---------- status ----------
-fetch('/api/meta').then(r=>r.json()).then(m=>{
-  const gen = m.gen_backend==='extractive' ? 'extractive (no key)' : m.gen_backend;
-  document.getElementById('status').textContent =
-    `${m.chunks} chunks (${m.videos} video · ${m.pdfs} pdf) · embed: ${m.embed_backend} · answer: ${gen}`;
-}).catch(()=>document.getElementById('status').textContent='offline');
+// ---------- status (developer diagnostics — hidden from end users) ----------
+// The chunk/video/pdf + backend line is dev-only metadata, not for end users. Show it ONLY
+// behind a dev flag (?debug=1) or on localhost, so production shows a clean answer interface.
+// The data stays available to developers via this flag or by hitting /api/meta directly.
+const DEBUG = /[?&]debug=1\b/.test(location.search) || ['localhost','127.0.0.1','[::1]'].includes(location.hostname);
+if(DEBUG){
+  const statusEl=document.getElementById('status');
+  statusEl.hidden=false; statusEl.textContent='connecting…';
+  fetch('/api/meta').then(r=>r.json()).then(m=>{
+    const gen = m.gen_backend==='extractive' ? 'extractive (no key)' : m.gen_backend;
+    statusEl.textContent =
+      `${m.chunks} chunks (${m.videos} video · ${m.pdfs} pdf) · embed: ${m.embed_backend} · answer: ${gen}`;
+  }).catch(()=>statusEl.textContent='offline');
+}
 
 // ===================== KNOWLEDGE CHATBOT =====================
 const thread=document.getElementById('thread'), citesEl=document.getElementById('cites');
