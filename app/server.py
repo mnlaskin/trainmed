@@ -149,15 +149,25 @@ def tts_status():
 
 @app.get("/api/tts")
 def tts_speak(text: str):
-    """Synthesize `text` to MP3 via ElevenLabs. 503 → the UI uses the browser fallback."""
+    """Stream `text` as MP3 via ElevenLabs so playback can begin on the first chunk.
+    503 → the UI uses the browser fallback; 502 → client falls back gracefully."""
     if not tts.have_key():
         return Response(status_code=503, content="ELEVENLABS_API_KEY not set; use browser speech")
     try:
-        audio = tts.synthesize(text)
-    except Exception as exc:  # surface as 502 so the client can fall back gracefully
+        stream = tts.synthesize_stream(text)
+        first = next(stream)  # force the connection now → auth/quota errors become a 502, not a broken stream
+    except StopIteration:
+        first = b""
+    except Exception as exc:  # surface as 502 BEFORE we commit to a 200 stream
         return Response(status_code=502, content=f"TTS error: {exc}")
-    return Response(
-        content=audio,
+
+    def body():
+        if first:
+            yield first
+        yield from stream
+
+    return StreamingResponse(
+        body(),
         media_type="audio/mpeg",
         headers={"Cache-Control": "no-store"},
     )

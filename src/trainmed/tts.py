@@ -36,6 +36,10 @@ DEFAULT_MODEL = "eleven_turbo_v2_5"
 MAX_CHARS = 1800  # cap per request to bound latency/cost
 
 _API = "https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
+# The /stream variant returns the SAME MP3 bytes, but ElevenLabs flushes them as they
+# synthesize instead of buffering the whole clip — so the browser can start playback on
+# the first chunk. Same auth, same body, same audio; just incremental delivery.
+_STREAM_API = "https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/stream"
 
 
 def have_key() -> bool:
@@ -65,8 +69,8 @@ def status() -> dict:
     return {"provider": "browser", "voice": "browser default", "model": None}
 
 
-def synthesize(text: str) -> bytes:
-    """Return MP3 bytes for `text` from ElevenLabs. Raises if no key / on HTTP error."""
+def _build_request(text: str, url: str):
+    """Shared ElevenLabs request (auth + body + voice settings). Raises if no key."""
     key = os.environ.get("ELEVENLABS_API_KEY")
     if not key:
         raise RuntimeError("ELEVENLABS_API_KEY not set")
@@ -84,8 +88,8 @@ def synthesize(text: str) -> bytes:
             },
         }
     ).encode("utf-8")
-    req = urllib.request.Request(
-        _API.format(voice_id=voice_id()),
+    return urllib.request.Request(
+        url.format(voice_id=voice_id()),
         data=payload,
         method="POST",
         headers={
@@ -94,5 +98,29 @@ def synthesize(text: str) -> bytes:
             "Accept": "audio/mpeg",
         },
     )
+
+
+def synthesize(text: str) -> bytes:
+    """Return the full MP3 bytes for `text` from ElevenLabs. Raises if no key / on HTTP error."""
+    req = _build_request(text, _API)
     with urllib.request.urlopen(req, timeout=60) as resp:
         return resp.read()
+
+
+def synthesize_stream(text: str, chunk_size: int = 4096):
+    """Yield MP3 bytes from ElevenLabs' streaming endpoint as they arrive, so the browser can
+    begin playback on the first chunk instead of waiting for the whole clip. The urlopen happens
+    on the first `next()`, so an auth/quota/HTTP error is raised there — letting the route surface
+    it as a 502 BEFORE committing to a 200 streaming response (client then falls back gracefully)."""
+    req = _build_request(text, _STREAM_API)
+    resp = urllib.request.urlopen(req, timeout=60)
+    try:
+        while True:
+            # read1() returns bytes as soon as any arrive (one underlying read), instead of
+            # blocking to fill chunk_size — that's what makes playback start on the first chunk.
+            chunk = resp.read1(chunk_size)
+            if not chunk:
+                break
+            yield chunk
+    finally:
+        resp.close()
