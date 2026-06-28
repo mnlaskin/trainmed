@@ -1,0 +1,17 @@
+# ── Web app runtime (app/server.py) — REQUIRED for the Render deploy ───────────
+fastapi>=0.110
+uvicorn[standard]>=0.29
+numpy>=1.26          # used by trainmed.rag retrievers (hard import — must be present)
+anthropic>=0.40      # LLM answers + roleplay (ANTHROPIC_API_KEY). Without it the app
+                     # silently falls back to non-LLM "extractive" answers.
+
+# ── Optional neural backends (auto-used only when the matching key is set) ─────
+# openai>=1.40       # set OPENAI_API_KEY to use OpenAI for embeddings/generation
+# voyageai>=0.2      # set VOYAGE_API_KEY for Anthropic-ecosystem embeddings
+
+# ── Ingestion pipeline (scripts/, trainmed.cli) — not needed to serve the app ──
+youtube-transcript-api>=1.0.0   # caption fetching (no audio download)
+yt-dlp>=2024.0.0                # video/playlist/channel metadata + audio fallback
+
+# Note: text-to-speech / speech-to-text (trainmed.tts / trainmed.stt) call
+# ElevenLabs over the stdlib (urllib) — no extra dependency required.

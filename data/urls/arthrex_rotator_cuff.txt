@@ -1,0 +1,47 @@
+# TrainMed seed URL list — Rotator Cuff Repair family (shoulder)
+# procedure_family: rotator_cuff
+#
+# Curated from the OFFICIAL Arthrex YouTube channels by enumerating each channel's
+# video catalog with yt-dlp and filtering titles for rotator-cuff / shoulder
+# technique, product-demo, and education content. All IDs below are real videos
+# verified present on the channels as of 2026-06-27.
+#
+#   @Arthrex_Corp  (official US)        UCNLOLJZ5coqPEWa9ouZlAZw
+#   @ArthrexGmbH   (official EU/English) UCKJRwDgIru-yiCcwaRVK6Mg
+#
+# Note: not every surgical video carries captions. The pipeline skips caption-less
+# videos and logs them; re-running is idempotent (already-saved videos are skipped).
+
+# ── Core rotator cuff repair techniques (SpeedBridge / SutureBridge / SpeedFix) ──
+https://www.youtube.com/watch?v=3OaWXXEdS7g   # Rotator Cuff Repair with Arthrex SpeedBridge
+https://www.youtube.com/watch?v=LNSfL8g2PtM   # Rotator Cuff Repair with Arthrex SutureBridge
+https://www.youtube.com/watch?v=IOxUH3PVNmw   # Rotator Cuff Repair with SutureBridge Technique
+https://www.youtube.com/watch?v=ztk8JlLtX70   # Knotless Rotator Cuff Repair with Arthrex SpeedFix
+https://www.youtube.com/watch?v=24BqkL1orIk   # Subscapularis SpeedFix Technique
+https://www.youtube.com/watch?v=jRAmTqCKUtI   # FiberTak DR Anchor Bridge Technique
+
+# ── FiberTak SpeedBridge / knotless cuff (Arthrex GmbH, English) ──
+https://www.youtube.com/watch?v=0S9-o8T7m_A   # Rotator Cuff Repair With FiberTak SpeedBridge
+https://www.youtube.com/watch?v=6DxSVAoz8sw   # FiberTak SpeedBridge Knotless RC Repair (2.6 FiberTak RC Soft Anchors)
+https://www.youtube.com/watch?v=JV-xPeFrqKc   # FiberTak SpeedBridge Features and Benefits (product demo)
+
+# ── Superior Capsular Reconstruction (SCR) & augmentation ──
+https://www.youtube.com/watch?v=F-YTC9UOJ0s   # Superior Capsular Reconstruction
+https://www.youtube.com/watch?v=z881LVwnJSk   # Graft Preparation for Auto CuffMend Augmented RC Repair
+https://www.youtube.com/watch?v=l0A5F53MMa4   # Biological Treatment Options in Rotator Cuff Repair
+
+# ── Anchors / instruments / soft-tissue fixation ──
+https://www.youtube.com/watch?v=GwX0slaJdpY   # DX Knotless FiberTak Anchor
+# REMOVED 2026-06-27: pHU40RI3008 "InternalBrace Repair With DX Knotless FiberTak Anchors"
+#   — it's an ANKLE (Broström) repair, off-domain for the rotator cuff / shoulder KB.
+
+# ── Related shoulder techniques (instability / labrum / biceps) ──
+https://www.youtube.com/watch?v=BwIueVLXV1k   # FiberTak Instability Repair
+https://www.youtube.com/watch?v=hZLyDWKfWQU   # Knotless SutureTak Instability Repair
+https://www.youtube.com/watch?v=M2FQilZlwVA   # Knotless 1.8 FiberTak Soft Anchor for Shoulder Instability Repair
+https://www.youtube.com/watch?v=2Tqb0S5Nj5A   # Bankart with Remplissage using Knotless FiberTak Soft Anchors
+https://www.youtube.com/watch?v=TMytPkQeblM   # Knotless Shoulder Labral Repair with Arthrex PushLock
+https://www.youtube.com/watch?v=Qm3DmelLT4c   # Knotless Shoulder Labral Repair with Arthrex PushLock (alt)
+https://www.youtube.com/watch?v=gerVoTBsJmE   # Proximal Biceps Repair Using SwiveLock Tenodesis System
+https://www.youtube.com/watch?v=Zlc2k3ABw08   # Knotless FiberTak Biceps Implant for Proximal Biceps Tenodesis
+https://www.youtube.com/watch?v=K1Vf0tHHdPI   # Shoulder Replacement Surgery — Step-by-Step Arthroplasty (related)

@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Extracted data — keep the dirs, ignore the contents until we decide what to commit.
+# NOTE: data/kb/ (the knowledge base the web app serves) is intentionally committed.
+data/transcripts/*
+data/raw/*
+!data/transcripts/.gitkeep
+!data/raw/.gitkeep
+
+# Demo screenshots / heavy source media — not needed to run the app
+data/*.png
+
+.gstack/
+.venv/
+*.egg-info/

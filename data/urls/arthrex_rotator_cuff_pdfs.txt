@@ -1,0 +1,46 @@
+# TrainMed seed PDF list — Rotator Cuff Repair family (shoulder)
+# procedure_family: rotator_cuff
+#
+# Direct PDF URLs for Arthrex-authored surgical technique / product guides. Every
+# URL was HTTP-verified (final 200 + content-type application/pdf) by a research
+# agent on 2026-06-27. The two cdn.arthrex.io rows are Arthrex's own CDN (most
+# authoritative); the rest are openly-hosted copies of Arthrex-authored guides or
+# Arthrex-partner (LifeNet) / surgeon / journal reprints of Arthrex constructs.
+#
+# Used by:  python -m trainmed.pdf_ingest --from-file data/urls/arthrex_rotator_cuff_pdfs.txt
+
+# ── Official Arthrex CDN (cdn.arthrex.io) ──
+https://cdn.arthrex.io/image/upload/cde99104-f9ec-4783-8c83-18e9591ee663.pdf   # Rotator Cuff Repair Surgical Technique — FiberTak SpeedBridge
+https://cdn.arthrex.io/image/upload/eed5b9ae-9265-4498-b976-2023852f1f40.pdf   # FiberTak Biceps Implant System — Biceps Tenodesis Surgical Technique
+
+# ── Core rotator cuff repair technique guides (Arthrex-authored) ──
+https://faculty.washington.edu/alexbert/Shoulder/Surgery/ArthroscopicTechniques/Arthrex/SutureBridge-Double-Row-Rotator-Cuff-Repair-Using-the-PushLock-and-Bio-Corkscrew-FT.pdf   # SutureBridge Double-Row RCR (PushLock + Bio-Corkscrew FT)
+https://faculty.washington.edu/alexbert/Shoulder/Surgery/ArthroscopicTechniques/Arthrex/SwiveLock-Technique.pdf   # SwiveLock & FiberChain Knotless Rotator Cuff Repair
+https://isulmed.com/pdf/Brochures/Arthrex/Hombromanguitorotadorswivelock-TQ.pdf   # Knotless RCR — SpeedBridge / SpeedFix (SwiveLock) brochure
+https://www.mammothortho.com/pdf/subscap%20technique.pdf   # Knotless Arthroscopic Repair of Subscapularis Tendon Tears
+https://drmillett.com/wp-content/uploads/2012/01/Arthroscopic-rotator-cuff-repair-Rationale-Technique-and-results-of-knotless-self-reinforcing-double-row-rotator-cuff-repair.pdf   # Knotless Self-Reinforcing Double-Row RCR (rationale/technique/results)
+
+# ── Superior Capsular Reconstruction (SCR) & cuff augmentation ──
+https://lifenethealth.org/sites/default/files/files/68-20-249%20ArthroFlex%20SCR.pdf   # Superior Capsule Reconstruction Using ArthroFLEX
+https://lifenethealth.org/sites/default/files/files/68-20-248%20ArthroFlex%20RCR.pdf   # Rotator Cuff Repair with ArthroFLEX Augmentation
+https://www.jorgechahlamd.com/wp-content/uploads/2019/12/SCR.pdf   # SCR With Superimposition of Acellular Dermal Allograft
+https://cdn.mdedge.com/files/s3fs-public/issues/articles/content_29e3e01c19e206a3bf_ajo045070320.PDF   # The Arthroscopic Superior Capsular Reconstruction (AJO)
+
+# ── Related shoulder instability ──
+https://drmillett.com/wp-content/uploads/2017/03/bony-bankart-bridge-technique-restoration-anterior-shoulder-stability.pdf   # Bony Bankart Bridge Technique — Anterior Shoulder Stability
+
+# ── Spec-rich official Arthrex guides + instrument brochures (added 2026-06-27) ──
+# All from arthrex.com/resources or cdn.arthrex.io; HTTP-verified 200/application/pdf;
+# contain concrete anchor sizes, drill/punch/reamer diameters, FiberTape/FiberWire specs.
+https://www.arthrex.com/resources/LT1-000170-en-US/speedbridge-knotless-rotator-cuff-repair   # SpeedBridge Knotless Rotator Cuff Repair (technique guide)
+https://www.arthrex.com/resources/LT1-000204-en-US/fibertak-speedbridge-rotator-cuff-repair   # FiberTak SpeedBridge Rotator Cuff Repair (technique guide)
+https://www.arthrex.com/resources/LT1-0219-EN/speedbridge-and-speedfix-knotless-rotator-cuff-repair-using-the-swivelock-c-anchor-and-fibertape-suture   # SpeedBridge & SpeedFix Knotless RCR (SwiveLock C + FiberTape)
+https://www.arthrex.com/resources/LT1-0822-EN/massive-rotator-cuff-repair-and-augmentation-using-the-speedbridge-and-arthroflex-dermal-matrix   # Massive RCR & Augmentation (SpeedBridge + ArthroFLEX)
+https://www.arthrex.com/resources/LT1-00006-EN/arthroflex-biowasher-for-use-with-speedbridge-knotless-rotator-cuff-repairs   # ArthroFLEX BioWasher for SpeedBridge Knotless RCR
+https://www.arthrex.com/resources/LT1-00094-EN/knotless-corkscrew-pasta-bridge-repair   # Knotless Corkscrew PASTA Bridge Repair
+https://www.arthrex.com/resources/LB1-00105-EN/rotator-cuff-repair-with-fibertak-soft-anchors   # Rotator Cuff Repair with FiberTak Soft Anchors (brochure)
+https://www.arthrex.com/resources/LB1-0214-EN/the-fully-threaded-family-of-soft-tissue-repair-anchors   # Corkscrew FT — Fully Threaded Soft-Tissue Anchors (brochure)
+https://www.arthrex.com/resources/DOC1-000217-en-US/knotless-double-row-rotator-cuff-repair-scientific-update   # Knotless Double-Row RCR — Scientific Update (biomechanics)
+https://www.arthrex.com/resources/DOC1-000448-en-US/all-suture-anchors-for-rcr   # All-Suture Anchors for RCR — Scientific Update (biomechanics)
+https://www.arthrex.com/resources/LT1-0512-EN/knotless-bankart-repair-using-the-labral-swivelock-and-fiberstick   # Knotless Bankart Repair (Labral SwiveLock + FiberStick)
+https://www.arthrex.com/resources/LT1-0595-EN/biceps-tenodesis-swivelock-system   # Biceps Tenodesis SwiveLock System

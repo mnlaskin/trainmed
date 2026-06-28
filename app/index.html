@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TrainMed — Rotator Cuff Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#06324f; --navy-2:#0b4a73;
+    --blue:#1574c4; --blue-d:#0f5fa6; --blue-soft:#e9f2fc;
+    --bg:#eef2f6; --surface:#ffffff; --panel:#f6f9fc;
+    --line:#e3e9f0; --line-2:#d3dde7;
+    --text:#15212e; --text-2:#48586b; --muted:#8595a6;
+    --video:#c0392b; --guide:#0e7c86; --good:#1f9d57; --mid:#c2890f; --bad:#c0392b;
+    --surgeon:#f2f5f9; --rep:#e9f2fc;
+    --shadow-sm:0 1px 2px rgba(16,42,67,.07);
+    --shadow:0 1px 2px rgba(16,42,67,.06), 0 6px 20px rgba(16,42,67,.07);
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font:15px/1.55 'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+         background:var(--bg); color:var(--text); height:100vh; display:flex; flex-direction:column;
+         -webkit-font-smoothing:antialiased; }
+  /* ---------- header / brand ---------- */
+  header { display:flex; align-items:center; gap:22px; padding:0 24px; height:60px; flex:none;
+           background:linear-gradient(100deg,var(--navy),var(--navy-2)); color:#fff;
+           box-shadow:0 2px 14px rgba(6,50,79,.20); z-index:5; }
+  .brand { display:flex; align-items:center; gap:11px; }
+  .brand-mark { width:34px; height:34px; border-radius:9px; display:grid; place-items:center;
+                background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.20); color:#fff; }
+  .brand-name { font-size:17px; font-weight:800; letter-spacing:-.2px; line-height:1; }
+  .brand-sub { font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-top:3px; }
+  .tabs { display:flex; gap:4px; background:rgba(255,255,255,.10); padding:4px; border-radius:10px; }
+  .tab { padding:8px 16px; border:0; border-radius:7px; background:transparent; color:rgba(255,255,255,.78);
+         cursor:pointer; font-size:13.5px; font-weight:600; font-family:inherit; transition:all .15s ease; }
+  .tab:hover { color:#fff; }
+  .tab.active { background:#fff; color:var(--navy); box-shadow:0 1px 3px rgba(0,0,0,.18); }
+  #status { margin-left:auto; font-size:11.5px; color:rgba(255,255,255,.6); text-align:right; line-height:1.45; }
+  /* ---------- layout ---------- */
+  .view { flex:1; display:grid; grid-template-columns:1fr 380px; min-height:0; }
+  .view[hidden]{ display:none; }
+  .col-main { display:flex; flex-direction:column; min-height:0; }
+  .thread { flex:1; overflow:auto; padding:28px 34px; }
+  .side { border-left:1px solid var(--line); background:var(--panel); overflow:auto; padding:22px 20px; }
+  .side h2 { font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--blue-d); font-weight:700; margin:0 0 14px; }
+  .empty { color:var(--muted); }
+  .loc { color:var(--muted); font-size:12px; }
+  /* ---------- hero / knowledge ---------- */
+  .hero { max-width:680px; }
+  .hero-title { font-size:26px; font-weight:800; letter-spacing:-.5px; color:var(--navy); margin:4px 0 8px; }
+  .hero-sub { font-size:15px; color:var(--text-2); margin:0 0 20px; line-height:1.6; }
+  .examples { display:flex; flex-wrap:wrap; gap:10px; }
+  .chip { font-size:13px; color:var(--text-2); border:1px solid var(--line-2); border-radius:10px;
+          padding:9px 13px; cursor:pointer; background:var(--surface); box-shadow:var(--shadow-sm); transition:all .15s ease; }
+  .chip:hover { border-color:var(--blue); color:var(--blue-d); transform:translateY(-1px); box-shadow:var(--shadow); }
+  /* ---------- chat messages ---------- */
+  .msg { margin:0 0 20px; max-width:760px; }
+  .msg .who { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:5px; }
+  .answer { white-space:pre-wrap; line-height:1.62; color:var(--text); }
+  .answer .cmark { color:var(--blue); font-weight:700; }
+  /* ---------- inputs / buttons ---------- */
+  form { display:flex; gap:10px; padding:16px 24px; border-top:1px solid var(--line); background:var(--surface); }
+  input, select { padding:11px 13px; border:1px solid var(--line-2); border-radius:10px;
+                  background:var(--surface); color:var(--text); font-size:14.5px; font-family:inherit; }
+  input { flex:1; } input::placeholder { color:var(--muted); }
+  input:focus, select:focus { outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(21,116,196,.14); }
+  button { padding:11px 18px; border:0; border-radius:10px; background:var(--blue); color:#fff; font-weight:600;
+           cursor:pointer; font-size:14px; font-family:inherit; transition:all .15s ease; box-shadow:var(--shadow-sm); }
+  button:hover:not(:disabled) { background:var(--blue-d); }
+  button:disabled { opacity:.45; cursor:default; box-shadow:none; }
+  .btn-primary { background:var(--navy); } .btn-primary:hover:not(:disabled) { background:var(--navy-2); }
+  /* ---------- citations ---------- */
+  .cite { display:block; border:1px solid var(--line); border-radius:11px; padding:12px 13px; margin:0 0 11px;
+          text-decoration:none; color:inherit; background:var(--surface); box-shadow:var(--shadow-sm); transition:all .15s ease; }
+  .cite:hover { border-color:var(--blue); transform:translateY(-1px); box-shadow:var(--shadow); }
+  .cite .row { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+  .badge { font-size:9.5px; font-weight:700; letter-spacing:.04em; padding:3px 8px; border-radius:6px; color:#fff; }
+  .badge.video { background:var(--video); } .badge.pdf { background:var(--guide); }
+  .cite .n { font-weight:700; color:var(--blue-d); } .cite .title { font-size:13.5px; font-weight:500; color:var(--text); }
+  .cite .loc { color:var(--muted); font-size:12px; margin-top:3px; }
+  /* ---------- roleplay setup + persona cards ---------- */
+  .setup { padding:18px 24px; border-bottom:1px solid var(--line); background:var(--panel); }
+  .eyebrow { font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--blue-d); font-weight:700; margin-bottom:11px; }
+  .scards { display:grid; grid-template-columns:repeat(auto-fill,minmax(214px,1fr)); gap:11px; }
+  .scard { text-align:left; padding:13px 14px; border:1px solid var(--line-2); border-radius:12px; background:var(--surface);
+           cursor:pointer; box-shadow:var(--shadow-sm); transition:all .15s ease; position:relative; font-family:inherit; }
+  .scard:hover { border-color:var(--blue); transform:translateY(-1px); box-shadow:var(--shadow); }
+  .scard.active { border-color:var(--navy); background:linear-gradient(180deg,#fff,var(--blue-soft));
+                  box-shadow:0 0 0 2px rgba(6,50,79,.10), var(--shadow); }
+  .scard.active::after { content:'✓'; position:absolute; top:10px; right:12px; color:var(--navy); font-weight:800; font-size:13px; }
+  .scard-cat { font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); font-weight:700; margin-bottom:5px; }
+  .scard-title { font-size:14px; font-weight:700; color:var(--navy); line-height:1.25; margin-bottom:4px; padding-right:14px; }
+  .scard-desc { font-size:12px; color:var(--text-2); line-height:1.4; }
+  .controls { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:15px; }
+  .field { display:flex; flex-direction:column; gap:4px; }
+  .field .flab { font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-weight:600; }
+  .field select { min-width:132px; text-transform:capitalize; }
+  .autoplay { display:flex; align-items:center; gap:7px; font-size:13px; color:var(--text-2); margin-left:2px; white-space:nowrap; }
+  .autoplay input { margin:0; accent-color:var(--blue); }
+  /* ---------- roleplay bubbles ---------- */
+  .bubble { padding:11px 14px; border-radius:13px; max-width:80%; white-space:pre-wrap; line-height:1.5; box-shadow:var(--shadow-sm); }
+  .bubble.surgeon { background:var(--surgeon); border:1px solid var(--line); color:var(--text); border-top-left-radius:4px; }
+  .bubble.rep { background:var(--rep); border:1px solid #d4e6f8; color:var(--text); margin-left:auto; border-top-right-radius:4px; }
+  .turnlabel { font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-weight:600; margin:0 0 4px; display:flex; align-items:center; gap:3px; }
+  .playbtn { background:none; border:0; padding:0 3px; cursor:pointer; font-size:13px; color:var(--muted); line-height:1; box-shadow:none; }
+  .playbtn:hover { color:var(--blue); } .playbtn.playing { color:var(--good); }
+  /* ---------- mic / voice ---------- */
+  .micbtn { padding:11px 13px; border:1px solid var(--line-2); background:var(--surface); color:var(--text-2);
+            border-radius:10px; cursor:pointer; font-size:15px; line-height:1; box-shadow:var(--shadow-sm); }
+  .micbtn:hover:not(:disabled) { border-color:var(--blue); color:var(--blue); }
+  .micbtn:disabled { opacity:.4; cursor:default; box-shadow:none; }
+  .micbtn.recording { background:var(--bad); border-color:var(--bad); color:#fff; animation:pulse 1s infinite; }
+  .micbtn.transcribing { color:var(--blue); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+  .voicebtn { padding:11px 18px; border:0; border-radius:10px; background:linear-gradient(100deg,var(--navy),var(--blue));
+              color:#fff; font-weight:700; cursor:pointer; font-size:13.5px; white-space:nowrap; box-shadow:var(--shadow-sm); }
+  .voicebtn:hover { filter:brightness(1.07); }
+  .voicebtn.on { background:#e7edf3; color:var(--text-2); }
+  .voicepanel[hidden], #rp-form[hidden] { display:none; }
+  .voicepanel { display:flex; align-items:center; gap:16px; padding:18px 24px; border-top:1px solid var(--line); background:var(--surface); }
+  .voicepanel .vinfo { flex:1; min-width:0; }
+  .vstate { font-size:16px; font-weight:700; color:var(--navy); }
+  .endvoice { padding:11px 17px; border:1px solid var(--bad); border-radius:10px; background:transparent;
+              color:var(--bad); font-weight:600; cursor:pointer; box-shadow:none; }
+  .endvoice:hover { background:var(--bad); color:#fff; }
+  .orb { width:46px; height:46px; border-radius:50%; flex:none; background:#cfd8e2; }
+  .orb.listening { background:var(--good); animation:orbPulse 1.4s ease-in-out infinite; }
+  .orb.thinking  { background:var(--mid); animation:orbPulse 1s ease-in-out infinite; }
+  .orb.speaking  { background:var(--blue); animation:orbPulse 0.7s ease-in-out infinite; }
+  @keyframes orbPulse { 0%,100%{box-shadow:0 0 0 0 rgba(21,116,196,0); transform:scale(1)}
+                        50%{box-shadow:0 0 0 12px rgba(21,116,196,.14); transform:scale(1.07)} }
+  /* ---------- scorecard ---------- */
+  .scorecard { border:1px solid var(--line); border-radius:12px; padding:15px; background:var(--surface); margin-bottom:12px; box-shadow:var(--shadow-sm); }
+  .bar { margin:9px 0; }
+  .bar .lab { display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px; color:var(--text-2); }
+  .bar .track { height:7px; background:#eaeff4; border-radius:5px; overflow:hidden; }
+  .bar .fill { height:100%; border-radius:5px; }
+  .overall { font-size:30px; font-weight:800; color:var(--navy); letter-spacing:-1px; }
+  .fb { font-size:13px; color:var(--text); margin:10px 0; line-height:1.5; }
+  .tips { font-size:12.5px; color:var(--text-2); padding-left:18px; margin:6px 0 0; }
+  .tips li { margin:4px 0; }
+  .method { font-size:10.5px; color:var(--muted); margin-top:10px; text-transform:uppercase; letter-spacing:.05em; }
+  @media (max-width:860px){ .view{grid-template-columns:1fr;} .side{display:none;} }
+</style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-name">TrainMed</div>
+        <div class="brand-sub">Clinical Sales Training</div>
+      </div>
+    </div>
+    <nav class="tabs">
+      <button class="tab active" id="tab-chat" onclick="showView('chat')">Knowledge Assistant</button>
+      <button class="tab" id="tab-rp" onclick="showView('rp')">Roleplay Trainer</button>
+    </nav>
+    <div id="status">connecting…</div>
+  </header>
+
+  <!-- ============ KNOWLEDGE CHATBOT ============ -->
+  <div class="view" id="chat-view">
+    <div class="col-main">
+      <div class="thread" id="thread">
+        <div class="hero" id="chat-hero">
+          <div class="eyebrow">Rotator Cuff &amp; Shoulder Repair</div>
+          <h1 class="hero-title">Knowledge Assistant</h1>
+          <p class="hero-sub">Ask about techniques, products, and specifications across the Arthrex rotator cuff portfolio. Every answer is grounded in official sources and cited to the exact video moment or technique guide.</p>
+          <div class="examples" id="examples"></div>
+        </div>
+      </div>
+      <form id="chat-form">
+        <input id="q" placeholder="Ask about SpeedBridge, SutureBridge, FiberTak, SCR, anchor specs…" autocomplete="off">
+        <button id="chat-send">Ask</button>
+      </form>
+    </div>
+    <aside class="side">
+      <h2>Sources</h2>
+      <div id="cites"><div class="empty" style="font-size:13px">Citations appear here, linked to the exact video moment or guide.</div></div>
+    </aside>
+  </div>
+
+  <!-- ============ ROLEPLAY TRAINER ============ -->
+  <div class="view" id="rp-view" hidden>
+    <div class="col-main">
+      <div class="setup">
+        <div class="eyebrow">Select a training scenario</div>
+        <div id="rp-cards" class="scards"></div>
+        <select id="rp-scenario" hidden></select>
+        <div class="controls">
+          <label class="field"><span class="flab">Your role</span><select id="rp-role"></select></label>
+          <label class="field"><span class="flab">Difficulty</span><select id="rp-diff"></select></label>
+          <button id="rp-start" class="btn-primary">Start session</button>
+          <label class="autoplay"><input type="checkbox" id="rp-autoplay" checked> Auto-play voice <span id="rp-voice" class="loc"></span></label>
+          <button type="button" id="rp-voicebtn" class="voicebtn">🎙️ Start Voice Roleplay</button>
+        </div>
+      </div>
+      <div class="thread" id="rp-thread">
+        <div class="empty">Pick a scenario and press Start. You play the rep; the AI plays the surgeon and a coach scores each reply.</div>
+      </div>
+      <form id="rp-form">
+        <button type="button" id="rp-mic" class="micbtn" title="Voice input" disabled>🎤</button>
+        <input id="rp-input" placeholder="Start the session first…" autocomplete="off" disabled>
+        <button id="rp-send" disabled>Send</button>
+      </form>
+      <div id="rp-voicepanel" class="voicepanel" hidden>
+        <div class="orb" id="rp-orb"></div>
+        <div class="vinfo">
+          <div id="rp-vstate" class="vstate">Starting…</div>
+          <div id="rp-vcaption" class="loc"></div>
+        </div>
+        <button type="button" id="rp-endvoice" class="endvoice">⏹ End Voice Mode</button>
+      </div>
+    </div>
+    <aside class="side">
+      <h2>Coach feedback</h2>
+      <div id="rp-running" class="empty" style="font-size:13px;margin-bottom:10px">Your average score appears here after your first reply.</div>
+      <div id="rp-feedback"><div class="empty" style="font-size:13px">Scorecard (technique, product knowledge, objection handling, confidence, completeness) appears after each reply.</div></div>
+    </aside>
+  </div>
+
+<script>
+const EXAMPLES = [
+  "What anchor and FiberTape sizes does the FiberTak SpeedBridge use?",
+  "SpeedBridge vs SutureBridge — biomechanical difference?",
+  "Walk me through a SpeedBridge repair",
+  "PASTA bridge — anchors and guidewire?",
+];
+
+// ---------- tabs ----------
+function showView(v){
+  document.getElementById('chat-view').hidden = v !== 'chat';
+  document.getElementById('rp-view').hidden = v !== 'rp';
+  document.getElementById('tab-chat').classList.toggle('active', v==='chat');
+  document.getElementById('tab-rp').classList.toggle('active', v==='rp');
+  if(v==='rp' && !rpLoaded) loadScenarios();
+}
+
+// ---------- status ----------
+fetch('/api/meta').then(r=>r.json()).then(m=>{
+  const gen = m.gen_backend==='extractive' ? 'extractive (no key)' : m.gen_backend;
+  document.getElementById('status').textContent =
+    `${m.chunks} chunks (${m.videos} video · ${m.pdfs} pdf) · embed: ${m.embed_backend} · answer: ${gen}`;
+}).catch(()=>document.getElementById('status').textContent='offline');
+
+// ===================== KNOWLEDGE CHATBOT =====================
+const thread=document.getElementById('thread'), citesEl=document.getElementById('cites');
+const qInput=document.getElementById('q'), chatSend=document.getElementById('chat-send');
+const exWrap=document.getElementById('examples');
+EXAMPLES.forEach(t=>{const c=document.createElement('span');c.className='chip';c.textContent=t;
+  c.onclick=()=>{qInput.value=t;askChat();};exWrap.appendChild(c);});
+
+function renderAnswer(el,text){
+  el.innerHTML = text.replace(/[&<>]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[ch]))
+                     .replace(/\[(\d+)\]/g,'<span class="cmark">[$1]</span>');
+}
+function renderCitations(list){
+  citesEl.innerHTML='';
+  list.forEach(c=>{const isVid=c.type==='youtube';const a=document.createElement('a');
+    a.className='cite';a.href=c.url;a.target='_blank';a.rel='noopener';
+    a.innerHTML=`<div class="row"><span class="badge ${isVid?'video':'pdf'}">${isVid?'▶ VIDEO':'📄 GUIDE'}</span>`+
+      `<span class="n">[${c.n}]</span><span class="loc">${c.loc} · ${c.score}</span></div><div class="title">${c.title}</div>`;
+    citesEl.appendChild(a);});
+}
+function askChat(){
+  const q=qInput.value.trim(); if(!q) return; chatSend.disabled=true;
+  const um=document.createElement('div'); um.className='msg';
+  um.innerHTML=`<div class="who">You</div><div class="answer">${q.replace(/</g,'&lt;')}</div>`; thread.appendChild(um);
+  const am=document.createElement('div'); am.className='msg'; am.innerHTML=`<div class="who">TrainMed</div>`;
+  const ansEl=document.createElement('div'); ansEl.className='answer'; ansEl.textContent='…'; am.appendChild(ansEl);
+  thread.appendChild(am); thread.scrollTop=thread.scrollHeight;
+  citesEl.innerHTML='<div class="empty" style="font-size:13px">Retrieving…</div>';
+  let answer=''; const es=new EventSource('/api/ask?q='+encodeURIComponent(q)+'&k=4');
+  es.addEventListener('sources',ev=>renderCitations(JSON.parse(ev.data)));
+  es.addEventListener('token',ev=>{answer+=JSON.parse(ev.data);renderAnswer(ansEl,answer);thread.scrollTop=thread.scrollHeight;});
+  es.addEventListener('done',()=>{es.close();chatSend.disabled=false;qInput.focus();});
+  es.onerror=()=>{es.close();chatSend.disabled=false; if(!answer) ansEl.textContent='Error contacting server.';};
+  qInput.value='';
+}
+document.getElementById('chat-form').onsubmit=e=>{e.preventDefault();askChat();};
+
+// ===================== ROLEPLAY TRAINER =====================
+let rpLoaded=false, rpScenarios=[], rpHistory=[], rpScores=[];
+const rpThread=document.getElementById('rp-thread'), rpFeedback=document.getElementById('rp-feedback');
+const rpInput=document.getElementById('rp-input'), rpSend=document.getElementById('rp-send');
+const selScenario=document.getElementById('rp-scenario'), selRole=document.getElementById('rp-role'), selDiff=document.getElementById('rp-diff');
+
+// ---------- voice (TTS): ElevenLabs via server, else browser speechSynthesis ----------
+let ttsProvider='browser', currentAudio=null, speakSeq=0;
+const speakTimers=new Set();     // every speak() watchdog timer, so we can clear them all on stop
+let voiceGen=0;                  // bumped on voice start/end; stale-turn callbacks check this
+function loadTtsStatus(){
+  fetch('/api/tts/status').then(r=>r.json()).then(s=>{
+    ttsProvider=s.provider;
+    const el=document.getElementById('rp-voice');
+    if(el) el.textContent = s.provider==='elevenlabs' ? `(${s.voice} · ElevenLabs)` : '(browser voice)';
+  }).catch(()=>{});
+}
+// SECURITY: strip anything dev-only/sensitive before the surgeon's text is spoken.
+function sanitizeForVoice(raw){
+  if(!raw) return '';
+  let t=String(raw);
+  // Remove bracketed dev asides that mention keys / the demo fallback, e.g.
+  // "[demo persona — set ANTHROPIC_API_KEY or OPENAI_API_KEY for live role-play]".
+  t=t.replace(/\[[^\]]*?(api[_\s-]?key|demo persona|role-?play|fallback|extractive)[^\]]*?\]/gi,' ');
+  // Strip stage directions / emotes so they're never spoken aloud.
+  t=t.replace(/\*[^*]*\*/g,' ');                                  // *laughs*, *leans in*
+  t=t.replace(/\b(?:he|she|the surgeon)\s+(?:says|asks|replies|adds|continues)[:,]?\s*/gi,' '); // "he says:"
+  t=t.replace(/\((?:[^)]*\b(?:laugh|chuckl|sigh|smile|grin|nod|shrug|scoff|pause|frown|gestur|clears? throat|leans?|raises?|wink|exhal|inhal|smirk|beat)\w*[^)]*)\)/gi,' '); // (laughs), (sighs)
+  // Drop any remaining sentence/line containing sensitive tokens.
+  const BAD=/(api[_\s-]?key|anthropic|openai|eleven\s?labs|voice id|demo persona|extractive|sk-[a-z0-9-]{6,})/i;
+  t=t.split(/(?<=[.!?])\s+|\n+/).filter(s=>!BAD.test(s)).join(' ');
+  return t.replace(/\s+/g,' ').trim();
+}
+// AUDIO QUEUE: hard-stop BOTH engines so ElevenLabs + browser speech can never overlap.
+// Hard-kill the current ElevenLabs <audio>: detach handlers so no late onended/onerror
+// fires, stop + mute it, and fully detach the source so a buffering request can't play later.
+function killCurrentAudio(){
+  const a=currentAudio; currentAudio=null;
+  if(!a) return;
+  try{
+    a.onended=null; a.onerror=null; a.oncanplay=null; a.oncanplaythrough=null; a.onplaying=null; a.onloadeddata=null;
+    a.muted=true; a.pause();
+    a.removeAttribute('src'); a.src=''; a.load();   // abort any in-flight /api/tts fetch + buffered data
+  }catch(e){}
+}
+function stopAudio(){
+  killCurrentAudio();
+  if('speechSynthesis' in window){ try{ speechSynthesis.cancel(); }catch(e){} }
+}
+// BULLETPROOF stop: invalidate every pending speak (seq), clear all watchdog timers, kill audio
+// + browser speech, so nothing queued can fire after voice mode ends.
+function forceStopAllAudio(){
+  speakSeq++;                                          // any pending finish()/onEnd/ttsFail is now stale
+  speakTimers.forEach(id=>clearTimeout(id)); speakTimers.clear();
+  killCurrentAudio();
+  if('speechSynthesis' in window){ try{ speechSynthesis.cancel(); speechSynthesis.cancel(); }catch(e){} }
+}
+function speak(rawText, btn, onEnd){
+  const text=sanitizeForVoice(rawText);
+  const seq=++speakSeq;            // any in-flight speak is now stale
+  stopAudio();                     // stop both engines before starting a new one
+  if(!text){ if(btn) btn.classList.remove('playing'); onEnd&&onEnd(); return; }
+  let fired=false, failed=false, wd=null;
+  const finish=()=>{ if(fired) return; fired=true; if(wd){ clearTimeout(wd); speakTimers.delete(wd); } if(btn) btn.classList.remove('playing'); if(seq===speakSeq) onEnd&&onEnd(); };
+  // When an ElevenLabs key is present we NEVER use the robotic browser voice — show a message instead.
+  const ttsFail=()=>{ if(failed) return; failed=true; if(seq===speakSeq) showVoiceError('Voice unavailable — check your ElevenLabs key, voice ID, or quota.'); finish(); };
+  wd=setTimeout(finish, Math.min(60000, 6000 + text.length*90)); speakTimers.add(wd);   // backstop; tracked so End can clear it
+  if(btn) btn.classList.add('playing');
+  if(ttsProvider==='elevenlabs'){
+    const a=new Audio('/api/tts?text='+encodeURIComponent(text.slice(0,1800)));
+    currentAudio=a; a.onended=finish;
+    a.onerror=ttsFail;                           // ElevenLabs failed → message, NO robot voice
+    a.play().catch(ttsFail);                     // autoplay blocked → message, NO robot voice
+  } else {
+    browserSpeak(text, finish, seq);             // only when there is no ElevenLabs key at all
+  }
+}
+function browserSpeak(text, done, seq){
+  if(!('speechSynthesis' in window)){ done&&done(); return; }
+  try{ speechSynthesis.cancel(); }catch(e){}                 // never stack utterances
+  if(seq!==undefined && seq!==speakSeq){ done&&done(); return; }   // superseded by a newer speak
+  const u=new SpeechSynthesisUtterance(text);
+  const v=pickMaleVoice(); if(v) u.voice=v; u.rate=0.96; u.pitch=0.9;
+  u.onend=()=>done&&done(); u.onerror=()=>done&&done();
+  speechSynthesis.speak(u);
+}
+function pickMaleVoice(){
+  const vs=('speechSynthesis' in window && speechSynthesis.getVoices())||[];
+  const en=vs.filter(v=>/^en/i.test(v.lang));
+  return en.find(v=>/(daniel|alex|david|fred|google uk english male|\bmale\b)/i.test(v.name)) || en[0] || vs[0] || null;
+}
+if('speechSynthesis' in window){ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices(); }
+function maybeAutoplay(text, btn){ if(voice.active) return; const cb=document.getElementById('rp-autoplay'); if(cb && cb.checked) speak(text, btn); }
+
+// ---------- speech-to-text (mic): ElevenLabs via server → browser recognition → typing ----------
+let sttProvider='none', rpActive=false, mediaRecorder=null, recChunks=[], browserRec=null, recognizing=false;
+const micBtn=document.getElementById('rp-mic');
+function loadSttStatus(){ fetch('/api/stt/status').then(r=>r.json()).then(s=>{ sttProvider=s.provider; updateMicUI(); }).catch(()=>{}); }
+function micMode(){
+  if(sttProvider==='elevenlabs') return 'recorder';
+  if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) return 'browser';
+  return 'none';
+}
+function updateMicUI(){
+  const m=micMode();
+  micBtn.disabled = !rpActive || m==='none';
+  micBtn.title = m==='recorder' ? 'Click to record your reply, click again to send'
+    : m==='browser' ? 'Click to speak (browser speech recognition)'
+    : 'Voice input needs ELEVENLABS_API_KEY or a supported browser';
+}
+function micReset(){ micBtn.classList.remove('recording','transcribing'); micBtn.textContent='🎤'; }
+function toggleMic(){ const m=micMode(); if(m==='recorder') toggleRecorder(); else if(m==='browser') toggleBrowserRec(); }
+async function toggleRecorder(){
+  if(mediaRecorder && mediaRecorder.state==='recording'){ mediaRecorder.stop(); return; }
+  let stream;
+  try{ stream=await navigator.mediaDevices.getUserMedia({audio:true}); }
+  catch(e){ rpInput.placeholder='Mic permission denied — type your reply.'; micReset(); return; }
+  const mime=['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg'].find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported(t))||'';
+  mediaRecorder=new MediaRecorder(stream, mime?{mimeType:mime}:undefined);
+  recChunks=[];
+  mediaRecorder.ondataavailable=e=>{ if(e.data && e.data.size) recChunks.push(e.data); };
+  mediaRecorder.onstop=async()=>{
+    stream.getTracks().forEach(t=>t.stop());
+    micBtn.classList.remove('recording'); micBtn.classList.add('transcribing'); micBtn.textContent='…';
+    const blob=new Blob(recChunks, {type:(mediaRecorder.mimeType||'audio/webm').split(';')[0]});
+    try{
+      const res=await fetch('/api/stt',{method:'POST', headers:{'Content-Type':blob.type}, body:blob});
+      if(!res.ok) throw new Error('stt '+res.status);
+      const {text}=await res.json();
+      micReset();
+      if(text && text.trim()){ rpInput.value=text.trim(); sendRep(); }
+      else rpInput.placeholder='Didn’t catch that — try again or type.';
+    }catch(e){ micReset(); rpInput.placeholder='Transcription failed — type your reply.'; }
+  };
+  mediaRecorder.start();
+  micBtn.classList.add('recording'); micBtn.textContent='⏺';
+  setTimeout(()=>{ if(mediaRecorder && mediaRecorder.state==='recording') mediaRecorder.stop(); }, 20000);
+}
+function toggleBrowserRec(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(recognizing && browserRec){ browserRec.stop(); return; }
+  try{ browserRec=new SR(); }catch(e){ rpInput.placeholder='Voice input unavailable — type your reply.'; return; }
+  browserRec.lang='en-US'; browserRec.interimResults=false; browserRec.maxAlternatives=1;
+  recognizing=true; micBtn.classList.add('recording'); micBtn.textContent='⏺';
+  browserRec.onresult=e=>{ const t=e.results[0][0].transcript; if(t){ rpInput.value=t; sendRep(); } };
+  browserRec.onerror=()=>{ rpInput.placeholder='Voice input error — type your reply.'; };
+  browserRec.onend=()=>{ recognizing=false; micReset(); };
+  browserRec.start();
+}
+if(micBtn) micBtn.onclick=toggleMic;
+
+const SCEN_CAT={skeptical_surgeon:'Objection',cost_objection:'Value',new_product_launch:'Launch',technique_walkthrough:'Technique',clinical_data_grill:'Evidence'};
+function renderScenarioCards(list){
+  const wrap=document.getElementById('rp-cards'); if(!wrap) return;
+  wrap.innerHTML=list.map(s=>`<button type="button" class="scard" data-id="${s.id}">
+    <div class="scard-cat">${SCEN_CAT[s.id]||'Scenario'}</div>
+    <div class="scard-title">${(s.label||'').replace(/</g,'&lt;')}</div>
+    <div class="scard-desc">${(s.goal||'').replace(/</g,'&lt;')}</div></button>`).join('');
+  wrap.querySelectorAll('.scard').forEach(c=>c.onclick=()=>selectScenario(c.dataset.id));
+  if(list.length) selectScenario(list[0].id);
+}
+function selectScenario(id){
+  selScenario.value=id;
+  document.querySelectorAll('#rp-cards .scard').forEach(c=>c.classList.toggle('active', c.dataset.id===id));
+}
+function loadScenarios(){
+  fetch('/api/roleplay/scenarios').then(r=>r.json()).then(d=>{
+    rpScenarios=d.scenarios;
+    selScenario.innerHTML=d.scenarios.map(s=>`<option value="${s.id}">${s.label}</option>`).join('');
+    selRole.innerHTML=d.roles.map(r=>`<option value="${r.id}">${r.label}</option>`).join('');
+    selDiff.innerHTML=d.difficulties.map(x=>`<option value="${x}"${x==='medium'?' selected':''}>${x}</option>`).join('');
+    renderScenarioCards(d.scenarios);
+    rpLoaded=true;
+  });
+  loadTtsStatus();
+  loadSttStatus();
+}
+function bubble(role, text){
+  const wrap=document.createElement('div');
+  const label=document.createElement('div'); label.className='turnlabel';
+  label.appendChild(document.createTextNode(role==='surgeon'?'Surgeon':'You (rep)'));
+  let playBtn=null;
+  const b=document.createElement('div'); b.className='bubble '+role; b.textContent=text;
+  if(role==='surgeon'){
+    playBtn=document.createElement('button'); playBtn.type='button'; playBtn.className='playbtn';
+    playBtn.title='Play voice'; playBtn.textContent='🔊';
+    playBtn.onclick=()=>speak(b.textContent, playBtn);
+    label.appendChild(playBtn);
+  }
+  wrap.appendChild(label); wrap.appendChild(b);
+  rpThread.appendChild(wrap); rpThread.scrollTop=rpThread.scrollHeight;
+  b._playBtn=playBtn; return b;
+}
+function startSession(){
+  const scen=rpScenarios.find(s=>s.id===selScenario.value)||rpScenarios[0];
+  rpHistory=[]; rpScores=[]; rpThread.innerHTML='';
+  rpFeedback.innerHTML='<div class="empty" style="font-size:13px">Reply to the surgeon to get scored.</div>';
+  document.getElementById('rp-running').textContent='Your average score appears here after your first reply.';
+  const ob=bubble('surgeon', scen.opening);
+  rpHistory.push({role:'surgeon', content:scen.opening});
+  maybeAutoplay(scen.opening, ob._playBtn);
+  rpInput.disabled=false; rpSend.disabled=false; rpInput.placeholder='Respond to the surgeon…'; rpInput.focus();
+  rpActive=true; updateMicUI();
+}
+document.getElementById('rp-start').onclick=startSession;
+
+const SCORE_LABELS={technique:'Technique',product_knowledge:'Product knowledge',objection_handling:'Objection handling',confidence:'Confidence',completeness:'Completeness'};
+function scoreColor(v){ return v>=4?'var(--good)':v>=3?'var(--mid)':'var(--bad)'; }
+function renderScorecard(card){
+  const bars=Object.keys(SCORE_LABELS).map(k=>{const v=card.scores[k]||0;
+    return `<div class="bar"><div class="lab"><span>${SCORE_LABELS[k]}</span><span>${v}/5</span></div>
+      <div class="track"><div class="fill" style="width:${v/5*100}%;background:${scoreColor(v)}"></div></div></div>`;}).join('');
+  const tips=(card.tips||[]).map(t=>`<li>${t.replace(/</g,'&lt;')}</li>`).join('');
+  rpFeedback.innerHTML=`<div class="scorecard">
+      <div class="lab" style="display:flex;justify-content:space-between;align-items:baseline">
+        <span class="overall" style="color:${scoreColor(card.overall)}">${card.overall}</span><span class="loc">/ 5 overall</span></div>
+      ${bars}<div class="fb">${(card.feedback||'').replace(/</g,'&lt;')}</div>
+      ${tips?`<ul class="tips">${tips}</ul>`:''}
+      <div class="method">scored by: ${card.method}</div></div>`;
+  rpScores.push(card.overall);
+  const avg=(rpScores.reduce((a,b)=>a+b,0)/rpScores.length).toFixed(1);
+  document.getElementById('rp-running').innerHTML=`<b style="color:${scoreColor(avg)};font-size:18px">${avg}/5</b> average over ${rpScores.length} repl${rpScores.length>1?'ies':'y'}`;
+}
+
+async function streamPost(url, body, onEvent){
+  const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const reader=res.body.getReader(), dec=new TextDecoder(); let buf='';
+  while(true){
+    const {done,value}=await reader.read(); if(done) break;
+    buf+=dec.decode(value,{stream:true}); let i;
+    while((i=buf.indexOf('\n\n'))>=0){
+      const raw=buf.slice(0,i); buf=buf.slice(i+2);
+      let ev='message', data='';
+      for(const line of raw.split('\n')){
+        if(line.startsWith('event:')) ev=line.slice(6).trim();
+        else if(line.startsWith('data:')) data+=line.slice(5).trim();
+      }
+      if(data){ try{ onEvent(ev, JSON.parse(data)); }catch(e){} }
+    }
+  }
+}
+async function sendRep(onSurgeonDone){
+  const msg=rpInput.value.trim(); if(!msg) return '';
+  rpSend.disabled=true; rpInput.disabled=true;
+  bubble('rep', msg);
+  const priorHistory=rpHistory.slice();
+  rpHistory.push({role:'rep', content:msg});
+  rpInput.value='';
+  const sb=bubble('surgeon','…'); let surgeon='', signaled=false;
+  rpFeedback.innerHTML='<div class="empty" style="font-size:13px">Scoring your reply…</div>';
+  try{
+    await streamPost('/api/roleplay/turn',
+      {scenario_id:selScenario.value, role:selRole.value, difficulty:selDiff.value, history:priorHistory, message:msg},
+      (ev,data)=>{
+        if(ev==='surgeon'){ surgeon+=data; sb.textContent=surgeon; rpThread.scrollTop=rpThread.scrollHeight; }
+        else if(ev==='surgeon_done'){ if(onSurgeonDone && !signaled){ signaled=true; onSurgeonDone(surgeon); } }
+        else if(ev==='feedback'){ renderScorecard(data); }
+      });
+    rpHistory.push({role:'surgeon', content:surgeon});
+  }catch(e){ sb.textContent='Error contacting server.'; }
+  rpSend.disabled=false; rpInput.disabled=false;
+  // In text mode, auto-play the surgeon reply; in voice mode the controller speaks it.
+  if(!voice.active){ rpInput.focus(); maybeAutoplay(surgeon, sb._playBtn); }
+  return surgeon;
+}
+document.getElementById('rp-form').onsubmit=e=>{e.preventDefault();sendRep();};
+
+// ===================== CONTINUOUS VOICE MODE (Listening → Thinking → Speaking) =====================
+const voice={ active:false, state:'idle', stream:null, ac:null, src:null, analyser:null,
+              recorder:null, chunks:[], raf:null, hadSpeech:false, speechMs:0, silenceMs:0, startedAt:0 };
+const VAD_THRESH=0.02, MIN_SPEECH_MS=300, SILENCE_MS=1100, MAX_UTTER_MS=15000;
+const voiceBtn=document.getElementById('rp-voicebtn'), voicePanel=document.getElementById('rp-voicepanel');
+const orbEl=document.getElementById('rp-orb'), vStateEl=document.getElementById('rp-vstate'), vCapEl=document.getElementById('rp-vcaption');
+
+function setVoiceState(s){
+  voice.state=s;
+  const map={listening:'Listening… (speak your reply)', thinking:'Thinking…', speaking:'Surgeon is speaking…', starting:'Starting…'};
+  if(vStateEl) vStateEl.textContent=map[s]||'';
+  if(orbEl) orbEl.className='orb '+(['listening','thinking','speaking'].includes(s)?s:'');
+  if(s!=='listening') setCaption('');
+}
+function setCaption(t){ if(vCapEl) vCapEl.textContent=t||''; }
+function showVoicePanel(on){
+  voicePanel.hidden=!on; document.getElementById('rp-form').hidden=on;
+  voiceBtn.classList.toggle('on', on);
+  voiceBtn.textContent = on ? '🎙️ Voice mode on' : '🎙️ Start Voice Roleplay';
+}
+function voiceUnavailable(){
+  if(sttProvider==='elevenlabs') return '';
+  if(micMode()==='browser') return '';
+  return 'Voice mode needs ELEVENLABS_API_KEY, or a Chrome/Edge browser for speech recognition.';
+}
+async function startVoiceMode(){
+  if(voice.active || !rpScenarios.length) return;
+  const warn=voiceUnavailable(); if(warn){ alert(warn); return; }
+  voice.active=true; voiceGen++; showVoicePanel(true);   // active FIRST (suppress auto-play); fresh generation
+  if(!rpActive) startSession();                  // ensure a session + opening line exist (won't double-speak)
+  const opening=(rpHistory.find(h=>h.role==='surgeon')||{}).content||'';
+  setVoiceState('speaking');
+  speak(opening, null, ()=>{ if(voice.active) beginListen(); });   // speak opening, then listen
+}
+function endVoiceMode(){
+  voice.active=false; voiceGen++;          // invalidate any in-flight turn + its callbacks
+  forceStopAllAudio();                     // kill audio + browser speech + watchdog timers + stale speaks
+  stopListen(); setVoiceState('idle');
+  if(voice.stream){ voice.stream.getTracks().forEach(t=>t.stop()); voice.stream=null; }
+  if(voice.ac){ try{voice.ac.close();}catch(e){} voice.ac=null; voice.analyser=null; voice.src=null; }
+  showVoicePanel(false);
+}
+function stopListen(){
+  if(voice.raf){ cancelAnimationFrame(voice.raf); voice.raf=null; }
+  if(voice.recorder && voice.recorder.state==='recording'){ try{voice.recorder.stop();}catch(e){} }
+  voice.recorder=null;
+  if(recognizing && browserRec){ try{browserRec.abort();}catch(e){} recognizing=false; }
+}
+function beginListen(){
+  if(!voice.active) return;
+  setVoiceState('listening');
+  if(sttProvider==='elevenlabs') listenWithRecorder();
+  else if(micMode()==='browser') listenWithRecognition();
+  else endVoiceMode();
+}
+async function listenWithRecorder(){
+  try{ if(!voice.stream) voice.stream=await navigator.mediaDevices.getUserMedia({audio:true}); }
+  catch(e){ setCaption('Mic permission denied.'); endVoiceMode(); return; }
+  const mime=['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg'].find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported(t))||'';
+  voice.recorder=new MediaRecorder(voice.stream, mime?{mimeType:mime}:undefined);
+  voice.chunks=[];
+  voice.recorder.ondataavailable=e=>{ if(e.data&&e.data.size) voice.chunks.push(e.data); };
+  voice.recorder.onstop=()=>handleUtterance();
+  if(!voice.ac){
+    voice.ac=new (window.AudioContext||window.webkitAudioContext)();
+    voice.src=voice.ac.createMediaStreamSource(voice.stream);
+    voice.analyser=voice.ac.createAnalyser(); voice.analyser.fftSize=512; voice.src.connect(voice.analyser);
+  }
+  if(voice.ac.state==='suspended'){ try{voice.ac.resume();}catch(e){} }
+  voice.hadSpeech=false; voice.speechMs=0; voice.silenceMs=0; voice.startedAt=performance.now();
+  voice.recorder.start();
+  const buf=new Uint8Array(voice.analyser.fftSize); let last=performance.now();
+  const tick=()=>{
+    if(!voice.active || !voice.recorder || voice.recorder.state!=='recording') return;
+    const now=performance.now(), dt=now-last; last=now;
+    voice.analyser.getByteTimeDomainData(buf);
+    let sum=0; for(let i=0;i<buf.length;i++){ const v=(buf[i]-128)/128; sum+=v*v; }
+    const rms=Math.sqrt(sum/buf.length);
+    if(rms>VAD_THRESH){ voice.hadSpeech=true; voice.silenceMs=0; voice.speechMs+=dt; }
+    else if(voice.hadSpeech){ voice.silenceMs+=dt; }
+    setCaption(voice.hadSpeech ? (voice.silenceMs>250?'…':'● recording') : 'Listening…');
+    const ended=(voice.hadSpeech && voice.speechMs>MIN_SPEECH_MS && voice.silenceMs>SILENCE_MS) || (now-voice.startedAt>MAX_UTTER_MS);
+    if(ended){ try{voice.recorder.stop();}catch(e){} return; }
+    voice.raf=requestAnimationFrame(tick);
+  };
+  voice.raf=requestAnimationFrame(tick);
+}
+async function handleUtterance(){
+  if(!voice.active) return;
+  if(!voice.hadSpeech || !voice.chunks.length){ beginListen(); return; }   // nothing said → keep listening
+  setVoiceState('thinking');
+  const blob=new Blob(voice.chunks,{type:((voice.recorder&&voice.recorder.mimeType)||'audio/webm').split(';')[0]});
+  let text='';
+  try{ const r=await fetch('/api/stt',{method:'POST',headers:{'Content-Type':blob.type},body:blob}); if(r.ok) text=((await r.json()).text||''); }catch(e){}
+  text=text.trim();
+  if(!text){ if(voice.active) beginListen(); return; }
+  await sendAndSpeak(text);
+}
+function listenWithRecognition(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  try{ browserRec=new SR(); }catch(e){ endVoiceMode(); return; }
+  browserRec.lang='en-US'; browserRec.interimResults=true; browserRec.continuous=false; browserRec.maxAlternatives=1;
+  recognizing=true; let finalText='';
+  browserRec.onresult=e=>{
+    let interim='';
+    for(let i=e.resultIndex;i<e.results.length;i++){ const r=e.results[i]; if(r.isFinal) finalText+=r[0].transcript; else interim+=r[0].transcript; }
+    setCaption(interim||finalText);
+  };
+  browserRec.onerror=()=>{};
+  browserRec.onend=async()=>{
+    recognizing=false; if(!voice.active) return;
+    const t=(finalText||'').trim();
+    if(!t){ beginListen(); return; }
+    setVoiceState('thinking'); await sendAndSpeak(t);
+  };
+  try{ browserRec.start(); }catch(e){ beginListen(); }
+}
+async function sendAndSpeak(text){
+  if(!voice.active) return;
+  const myGen=voiceGen;             // pin this turn to the current voice session
+  rpInput.value=text;
+  // Start speaking the instant the reply finishes streaming — in PARALLEL with the coach
+  // scoring, so the surgeon's voice is not delayed by the second LLM call.
+  await sendRep((surgeon)=>{
+    if(!voice.active || myGen!==voiceGen) return;   // ended (or restarted) since this turn began → stay silent
+    setVoiceState('speaking');
+    speak(surgeon, null, ()=>{ if(voice.active && myGen===voiceGen) beginListen(); });   // speak reply, then listen again
+  });
+}
+function showVoiceError(msg){
+  if(voice && voice.active){ if(vStateEl) vStateEl.textContent='Voice unavailable'; setCaption(msg); }
+  else { console.warn('[TrainMed voice]', msg); }
+}
+if(voiceBtn) voiceBtn.onclick=startVoiceMode;
+const endVoiceBtn=document.getElementById('rp-endvoice'); if(endVoiceBtn) endVoiceBtn.onclick=endVoiceMode;
+</script>
+</body>
+</html>

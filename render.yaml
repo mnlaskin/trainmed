@@ -1,0 +1,24 @@
+# Render Blueprint — deploys TrainMed as a Python web service.
+# In Render: New ▸ Blueprint, point it at this repo, and it reads this file.
+# (Or create the service manually with the same Build/Start commands below.)
+services:
+  - type: web
+    name: trainmed
+    runtime: python
+    plan: free                       # bump to "starter" to avoid cold-start spin-down
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.server:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/meta       # lightweight 200 (no external API calls)
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.8"
+      - key: PYTHONPATH              # so `trainmed` (under src/) imports cleanly
+        value: src
+      - key: ANTHROPIC_API_KEY       # required for LLM answers + roleplay — set in dashboard
+        sync: false
+      - key: ELEVENLABS_API_KEY      # optional: server-side voice; unset → browser speech
+        sync: false
+      - key: ELEVENLABS_VOICE_ID     # optional: account-scoped voice id override
+        sync: false

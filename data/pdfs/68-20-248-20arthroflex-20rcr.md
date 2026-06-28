@@ -1,0 +1,86 @@
+---
+title: Rotator Cuff Repair with ArthroFLEX Augmentation
+doc_id: 68-20-248-20arthroflex-20rcr
+source_url: https://lifenethealth.org/sites/default/files/files/68-20-248%20ArthroFlex%20RCR.pdf
+source_type: pdf
+procedure_family: rotator_cuff
+page_count: 3
+source: pdf
+---
+
+# Rotator Cuff Repair with ArthroFLEX Augmentation
+
+1
+CASE STUDY
+Rotator Cuff Repair (RCR) has been successfully used to treat massive rotator cuff tears associated with shoulder 
+instability, loss of function, and pain.1 The procedure involves debriding the damaged tissue and reattaching the tendon 
+to the greater tuberosity of the humerus. However, poor tissue quality of the native tendon can cause repair failures at 
+the suture-tendon junction, and thus requiring revision surgery.2 In cases of massive rotator cuff tears augmenting the 
+repair with biological patches, such as ArthroFlex, reinforces the suture-tendon interface, increasing the repair strength 
+and restoring function.1
+ArthroFlex is an acellular dermal extracellular matrix processed with LifeNet Health’s patented and validated 
+decellularization technology, Matracell®. The process leaves a biomechanically intact extracellular matrix on which 
+the patient’s cells can infiltrate and proliferate.3 Donor cells and DNA are removed during the process, reducing the 
+possibility of an immunogenic response.4 ArthroFlex is provided at medical device level sterility, SAL 10-6, and can be 
+stored at room temperature (15°C-30°C).
+Rotator Cuff Repair with ArthroFLEX® Augmentation
+Case performed by: Alan M. Hirahara, MD, FRCS(C), 2801 K St #330, Sacramento, CA 95816
+Authors: Alan Hirahara, MD, and Wyatt Andersen, ATC
+The following case study presents the use of ArthroFlex to augment the repair of a rotator cuff tear.
+Patient
+• 71-year-old, female
+• No previous surgeries
+• No specific injury, progressive pain for one year
+• Difficulty reaching out and overhead
+• Existing comorbidities: None
+• Concomitant Medications: Thyroid hormone 
+replacements and Hydroxychloroquine
+Procedure
+• Massive RCR with augmentation and extensive 
+debridement
+• Massive rotator cuff identified with thinned tissue
+• Tissue able to be mobilized to the tuberosity
+• ArthroFlex 201: 27 mm A-P , 15 mm M-L
+• 4 – 4.75 mm Vented SwiveLock® SpeedBridge® at 
+tuberosity
+Outcome
+At one year post-op, patient report zero pain and 
+significant improvements in function and range of 
+motion. 
+See table on the next page for reported outcome 
+measures.
+
+ 2
+CASE STUDY
+Rotator Cuff Repair with ArthroFLEX® Augmentation
+Figure 1. Pre-operative images
+Pre-op 6 months 12 months
+Visual Analogue Scale (VAS) 6 0 0
+American Shoulder and Elbow Surgeon Score (ASES) 48 88 83
+Flexion active Range of Motion (ROM) 90 110 135
+
+ 3
+CASE STUDY
+Rotator Cuff Repair with ArthroFLEX® Augmentation
+LifeNet Health helps to save lives, restore health and give 
+hope to thousands of patients each year. We are the world’s 
+most trusted provider of transplant solutions, from organ 
+procurement to new innovations in bio-implant technologies 
+and cellular therapies—a leader in the field of regenerative 
+medicine, while always honoring the donors and healthcare 
+professionals that allow the healing process.
+LifeNetHealth.org
+The LifeNet Health logo, ArthroFlex, and Matracell are registered trademarks 
+of LifeNet Health.
+Third party trademarks used herein are the trademarks of their respective owners.
+©2019 LifeNet Health, Virginia Beach, VA. All rights reserved.
+68-20-248.00
+Results from case studies are not predictive of results in other cases. Results in other cases may vary.
+References
+1. Petri M, Warth RJ, Horan MP , Greenspoon JA, Millet PJ. Outcomes after open revision of massive rotator cuff tears with biologic patch augmentation. Arthroscopy. 2016;32(9):1752-1760.
+2. Gilot GJ, Alvarez-Pinzon AM, Barcksdale L, Westerdahl D, Krill M, Peck E. Outcomes of large to massive rotator cuff tears repaired with and without extracellular matrix augmentation: a 
+prospective comparative study. Arthroscopy. 2015;31(8):1459-1465.
+3. Capito AE, Tholpady SS, Agrawal H, Drake DB, Katz AJ. Evaluation of host tissue integration, revascularization, and cellular infiltration within various dermal substrates. Ann Plast Surg. 
+2012;68(5):495-500.
+4. Crapo PM, Gilbert TW, Badylak SF. An overview of tissue and whole organ decellularization processes. Biomaterials. 2011;32(12):3233-3243.
+Figure 2. Surgery pictures
