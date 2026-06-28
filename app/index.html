@@ -80,25 +80,37 @@
   .badge.video { background:var(--video); } .badge.pdf { background:var(--guide); }
   .cite .n { font-weight:700; color:var(--blue-d); } .cite .title { font-size:13.5px; font-weight:500; color:var(--text); }
   .cite .loc { color:var(--muted); font-size:12px; margin-top:3px; }
-  /* ---------- roleplay setup + persona cards ---------- */
-  .setup { padding:18px 24px; border-bottom:1px solid var(--line); background:var(--panel); }
+  /* ---------- roleplay setup (compact, voice-first) ---------- */
+  .setup { padding:14px 24px; border-bottom:1px solid var(--line); background:var(--panel); }
+  .setup[hidden]{ display:none; }
   .eyebrow { font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--blue-d); font-weight:700; margin-bottom:11px; }
-  .scards { display:grid; grid-template-columns:repeat(auto-fill,minmax(214px,1fr)); gap:11px; }
-  .scard { text-align:left; padding:13px 14px; border:1px solid var(--line-2); border-radius:12px; background:var(--surface);
-           cursor:pointer; box-shadow:var(--shadow-sm); transition:all .15s ease; position:relative; font-family:inherit; }
-  .scard:hover { border-color:var(--blue); transform:translateY(-1px); box-shadow:var(--shadow); }
-  .scard.active { border-color:var(--navy); background:linear-gradient(180deg,#fff,var(--blue-soft));
-                  box-shadow:0 0 0 2px rgba(6,50,79,.10), var(--shadow); }
-  .scard.active::after { content:'✓'; position:absolute; top:10px; right:12px; color:var(--navy); font-weight:800; font-size:13px; }
-  .scard-cat { font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); font-weight:700; margin-bottom:5px; }
-  .scard-title { font-size:14px; font-weight:700; color:var(--navy); line-height:1.25; margin-bottom:4px; padding-right:14px; }
-  .scard-desc { font-size:12px; color:var(--text-2); line-height:1.4; }
-  .controls { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:15px; }
+  .setup-grid { display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; }
   .field { display:flex; flex-direction:column; gap:4px; }
+  .field.grow { flex:1; min-width:240px; }
   .field .flab { font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-weight:600; }
-  .field select { min-width:132px; text-transform:capitalize; }
-  .autoplay { display:flex; align-items:center; gap:7px; font-size:13px; color:var(--text-2); margin-left:2px; white-space:nowrap; }
+  .field select { width:100%; min-width:140px; text-transform:capitalize; }
+  /* preview line under the dropdowns — replaces the bulky card grid */
+  .preview { display:flex; align-items:baseline; gap:9px; margin-top:11px; font-size:13px; color:var(--text-2); line-height:1.45; }
+  .pv-cat { flex:none; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; color:#fff;
+            background:var(--blue); padding:3px 8px; border-radius:6px; }
+  .pv-goal { min-width:0; }
+  /* primary call-to-action row */
+  .cta { display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin-top:14px; }
+  .voicebtn.lg { padding:13px 22px; font-size:15px; }
+  .voicebtn.sm { padding:8px 14px; font-size:13px; }
+  .textlink { background:none; border:0; box-shadow:none; padding:4px 2px; color:var(--blue-d); font-weight:600; font-size:13px;
+              cursor:pointer; text-decoration:underline; text-underline-offset:2px; }
+  .textlink:hover { color:var(--blue); background:none; }
+  .autoplay { display:flex; align-items:center; gap:7px; font-size:13px; color:var(--text-2); white-space:nowrap; }
   .autoplay input { margin:0; accent-color:var(--blue); }
+  .voicemeta { font-size:12px; }
+  /* slim bar shown once a session is running, so the transcript owns the screen */
+  .sessionbar { display:flex; align-items:center; gap:12px; padding:11px 24px; border-bottom:1px solid var(--line); background:var(--panel); }
+  .sessionbar[hidden]{ display:none; }
+  .sb-info { display:flex; align-items:baseline; gap:9px; min-width:0; flex:1; }
+  .sb-cat { flex:none; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; color:#fff;
+            background:var(--navy); padding:3px 8px; border-radius:6px; }
+  .sb-title { font-size:14px; font-weight:700; color:var(--navy); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   /* ---------- roleplay bubbles ---------- */
   .bubble { padding:11px 14px; border-radius:13px; max-width:80%; white-space:pre-wrap; line-height:1.5; box-shadow:var(--shadow-sm); }
   .bubble.surgeon { background:var(--surgeon); border:1px solid var(--line); color:var(--text); border-top-left-radius:4px; }
@@ -188,20 +200,31 @@
   <!-- ============ ROLEPLAY TRAINER ============ -->
   <div class="view" id="rp-view" hidden>
     <div class="col-main">
-      <div class="setup">
-        <div class="eyebrow">Select a training scenario</div>
-        <div id="rp-cards" class="scards"></div>
-        <select id="rp-scenario" hidden></select>
-        <div class="controls">
+      <div class="setup" id="rp-setup">
+        <div class="eyebrow">Roleplay Trainer — practice live with an AI surgeon</div>
+        <div class="setup-grid">
+          <label class="field grow"><span class="flab">Scenario</span><select id="rp-scenario"></select></label>
           <label class="field"><span class="flab">Your role</span><select id="rp-role"></select></label>
           <label class="field"><span class="flab">Difficulty</span><select id="rp-diff"></select></label>
-          <button id="rp-start" class="btn-primary">Start session</button>
-          <label class="autoplay"><input type="checkbox" id="rp-autoplay" checked> Auto-play voice <span id="rp-voice" class="loc"></span></label>
-          <button type="button" id="rp-voicebtn" class="voicebtn">🎙️ Start Voice Roleplay</button>
+        </div>
+        <div class="preview">
+          <span class="pv-cat" id="rp-pv-cat"></span>
+          <span class="pv-goal" id="rp-pv-goal"></span>
+        </div>
+        <div class="cta">
+          <button type="button" id="rp-voicebtn" class="voicebtn lg">🎙️ Start Voice Roleplay</button>
+          <button type="button" id="rp-textbtn" class="textlink">or practice by typing</button>
+          <label class="autoplay"><input type="checkbox" id="rp-autoplay" checked> Auto-play voice</label>
+          <span id="rp-voice" class="loc voicemeta"></span>
         </div>
       </div>
+      <div class="sessionbar" id="rp-sessionbar" hidden>
+        <div class="sb-info"><span class="sb-cat" id="rp-sb-cat"></span><span class="sb-title" id="rp-sb-title"></span></div>
+        <button type="button" id="rp-sb-voice" class="voicebtn sm">🎙️ Voice</button>
+        <button type="button" id="rp-restart" class="textlink">↺ New scenario</button>
+      </div>
       <div class="thread" id="rp-thread">
-        <div class="empty">Pick a scenario and press Start. You play the rep; the AI plays the surgeon and a coach scores each reply.</div>
+        <div class="empty">Pick a scenario and press Start Voice Roleplay. You play the rep; the AI plays the surgeon and a coach scores each reply.</div>
       </div>
       <form id="rp-form">
         <button type="button" id="rp-mic" class="micbtn" title="Voice input" disabled>🎤</button>
@@ -285,7 +308,7 @@ function askChat(){
 document.getElementById('chat-form').onsubmit=e=>{e.preventDefault();askChat();};
 
 // ===================== ROLEPLAY TRAINER =====================
-let rpLoaded=false, rpScenarios=[], rpHistory=[], rpScores=[];
+let rpLoaded=false, rpScenarios=[], rpHistory=[], rpScores=[], sessionSeq=0;   // sessionSeq bumped on every (re)start; in-flight turns check it
 const rpThread=document.getElementById('rp-thread'), rpFeedback=document.getElementById('rp-feedback');
 const rpInput=document.getElementById('rp-input'), rpSend=document.getElementById('rp-send');
 const selScenario=document.getElementById('rp-scenario'), selRole=document.getElementById('rp-role'), selDiff=document.getElementById('rp-diff');
@@ -293,6 +316,7 @@ const selScenario=document.getElementById('rp-scenario'), selRole=document.getEl
 // ---------- voice (TTS): ElevenLabs via server, else browser speechSynthesis ----------
 let ttsProvider='browser', currentAudio=null, speakSeq=0;
 const speakTimers=new Set();     // every speak() watchdog timer, so we can clear them all on stop
+const liveAudios=new Set();      // every <audio> we create, so stop can kill ALL of them, not just the latest
 let voiceGen=0;                  // bumped on voice start/end; stale-turn callbacks check this
 function loadTtsStatus(){
   fetch('/api/tts/status').then(r=>r.json()).then(s=>{
@@ -320,25 +344,33 @@ function sanitizeForVoice(raw){
 // AUDIO QUEUE: hard-stop BOTH engines so ElevenLabs + browser speech can never overlap.
 // Hard-kill the current ElevenLabs <audio>: detach handlers so no late onended/onerror
 // fires, stop + mute it, and fully detach the source so a buffering request can't play later.
-function killCurrentAudio(){
-  const a=currentAudio; currentAudio=null;
+// Hard-kill ONE <audio>: detach every handler so no late event re-fires, silence it (mute + zero
+// volume), stop it, and fully detach the source so an in-flight /api/tts fetch can't play later.
+function hardKillAudio(a){
   if(!a) return;
   try{
-    a.onended=null; a.onerror=null; a.oncanplay=null; a.oncanplaythrough=null; a.onplaying=null; a.onloadeddata=null;
-    a.muted=true; a.pause();
-    a.removeAttribute('src'); a.src=''; a.load();   // abort any in-flight /api/tts fetch + buffered data
+    a.onended=null; a.onerror=null; a.oncanplay=null; a.oncanplaythrough=null; a.onplaying=null; a.onloadeddata=null; a.ontimeupdate=null;
+    a.muted=true; a.volume=0;
+    a.pause();
+    a.removeAttribute('src'); try{ a.load(); }catch(e){}   // abort any in-flight /api/tts fetch + buffered data
   }catch(e){}
+  liveAudios.delete(a);
+}
+function killCurrentAudio(){
+  const a=currentAudio; currentAudio=null;
+  hardKillAudio(a);
 }
 function stopAudio(){
   killCurrentAudio();
   if('speechSynthesis' in window){ try{ speechSynthesis.cancel(); }catch(e){} }
 }
-// BULLETPROOF stop: invalidate every pending speak (seq), clear all watchdog timers, kill audio
-// + browser speech, so nothing queued can fire after voice mode ends.
+// BULLETPROOF stop: invalidate every pending speak (seq), clear all watchdog timers, kill EVERY
+// audio element we've created + browser speech, so nothing queued can fire after voice mode ends.
 function forceStopAllAudio(){
   speakSeq++;                                          // any pending finish()/onEnd/ttsFail is now stale
   speakTimers.forEach(id=>clearTimeout(id)); speakTimers.clear();
-  killCurrentAudio();
+  currentAudio=null;
+  liveAudios.forEach(a=>hardKillAudio(a)); liveAudios.clear();   // not just the latest — kill them all
   if('speechSynthesis' in window){ try{ speechSynthesis.cancel(); speechSynthesis.cancel(); }catch(e){} }
 }
 function speak(rawText, btn, onEnd){
@@ -354,7 +386,7 @@ function speak(rawText, btn, onEnd){
   if(btn) btn.classList.add('playing');
   if(ttsProvider==='elevenlabs'){
     const a=new Audio('/api/tts?text='+encodeURIComponent(text.slice(0,1800)));
-    currentAudio=a; a.onended=finish;
+    currentAudio=a; liveAudios.add(a); a.onended=finish;
     a.onerror=ttsFail;                           // ElevenLabs failed → message, NO robot voice
     a.play().catch(ttsFail);                     // autoplay blocked → message, NO robot voice
   } else {
@@ -436,18 +468,16 @@ function toggleBrowserRec(){
 if(micBtn) micBtn.onclick=toggleMic;
 
 const SCEN_CAT={skeptical_surgeon:'Objection',cost_objection:'Value',new_product_launch:'Launch',technique_walkthrough:'Technique',clinical_data_grill:'Evidence'};
-function renderScenarioCards(list){
-  const wrap=document.getElementById('rp-cards'); if(!wrap) return;
-  wrap.innerHTML=list.map(s=>`<button type="button" class="scard" data-id="${s.id}">
-    <div class="scard-cat">${SCEN_CAT[s.id]||'Scenario'}</div>
-    <div class="scard-title">${(s.label||'').replace(/</g,'&lt;')}</div>
-    <div class="scard-desc">${(s.goal||'').replace(/</g,'&lt;')}</div></button>`).join('');
-  wrap.querySelectorAll('.scard').forEach(c=>c.onclick=()=>selectScenario(c.dataset.id));
-  if(list.length) selectScenario(list[0].id);
-}
 function selectScenario(id){
-  selScenario.value=id;
-  document.querySelectorAll('#rp-cards .scard').forEach(c=>c.classList.toggle('active', c.dataset.id===id));
+  if(id) selScenario.value=id;
+  updatePreview();
+}
+function updatePreview(){
+  const s=rpScenarios.find(x=>x.id===selScenario.value)||rpScenarios[0]; if(!s) return;
+  const cat=SCEN_CAT[s.id]||'Scenario';
+  const set=(elId,txt)=>{ const el=document.getElementById(elId); if(el) el.textContent=txt; };
+  set('rp-pv-cat',cat); set('rp-pv-goal',s.goal||'');         // setup preview
+  set('rp-sb-cat',cat); set('rp-sb-title',s.label||'');       // slim session bar
 }
 function loadScenarios(){
   fetch('/api/roleplay/scenarios').then(r=>r.json()).then(d=>{
@@ -455,12 +485,13 @@ function loadScenarios(){
     selScenario.innerHTML=d.scenarios.map(s=>`<option value="${s.id}">${s.label}</option>`).join('');
     selRole.innerHTML=d.roles.map(r=>`<option value="${r.id}">${r.label}</option>`).join('');
     selDiff.innerHTML=d.difficulties.map(x=>`<option value="${x}"${x==='medium'?' selected':''}>${x}</option>`).join('');
-    renderScenarioCards(d.scenarios);
+    if(d.scenarios.length) selectScenario(d.scenarios[0].id);
     rpLoaded=true;
   });
   loadTtsStatus();
   loadSttStatus();
 }
+selScenario.onchange=()=>selectScenario(selScenario.value);
 function bubble(role, text){
   const wrap=document.createElement('div');
   const label=document.createElement('div'); label.className='turnlabel';
@@ -477,18 +508,39 @@ function bubble(role, text){
   rpThread.appendChild(wrap); rpThread.scrollTop=rpThread.scrollHeight;
   b._playBtn=playBtn; return b;
 }
+// Collapse the bulky setup into a slim bar once a session is running, so the transcript owns the screen.
+function setSessionUI(active){
+  const setup=document.getElementById('rp-setup'), bar=document.getElementById('rp-sessionbar');
+  if(setup) setup.hidden=active;
+  if(bar) bar.hidden=!active;
+}
 function startSession(){
   const scen=rpScenarios.find(s=>s.id===selScenario.value)||rpScenarios[0];
+  sessionSeq++;                              // any in-flight turn from a prior session is now stale
   rpHistory=[]; rpScores=[]; rpThread.innerHTML='';
   rpFeedback.innerHTML='<div class="empty" style="font-size:13px">Reply to the surgeon to get scored.</div>';
   document.getElementById('rp-running').textContent='Your average score appears here after your first reply.';
+  updatePreview(); setSessionUI(true);
   const ob=bubble('surgeon', scen.opening);
   rpHistory.push({role:'surgeon', content:scen.opening});
-  maybeAutoplay(scen.opening, ob._playBtn);
-  rpInput.disabled=false; rpSend.disabled=false; rpInput.placeholder='Respond to the surgeon…'; rpInput.focus();
+  maybeAutoplay(scen.opening, ob._playBtn);              // no-op while voice.active (controller speaks it)
+  rpInput.disabled=false; rpSend.disabled=false; rpInput.placeholder='Respond to the surgeon…';
   rpActive=true; updateMicUI();
+  if(!voice.active) rpInput.focus();
 }
-document.getElementById('rp-start').onclick=startSession;
+// "New scenario" — fully tear down the current session (stops voice/audio) and reveal the setup again.
+function restartScenario(){
+  if(voice.active) endVoiceMode();
+  sessionSeq++;                              // tear down: any in-flight turn must not mutate the next session
+  rpActive=false; rpHistory=[]; rpScores=[];
+  rpThread.innerHTML='<div class="empty">Pick a scenario and press Start Voice Roleplay. You play the rep; the AI plays the surgeon and a coach scores each reply.</div>';
+  rpFeedback.innerHTML='<div class="empty" style="font-size:13px">Scorecard (technique, product knowledge, objection handling, confidence, completeness) appears after each reply.</div>';
+  document.getElementById('rp-running').textContent='Your average score appears here after your first reply.';
+  rpInput.disabled=true; rpSend.disabled=true; rpInput.value=''; rpInput.placeholder='Start the session first…';
+  updateMicUI(); setSessionUI(false);
+}
+const textBtn=document.getElementById('rp-textbtn'); if(textBtn) textBtn.onclick=()=>{ if(rpScenarios.length) startSession(); };
+const restartBtn=document.getElementById('rp-restart'); if(restartBtn) restartBtn.onclick=restartScenario;
 
 const SCORE_LABELS={technique:'Technique',product_knowledge:'Product knowledge',objection_handling:'Objection handling',confidence:'Confidence',completeness:'Completeness'};
 function scoreColor(v){ return v>=4?'var(--good)':v>=3?'var(--mid)':'var(--bad)'; }
@@ -527,6 +579,8 @@ async function streamPost(url, body, onEvent){
 }
 async function sendRep(onSurgeonDone){
   const msg=rpInput.value.trim(); if(!msg) return '';
+  const voiceTurn=voice.active;          // remember if this turn ran under voice mode (even if it ends mid-turn)
+  const mySeq=sessionSeq;                // pin to this session; a restart/new-scenario mid-turn makes us stale
   rpSend.disabled=true; rpInput.disabled=true;
   bubble('rep', msg);
   const priorHistory=rpHistory.slice();
@@ -538,15 +592,21 @@ async function sendRep(onSurgeonDone){
     await streamPost('/api/roleplay/turn',
       {scenario_id:selScenario.value, role:selRole.value, difficulty:selDiff.value, history:priorHistory, message:msg},
       (ev,data)=>{
+        if(mySeq!==sessionSeq) return;        // session restarted/replaced mid-stream → ignore late SSE events
         if(ev==='surgeon'){ surgeon+=data; sb.textContent=surgeon; rpThread.scrollTop=rpThread.scrollHeight; }
         else if(ev==='surgeon_done'){ if(onSurgeonDone && !signaled){ signaled=true; onSurgeonDone(surgeon); } }
         else if(ev==='feedback'){ renderScorecard(data); }
       });
+    if(mySeq!==sessionSeq) return surgeon;    // a newer session owns the state now — don't pollute its history
     rpHistory.push({role:'surgeon', content:surgeon});
-  }catch(e){ sb.textContent='Error contacting server.'; }
+  }catch(e){ if(mySeq===sessionSeq) sb.textContent='Error contacting server.'; }
+  if(mySeq!==sessionSeq) return surgeon;      // stale turn: leave the new session's inputs/voice untouched
   rpSend.disabled=false; rpInput.disabled=false;
-  // In text mode, auto-play the surgeon reply; in voice mode the controller speaks it.
-  if(!voice.active){ rpInput.focus(); maybeAutoplay(surgeon, sb._playBtn); }
+  // Only auto-play in PURE text mode. If this turn ran under voice mode — even if the user ended
+  // voice mid-turn — the voice controller owns speech; starting a clip here was the source of the
+  // surgeon "lingering" 15-20s after End Voice Mode (sendRep resolves after shutdown, voice.active
+  // is already false, and this branch would speak the full reply).
+  if(!voiceTurn && !voice.active){ rpInput.focus(); maybeAutoplay(surgeon, sb._playBtn); }
   return surgeon;
 }
 document.getElementById('rp-form').onsubmit=e=>{e.preventDefault();sendRep();};
@@ -568,6 +628,7 @@ function setVoiceState(s){
 function setCaption(t){ if(vCapEl) vCapEl.textContent=t||''; }
 function showVoicePanel(on){
   voicePanel.hidden=!on; document.getElementById('rp-form').hidden=on;
+  const sbv=document.getElementById('rp-sb-voice'); if(sbv) sbv.hidden=on;   // hide bar's "Voice" while already in voice
   voiceBtn.classList.toggle('on', on);
   voiceBtn.textContent = on ? '🎙️ Voice mode on' : '🎙️ Start Voice Roleplay';
 }
@@ -579,11 +640,15 @@ function voiceUnavailable(){
 async function startVoiceMode(){
   if(voice.active || !rpScenarios.length) return;
   const warn=voiceUnavailable(); if(warn){ alert(warn); return; }
-  voice.active=true; voiceGen++; showVoicePanel(true);   // active FIRST (suppress auto-play); fresh generation
-  if(!rpActive) startSession();                  // ensure a session + opening line exist (won't double-speak)
-  const opening=(rpHistory.find(h=>h.role==='surgeon')||{}).content||'';
+  const fresh=!rpActive;
+  voice.active=true; voiceGen++; showVoicePanel(true);   // active FIRST (suppress text auto-play); fresh generation
+  if(fresh) startSession();                              // ensure a session + opening line exist (won't double-speak)
   setVoiceState('speaking');
-  speak(opening, null, ()=>{ if(voice.active) beginListen(); });   // speak opening, then listen
+  // Fresh session → speak the opening; resuming an in-progress one → re-voice the latest surgeon line, then listen.
+  const lastSurgeon=[...rpHistory].reverse().find(h=>h.role==='surgeon');
+  const line=(lastSurgeon||{}).content||'';
+  if(line) speak(line, null, ()=>{ if(voice.active) beginListen(); });
+  else beginListen();
 }
 function endVoiceMode(){
   voice.active=false; voiceGen++;          // invalidate any in-flight turn + its callbacks
@@ -685,6 +750,7 @@ function showVoiceError(msg){
   else { console.warn('[TrainMed voice]', msg); }
 }
 if(voiceBtn) voiceBtn.onclick=startVoiceMode;
+const sbVoiceBtn=document.getElementById('rp-sb-voice'); if(sbVoiceBtn) sbVoiceBtn.onclick=startVoiceMode;
 const endVoiceBtn=document.getElementById('rp-endvoice'); if(endVoiceBtn) endVoiceBtn.onclick=endVoiceMode;
 </script>
 </body>
