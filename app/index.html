@@ -21,7 +21,7 @@
   }
   * { box-sizing:border-box; }
   body { margin:0; font:15px/1.55 'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-         background:var(--bg); color:var(--text); height:100vh; display:flex; flex-direction:column;
+         background:var(--bg); color:var(--text); height:100vh; height:100dvh; display:flex; flex-direction:column;
          -webkit-font-smoothing:antialiased; }
   /* ---------- header / brand ---------- */
   header { display:flex; align-items:center; gap:22px; padding:0 24px; height:60px; flex:none;
@@ -41,7 +41,7 @@
   /* ---------- layout ---------- */
   .view { flex:1; display:grid; grid-template-columns:1fr 380px; min-height:0; }
   .view[hidden]{ display:none; }
-  .col-main { display:flex; flex-direction:column; min-height:0; }
+  .col-main { display:flex; flex-direction:column; min-height:0; min-width:0; }  /* min-width:0 so the grid track can't be widened past the viewport by nowrap content */
   .thread { flex:1; overflow:auto; padding:28px 34px; }
   .side { border-left:1px solid var(--line); background:var(--panel); overflow:auto; padding:22px 20px; }
   .side h2 { font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--blue-d); font-weight:700; margin:0 0 14px; }
@@ -120,7 +120,7 @@
   .sb-info { display:flex; align-items:baseline; gap:9px; min-width:0; flex:1; }
   .sb-cat { flex:none; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; color:#fff;
             background:var(--navy); padding:3px 8px; border-radius:6px; }
-  .sb-title { font-size:14px; font-weight:700; color:var(--navy); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .sb-title { font-size:14px; font-weight:700; color:var(--navy); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
   /* ---------- roleplay bubbles ---------- */
   .bubble { padding:11px 14px; border-radius:13px; max-width:80%; white-space:pre-wrap; line-height:1.5; box-shadow:var(--shadow-sm); }
   .bubble.surgeon { background:var(--surgeon); border:1px solid var(--line); color:var(--text); border-top-left-radius:4px; }
@@ -165,6 +165,33 @@
   .tips li { margin:4px 0; }
   .method { font-size:10.5px; color:var(--muted); margin-top:10px; text-transform:uppercase; letter-spacing:.05em; }
   @media (max-width:860px){ .view{grid-template-columns:1fr;} .side{display:none;} }
+  /* ---------- phones ---------- */
+  @media (max-width:560px){
+    /* header: drop the diagnostic meta + subtitle that overflowed, tighten so brand + tabs fit */
+    header { gap:10px; padding:0 12px; }
+    #status { display:none; }                 /* the "109 chunks … answer:anthropic" line was bleeding off-screen */
+    .brand-sub { display:none; }              /* "Clinical Sales Training" was wrapping to 3 lines */
+    .brand-name { font-size:15px; }
+    .brand-mark { width:30px; height:30px; }
+    .tabs { margin-left:auto; }               /* push tabs right now that #status is gone */
+    .tab { padding:7px 11px; font-size:12.5px; }
+    /* give the transcript and setup a little more width */
+    .thread { padding:18px 16px; }
+    .setup, .sessionbar { padding:12px 16px; }
+    /* bottom input bar: comfortable padding that respects the iOS home indicator / Safari toolbar */
+    form { gap:8px; padding:12px 14px calc(12px + env(safe-area-inset-bottom)); }
+    input, select { font-size:16px; }         /* >=16px stops iOS Safari from zooming the page on focus */
+    #q, #rp-input { min-width:0; }             /* let the field shrink instead of forcing overflow */
+    #chat-send, #rp-send { flex:none; padding:11px 16px; }
+    /* voice panel: same safe-area treatment, slightly more compact */
+    .voicepanel { gap:12px; padding:14px 16px calc(14px + env(safe-area-inset-bottom)); }
+    .vstate { font-size:15px; }
+    .orb { width:40px; height:40px; }
+    .endvoice { padding:10px 14px; font-size:13px; }
+    .micbtn { padding:11px 12px; }
+    /* roleplay setup controls stack full-width and read cleanly */
+    .cta { gap:10px; } .voicebtn.lg { width:100%; justify-content:center; }
+  }
 </style>
 </head>
 <body>
