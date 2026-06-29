@@ -1,11 +1,13 @@
 """TrainMed web chatbot — FastAPI + a single static page, streaming over SSE.
 
 Reuses the shared engine in trainmed.rag (no duplicated logic). Multi-company: ONE
-retriever PER company is built once at startup into an immutable RETRIEVERS dict, plus
-a separate competitive-insights retriever. Each request resolves its company from an
-allowlist (no defaulting to a wrong corpus) and retrieves ONLY from that company's
-retriever — the contamination firewall. Retrieved chunks pass a fail-closed company
-guard before they ever reach a prompt or citation.
+retriever PER company, built lazily and memoized on first use (and pre-warmed by a
+background thread), plus a separate competitive-insights retriever. Building is deferred
+off the import path so the server binds — and the platform health check passes — without
+waiting on cold-disk KB reads. Each request resolves its company from an allowlist (no
+defaulting to a wrong corpus) and retrieves ONLY from that company's retriever — the
+contamination firewall. Retrieved chunks pass a fail-closed company guard before they
+ever reach a prompt or citation.
 
 Run (from the repo root, with the package importable):
     pip install -e .                       # so `trainmed` imports
@@ -20,6 +22,7 @@ from __future__ import annotations
 
 import json
 import sys
+import threading
 from pathlib import Path
 
 # Make `trainmed` importable straight from a checkout (no `pip install -e .` needed).
@@ -38,32 +41,90 @@ app = FastAPI(title="TrainMed — Surgical Sales Assistant")
 EMBED_BACKEND, EMBED_REASON = rag.resolve_embed_backend("auto")
 GEN_BACKEND, GEN_REASON = rag.resolve_gen_backend("auto")
 
-# Build ALL company retrievers once at startup into immutable dicts (no per-request
-# global mutation → no cross-company race under uvicorn concurrency). Each retriever
-# OWNS its (already company-filtered) chunks, so no caller indexes a shared list.
+# Companies that have a KB directory on disk (cheap — just a dir scan, no file reads).
 AVAILABLE_COMPANIES = rag.available_companies()
-CHUNKS_BY_COMPANY: dict[str, list] = {}
-RETRIEVERS: dict[str, object] = {}
-for _company in AVAILABLE_COMPANIES:
-    _chunks = rag.load_chunks(_company)
-    if not _chunks:
-        continue
-    CHUNKS_BY_COMPANY[_company] = _chunks
-    RETRIEVERS[_company] = rag.build_retriever(_chunks, EMBED_BACKEND, namespace=_company)
 
-# Cross-company competitive insights — a SEPARATE retriever, only used for explicit
-# comparison / competitive roleplay. Never mixed into a single-company product answer.
-COMPETITIVE_CHUNKS = rag.load_competitive_insights()
-COMPETITIVE_RETRIEVER = (
-    rag.build_retriever(COMPETITIVE_CHUNKS, EMBED_BACKEND, namespace="competitive")
-    if COMPETITIVE_CHUNKS else None
-)
-
-# The company the UI defaults to: Arthrex if present, else the first available.
+# The company the UI defaults to: Arthrex if it has a KB, else the first available.
 DEFAULT_UI_COMPANY = (
-    co.DEFAULT_COMPANY if co.DEFAULT_COMPANY in RETRIEVERS
+    co.DEFAULT_COMPANY if co.DEFAULT_COMPANY in AVAILABLE_COMPANIES
     else (AVAILABLE_COMPANIES[0] if AVAILABLE_COMPANIES else co.DEFAULT_COMPANY)
 )
+
+# Retrievers are built LAZILY (and memoized), NOT at import. Building one reads that
+# company's whole KB from disk and constructs the TF-IDF / embedding index; doing all
+# of that at module import blocks uvicorn from binding the port — and the Render deploy
+# health check from ever getting a response — on a cold, slow free-tier instance. So we
+# defer the work behind getters and warm it in a background thread once the server is
+# already accepting connections. The lock keeps the "ONE retriever per company" guarantee
+# (and the firewall) intact under concurrent first-touch requests.
+_CHUNKS: dict[str, list] = {}
+_RETRIEVERS: dict[str, object] = {}
+_COMPETITIVE: dict[str, object] = {}      # "chunks" + "retriever" populated on first use
+_build_lock = threading.RLock()
+
+
+def get_chunks(company: str) -> list:
+    """This company's chunks, loaded + memoized on first access (fail-closed: [] if none)."""
+    if company not in _CHUNKS:
+        if company not in AVAILABLE_COMPANIES:
+            return []
+        with _build_lock:
+            if company not in _CHUNKS:
+                _CHUNKS[company] = rag.load_chunks(company)
+    return _CHUNKS.get(company, [])
+
+
+def get_retriever(company: str):
+    """This company's retriever, built + memoized on first access (None if no KB)."""
+    if company in _RETRIEVERS:
+        return _RETRIEVERS[company]
+    chunks = get_chunks(company)
+    if not chunks:
+        return None
+    with _build_lock:
+        if company not in _RETRIEVERS:
+            _RETRIEVERS[company] = rag.build_retriever(chunks, EMBED_BACKEND, namespace=company)
+    return _RETRIEVERS[company]
+
+
+def competitive_chunks() -> list:
+    if "chunks" not in _COMPETITIVE:
+        with _build_lock:
+            if "chunks" not in _COMPETITIVE:
+                _COMPETITIVE["chunks"] = rag.load_competitive_insights()
+    return _COMPETITIVE["chunks"]
+
+
+def get_competitive_retriever():
+    """Cross-company competitive insights — a SEPARATE retriever, only for competitive
+    roleplay. Never mixed into a single-company product answer."""
+    if "retriever" not in _COMPETITIVE:
+        chunks = competitive_chunks()
+        with _build_lock:
+            if "retriever" not in _COMPETITIVE:
+                _COMPETITIVE["retriever"] = (
+                    rag.build_retriever(chunks, EMBED_BACKEND, namespace="competitive")
+                    if chunks else None
+                )
+    return _COMPETITIVE["retriever"]
+
+
+def _warm() -> None:
+    """Pre-build every retriever AFTER the server is already accepting connections, so the
+    first real request is fast without blocking startup or the deploy health check."""
+    for c in AVAILABLE_COMPANIES:
+        try:
+            get_retriever(c)
+        except Exception:  # a single bad corpus must not kill warming for the others
+            pass
+    try:
+        get_competitive_retriever()
+    except Exception:
+        pass
+
+
+# Warm in the background; daemon so it never holds the process open on shutdown.
+threading.Thread(target=_warm, name="trainmed-warm", daemon=True).start()
 
 
 def resolve_company(value: str | None) -> str:
@@ -82,6 +143,13 @@ def index():
     return FileResponse(HERE / "index.html")
 
 
+@app.get("/healthz")
+def healthz():
+    """Liveness probe for the platform health check. Intentionally does NO data access so
+    it returns 200 the instant the server binds — even while retrievers are still warming."""
+    return {"status": "ok"}
+
+
 @app.get("/api/companies")
 def companies():
     """Every known company + whether it has an ingested KB (for the UI selector)."""
@@ -90,30 +158,30 @@ def companies():
             {
                 "id": c,
                 "label": co.display_name(c),
-                "available": c in RETRIEVERS,
-                "chunks": len(CHUNKS_BY_COMPANY.get(c, [])),
+                "available": bool(get_chunks(c)),
+                "chunks": len(get_chunks(c)),
             }
             for c in co.known_companies()
         ],
         "default": DEFAULT_UI_COMPANY,
-        "competitive_insights": len(COMPETITIVE_CHUNKS),
+        "competitive_insights": len(competitive_chunks()),
     }
 
 
 @app.get("/api/meta")
 def meta(company: str | None = None):
     company = resolve_company(company)
-    chunks = CHUNKS_BY_COMPANY.get(company, [])
-    retriever = RETRIEVERS.get(company)
+    chunks = get_chunks(company)
+    retriever = _RETRIEVERS.get(company)
     n_pdf = sum(1 for c in chunks if c.get("source_type") == "pdf")
     return {
         "company": company,
         "company_label": co.display_name(company),
-        "available": company in RETRIEVERS,
+        "available": bool(chunks),
         "chunks": len(chunks),
         "videos": len(chunks) - n_pdf,
         "pdfs": n_pdf,
-        "competitive_insights": len(COMPETITIVE_CHUNKS),
+        "competitive_insights": len(competitive_chunks()),
         "embed_backend": getattr(retriever, "name", EMBED_BACKEND),
         "embed_reason": EMBED_REASON,
         "gen_backend": GEN_BACKEND,
@@ -124,7 +192,7 @@ def meta(company: str | None = None):
 @app.get("/api/ask")
 def ask(q: str, k: int = 4, company: str | None = None):
     company = resolve_company(company)
-    retriever = RETRIEVERS.get(company)
+    retriever = get_retriever(company)
     if retriever is None:
         return {
             "error": f"No knowledge base for {co.display_name(company)} yet. "
@@ -189,11 +257,12 @@ async def roleplay_turn(request: Request):
     # only. For a competitive scenario, ALSO add cross-company competitive insights —
     # the curated comparison notes, never the raw competitor product corpus.
     query = message or scenario.get("goal", "")
-    retriever = RETRIEVERS.get(company)
+    retriever = get_retriever(company)
     grounded = [c for c, _ in retriever.retrieve(query, 4)] if retriever else []
     grounded = rag.enforce_company(grounded, company)  # fail-closed
-    if scenario.get("competitive") and COMPETITIVE_RETRIEVER is not None:
-        grounded = grounded[:3] + [c for c, _ in COMPETITIVE_RETRIEVER.retrieve(query, 2)]
+    comp = get_competitive_retriever() if scenario.get("competitive") else None
+    if comp is not None:
+        grounded = grounded[:3] + [c for c, _ in comp.retrieve(query, 2)]
 
     def events():
         for delta in rag.stream_roleplay(
