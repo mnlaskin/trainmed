@@ -9,7 +9,7 @@ services:
     region: oregon
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.server:app --host 0.0.0.0 --port $PORT
-    healthCheckPath: /api/meta       # lightweight 200 (no external API calls)
+    healthCheckPath: /healthz        # binds instantly; no data access (retrievers warm in background)
     autoDeploy: true
     envVars:
       - key: PYTHON_VERSION

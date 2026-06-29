@@ -3,6 +3,11 @@ __pycache__/
 *.pyc
 .DS_Store
 
+# macOS Finder / iCloud conflict-copy files ("foo 2.json", "bar 2.md", …) — never commit
+# these; in data/kb/ they double-load the KB at runtime.
+* [0-9].*
+* [0-9][0-9].*
+
 # Extracted data — keep the dirs, ignore the contents until we decide what to commit.
 # NOTE: data/kb/ (the knowledge base the web app serves) is intentionally committed.
 data/transcripts/*
