@@ -1,5 +1,6 @@
 {
   "chunk_id": "knotless-bankart-repair-using-the-labral-swivelock-and-fiberstick_000",
+  "company": "Arthrex",
   "source_id": "knotless-bankart-repair-using-the-labral-swivelock-and-fiberstick",
   "source_type": "pdf",
   "source_title": "Knotless Bankart Repair (Labral SwiveLock + FiberStick)",
@@ -9,6 +10,17 @@
   "page_count": 6,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Shoulder",
+  "product_family": "Instability",
+  "product_name": "Bankart Repair",
+  "category": "technique_guide",
+  "technique": [
+    "knotless",
+    "instability"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 0,
   "chunk_count": 2,
   "word_count": 800,

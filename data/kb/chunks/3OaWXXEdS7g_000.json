@@ -1,5 +1,6 @@
 {
   "chunk_id": "3OaWXXEdS7g_000",
+  "company": "Arthrex",
   "source_id": "3OaWXXEdS7g",
   "source_type": "youtube",
   "source_title": "Rotator Cuff Repair with Arthrex® SpeedBridge™",
@@ -9,6 +10,18 @@
   "page_count": null,
   "language": "en",
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "SpeedBridge",
+  "product_name": "SpeedBridge",
+  "category": "technique_guide",
+  "technique": [
+    "double_row",
+    "knotless",
+    "transosseous_equivalent"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 0,
   "chunk_count": 1,
   "word_count": 254,

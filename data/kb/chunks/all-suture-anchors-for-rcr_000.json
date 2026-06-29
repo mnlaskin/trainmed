@@ -1,5 +1,6 @@
 {
   "chunk_id": "all-suture-anchors-for-rcr_000",
+  "company": "Arthrex",
   "source_id": "all-suture-anchors-for-rcr",
   "source_type": "pdf",
   "source_title": "All-Suture Anchors for RCR — Scientific Update (biomechanics)",
@@ -9,6 +10,19 @@
   "page_count": 5,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "SpeedBridge",
+  "product_name": "SpeedBridge",
+  "category": "clinical_study",
+  "technique": [
+    "double_row",
+    "knotless",
+    "transosseous_equivalent",
+    "all_suture"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 0,
   "chunk_count": 2,
   "word_count": 800,

@@ -7,7 +7,14 @@ backend selection, prompt, and answer generation.
 Backend-flexible and auto-selecting (see resolve_embed_backend / resolve_gen_backend):
   embeddings: openai -> voyage -> sentence-transformers -> tfidf
   generation: anthropic -> openai -> extractive
-Neural embeddings are cached to data/kb/embeddings_<backend>_<model>.npz.
+Neural embeddings are cached to data/kb/embeddings_<namespace>_<backend>_<model>.npz,
+namespaced per company so each company's corpus has its own cache.
+
+Multi-company: every chunk carries a `company` field and corpora are kept strictly
+separate. load_chunks(company) is the retrieval firewall — it returns ONLY that
+company's chunks — so a per-company retriever can never surface a competitor's text.
+The cross-company `competitive_insights` collection is loaded separately and only
+used for explicit comparison / competitive roleplay.
 """
 
 from __future__ import annotations
@@ -16,14 +23,23 @@ import hashlib
 import json
 import os
 import re
+import sys
 from pathlib import Path
 
 import numpy as np
 
+from . import companies as co
+
+
+def _warn(msg: str) -> None:
+    """Loud, fail-closed warning to stderr (used by the contamination guards)."""
+    print(f"[trainmed.rag] WARNING: {msg}", file=sys.stderr, flush=True)
+
 # rag.py lives at src/trainmed/rag.py -> repo root is parents[2].
 ROOT = Path(__file__).resolve().parents[2]
-CHUNKS_DIR = ROOT / "data" / "kb" / "chunks"
 KB_DIR = ROOT / "data" / "kb"
+CHUNKS_DIR = KB_DIR / "chunks"  # legacy flat dir (Arthrex); kept for backward-compat
+COMPETITIVE_DIR = KB_DIR / "competitive_insights"  # cross-company collection (kept separate)
 
 DEFAULT_QUESTIONS = [
     "What is the Arthrex SpeedBridge and which anchors and sutures does it use to repair a rotator cuff tear?",
@@ -58,14 +74,138 @@ _PHRASE_NORMALIZE = [
     (re.compile(r"\binternal\s*brace\b"), "internalbrace"),
     (re.compile(r"\bcuff\s*men[d]?\b"), "cuffmend"),
     (re.compile(r"\barrix\b"), "arthrex"),
+    # Competitor product names (Stryker / Smith & Nephew) so TF-IDF matches them too.
+    (re.compile(r"\breel\s*x\b"), "reelx"),
+    (re.compile(r"\balpha\s*vent\b"), "alphavent"),
+    (re.compile(r"\bheali\s*coil\b"), "healicoil"),
+    (re.compile(r"\bq[-\s]*fix\b"), "qfix"),
+    (re.compile(r"\bfoot\s*print\b"), "footprint"),
+    (re.compile(r"\btwin\s*fix\b"), "twinfix"),
 ]
 
 
 # ── chunk loading + tokenization ──────────────────────────────────────────────
+#
+# The contamination firewall lives here: company corpora are physically + logically
+# separate. Legacy Arthrex chunks stay in data/kb/chunks/ (flat). New companies write
+# to data/kb/<Company>/chunks/. The cross-company competitive_insights collection is
+# NEVER returned by load_chunks() — only by load_competitive_insights().
 
 
-def load_chunks() -> list[dict]:
-    return [json.loads(f.read_text(encoding="utf-8")) for f in sorted(CHUNKS_DIR.glob("*.json"))]
+def _company_chunk_dirs() -> list[tuple[str | None, Path]]:
+    """(company_hint, dir) for every directory that may hold company chunks.
+
+    company_hint is the company inferred from the path (None for the legacy flat
+    dir, where the company comes from the chunk's own `company` field instead).
+    """
+    dirs: list[tuple[str | None, Path]] = []
+    if CHUNKS_DIR.exists():
+        dirs.append((None, CHUNKS_DIR))  # legacy flat = Arthrex by field/default
+    for child in sorted(KB_DIR.glob("*")):
+        if not child.is_dir() or child.name in ("chunks", "competitive_insights"):
+            continue
+        sub = child / "chunks"
+        if sub.exists():
+            dirs.append((co.canonical_company(child.name), sub))
+    return dirs
+
+
+def _resolve_company(chunk: dict, path_hint: str | None, src: Path) -> str | None:
+    """Resolve a chunk's company FAIL-CLOSED. Returns None (= skip the chunk) on any
+    ambiguity so a mislabeled file can never silently land in the wrong corpus.
+
+      - per-company dir (path_hint set): the directory is authoritative. A chunk
+        whose own `company` disagrees is dropped + warned (contamination guard).
+      - legacy flat dir (path_hint None): company comes from the field, defaulting to
+        Arthrex (the only company that ever lived there). A non-Arthrex field here is
+        a misfiled chunk and is dropped + warned.
+    """
+    field = chunk.get("company")
+    if path_hint is not None:  # data/kb/<Company>/chunks/
+        if field and co.canonical_company(field) != path_hint:
+            _warn(f"dropping {src.name}: company={field!r} but it lives in {path_hint}/chunks/")
+            return None
+        return path_hint
+    # legacy flat dir = Arthrex
+    if field and co.canonical_company(field) != co.DEFAULT_COMPANY:
+        _warn(f"dropping {src.name}: company={field!r} found in legacy flat dir (expected {co.DEFAULT_COMPANY})")
+        return None
+    return co.DEFAULT_COMPANY
+
+
+def load_chunks(company: str | None = None) -> list[dict]:
+    """Load KB chunks, optionally restricted to one company.
+
+    When `company` is given, ONLY that company's chunks are returned — this is the
+    retrieval firewall. `company=None` returns every company's chunks (used by tools
+    that report KB-wide stats; never used to build a single answer's retriever).
+    Every returned chunk is guaranteed to have a correct `company` field; ambiguous
+    files are skipped, never misrouted.
+    """
+    want = co.canonical_company(company) if company else None
+    out: list[dict] = []
+    for hint, d in _company_chunk_dirs():
+        for f in sorted(d.glob("*.json")):
+            try:
+                c = json.loads(f.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                _warn(f"skipping unreadable chunk file {f}")
+                continue
+            resolved = _resolve_company(c, hint, f)
+            if resolved is None:
+                continue
+            c["company"] = resolved
+            if want is None or resolved == want:
+                out.append(c)
+    return out
+
+
+def enforce_company(chunks: list[dict], company: str) -> list[dict]:
+    """Belt-and-suspenders firewall: drop (and warn on) any chunk whose company does
+    not match. Call this on retrieved chunks before they enter a prompt, citation,
+    roleplay grounding, or scorer — so even a wrong-retriever bug fails closed."""
+    want = co.canonical_company(company)
+    safe = []
+    for c in chunks:
+        if c.get("company") == want:
+            safe.append(c)
+        else:
+            _warn(f"contamination guard dropped chunk {c.get('chunk_id')!r} "
+                  f"(company={c.get('company')!r}) from a {want} response")
+    return safe
+
+
+def available_companies() -> list[str]:
+    """Distinct companies that actually have (valid) chunks on disk, sorted."""
+    seen: set[str] = set()
+    for hint, d in _company_chunk_dirs():
+        for f in d.glob("*.json"):
+            try:
+                c = json.loads(f.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                continue
+            comp = _resolve_company(c, hint, f)
+            if comp is not None:
+                seen.add(comp)
+    return sorted(seen)
+
+
+def load_competitive_insights() -> list[dict]:
+    """Load the cross-company competitive_insights collection (chunk-shaped dicts).
+
+    Deliberately separate from load_chunks(): these are curated comparison notes, used
+    only for explicit competitive comparison / competitive roleplay, and are never
+    blended into a single-company product answer.
+    """
+    if not COMPETITIVE_DIR.exists():
+        return []
+    out: list[dict] = []
+    for f in sorted(COMPETITIVE_DIR.glob("*.json")):
+        try:
+            out.append(json.loads(f.read_text(encoding="utf-8")))
+        except (json.JSONDecodeError, OSError):
+            continue
+    return out
 
 
 def _normalize_phrases(text: str) -> str:
@@ -80,9 +220,16 @@ def _tokenize(text: str) -> list[str]:
     return [t for t in toks if len(t) > 1 and t not in _STOPWORDS]
 
 
-def _fingerprint(chunks: list[dict]) -> str:
+def _fingerprint(chunks: list[dict], namespace: str = "") -> str:
+    """Hash the corpus. The namespace (company/collection) and each chunk's company
+    are hashed FIRST so a cache file can never be reused across corpora even if two
+    chunks share chunk_id+text — the cross-company cache-collision hole is closed."""
     h = hashlib.sha256()
+    h.update(namespace.encode("utf-8"))
+    h.update(b"\x00")
     for c in chunks:
+        h.update((c.get("company") or "").encode("utf-8"))
+        h.update(b"\x00")
         h.update(c["chunk_id"].encode("utf-8"))
         h.update(b"\x00")
         h.update(c["text"].encode("utf-8"))
@@ -93,11 +240,23 @@ def _fingerprint(chunks: list[dict]) -> str:
 # ── retrievers ────────────────────────────────────────────────────────────────
 
 
-class TfidfRetriever:
+class _RetrieverBase:
+    """Retrievers OWN their chunk list and return chunk dicts directly via retrieve(),
+    so no caller ever indexes an external global list (the positional-index coupling
+    that was the single largest silent cross-company leak vector)."""
+
+    chunks: list[dict] = []
+
+    def retrieve(self, query: str, k: int) -> list[tuple[dict, float]]:
+        return [(self.chunks[i], s) for i, s in self.search(query, k)]
+
+
+class TfidfRetriever(_RetrieverBase):
     name = "tfidf (pure-python)"
     cached = False
 
     def __init__(self, chunks: list[dict]):
+        self.chunks = chunks
         docs = [c["text"] for c in chunks]
         tokenized = [_tokenize(d) for d in docs]
         vocab: dict[str, int] = {}
@@ -130,11 +289,19 @@ class TfidfRetriever:
         return [(int(i), float(sims[i])) for i in order]
 
 
-class EmbeddingRetriever:
+class EmbeddingRetriever(_RetrieverBase):
     """Neural embeddings (OpenAI / Voyage / sentence-transformers) + cosine, with a
     persistent on-disk cache keyed by a fingerprint of the chunk texts."""
 
-    def __init__(self, chunks: list[dict], backend: str, use_cache: bool = True, model: str | None = None):
+    def __init__(
+        self,
+        chunks: list[dict],
+        backend: str,
+        use_cache: bool = True,
+        model: str | None = None,
+        namespace: str = "all",
+    ):
+        self.chunks = chunks
         self.backend = backend
         if backend == "openai":
             self.model = model or EMBED_MODEL_OPENAI
@@ -149,20 +316,25 @@ class EmbeddingRetriever:
             raise ValueError(backend)
         self.name = f"{backend}:{self.model}"
 
-        fp = _fingerprint(chunks)
-        slug = re.sub(r"[^a-z0-9]+", "-", f"{backend}_{self.model}".lower()).strip("-")
+        # Namespace the cache by corpus (company / collection) so per-company
+        # retrievers don't share — and silently thrash — one embeddings_<backend>.npz.
+        # The namespace is folded into BOTH the filename AND the fingerprint+contents,
+        # so a cache built for one company can never be loaded for another (fail-closed).
+        self.namespace = namespace
+        fp = _fingerprint(chunks, namespace)
+        slug = re.sub(r"[^a-z0-9]+", "-", f"{namespace}_{backend}_{self.model}".lower()).strip("-")
         cache_path = KB_DIR / f"embeddings_{slug}.npz"
         self.cached = False
         if use_cache and cache_path.exists():
             data = np.load(cache_path, allow_pickle=True)
-            if str(data["fingerprint"]) == fp:
+            if str(data["fingerprint"]) == fp and str(data.get("namespace", "")) == namespace:
                 self.matrix = data["matrix"]
                 self.cached = True
         if not self.cached:
             mat = self._embed([c["text"] for c in chunks], is_query=False)
             self.matrix = self._normalize(np.asarray(mat, dtype=float))
             KB_DIR.mkdir(parents=True, exist_ok=True)
-            np.savez(cache_path, matrix=self.matrix, fingerprint=fp)
+            np.savez(cache_path, matrix=self.matrix, fingerprint=fp, namespace=namespace)
 
     @staticmethod
     def _normalize(m: np.ndarray) -> np.ndarray:
@@ -237,33 +409,55 @@ def resolve_gen_backend(requested: str) -> tuple[str, str]:
     return "extractive", "no LLM API key — set ANTHROPIC_API_KEY (or OPENAI_API_KEY) for generated answers"
 
 
-def build_retriever(chunks: list[dict], backend: str, use_cache: bool = True, model: str | None = None):
+def build_retriever(
+    chunks: list[dict],
+    backend: str,
+    use_cache: bool = True,
+    model: str | None = None,
+    namespace: str = "all",
+):
     if backend == "tfidf":
         return TfidfRetriever(chunks)
-    return EmbeddingRetriever(chunks, backend, use_cache=use_cache, model=model)
+    return EmbeddingRetriever(chunks, backend, use_cache=use_cache, model=model, namespace=namespace)
 
 
 # ── generation ────────────────────────────────────────────────────────────────
 
-SYSTEM_PROMPT = (
-    "You are a senior Arthrex clinical sales specialist talking a surgeon through ROTATOR CUFF "
-    "and SHOULDER REPAIR at a case review. Confident, concise, practical — a rep who has been in "
-    "the OR a thousand times. Answer only from the numbered source excerpts; cite every claim "
-    "inline with [n].\n\n"
-    "SCOPE: Stay strictly on rotator cuff / shoulder repair. Do NOT bring up unrelated procedures "
-    "(ankle, knee, biceps tenodesis, labral/instability, arthroplasty, etc.) unless the question "
-    "explicitly asks about them. If the excerpts don't cover what's asked, say so plainly.\n\n"
-    "SPECS — zero hallucination: give exact figures (drill/punch/reamer diameters, anchor sizes, "
-    "FiberTape/suture specs) ONLY when they appear verbatim in the sources, each cited [n]. If a "
-    "spec isn't in the excerpts, tell the surgeon to confirm it in the technique guide — never "
-    "guess a number.\n\n"
-    "FORMAT — keep it short and complete:\n"
-    "- Bottom line first, in one sentence.\n"
-    "- Then the essentials only: numbered steps for a procedure, or 2-4 tight bullets otherwise.\n"
-    "- Add one practical 'OR pearl' only when a source supports it.\n"
-    "- **Bold** key implants, instruments, and specs; use exact Arthrex product names.\n"
-    "- No preamble, no restating the question, no marketing adjectives."
-)
+
+def system_prompt(company: str = co.DEFAULT_COMPANY) -> str:
+    """The product-knowledge chatbot's system prompt, parameterized by company.
+
+    Identical guidance for every brand — only the company name and the product-name
+    instruction change — so accuracy/spec-discipline never depends on which company
+    is selected.
+    """
+    name = co.display_name(company)
+    return (
+        f"You are a senior {name} clinical sales specialist talking a surgeon through ROTATOR CUFF "
+        "and SHOULDER REPAIR at a case review. Confident, concise, practical — a rep who has been in "
+        "the OR a thousand times. Answer only from the numbered source excerpts; cite every claim "
+        "inline with [n].\n\n"
+        f"COMPANY SCOPE: You represent {name}. Every source excerpt below is {name} material — speak "
+        f"only to {name} products. Do NOT name or compare competitor products unless a source excerpt "
+        "explicitly does.\n\n"
+        "SCOPE: Stay strictly on rotator cuff / shoulder repair. Do NOT bring up unrelated procedures "
+        "(ankle, knee, biceps tenodesis, labral/instability, arthroplasty, etc.) unless the question "
+        "explicitly asks about them. If the excerpts don't cover what's asked, say so plainly.\n\n"
+        "SPECS — zero hallucination: give exact figures (drill/punch/reamer diameters, anchor sizes, "
+        "suture/tape specs) ONLY when they appear verbatim in the sources, each cited [n]. If a "
+        "spec isn't in the excerpts, tell the surgeon to confirm it in the technique guide — never "
+        "guess a number.\n\n"
+        "FORMAT — keep it short and complete:\n"
+        "- Bottom line first, in one sentence.\n"
+        "- Then the essentials only: numbered steps for a procedure, or 2-4 tight bullets otherwise.\n"
+        "- Add one practical 'OR pearl' only when a source supports it.\n"
+        f"- **Bold** key implants, instruments, and specs; use exact {name} product names.\n"
+        "- No preamble, no restating the question, no marketing adjectives."
+    )
+
+
+# Backward-compatible module constant (Arthrex) for any caller importing SYSTEM_PROMPT.
+SYSTEM_PROMPT = system_prompt(co.DEFAULT_COMPANY)
 
 
 def _loc(c: dict) -> str:
@@ -289,8 +483,12 @@ def _user_prompt(question: str, retrieved: list[dict]) -> str:
     return f"Source excerpts:\n{_context_block(retrieved)}\n\nQuestion: {question}"
 
 
-def generate_answer(question: str, retrieved: list[dict], backend: str, model: str | None = None) -> str:
+def generate_answer(
+    question: str, retrieved: list[dict], backend: str, model: str | None = None,
+    company: str = co.DEFAULT_COMPANY,
+) -> str:
     user = _user_prompt(question, retrieved)
+    sys_prompt = system_prompt(company)
     if backend == "anthropic":
         import anthropic
 
@@ -298,7 +496,7 @@ def generate_answer(question: str, retrieved: list[dict], backend: str, model: s
         msg = client.messages.create(
             model=model or GEN_MODEL_ANTHROPIC,
             max_tokens=700,
-            system=SYSTEM_PROMPT,
+            system=sys_prompt,
             messages=[{"role": "user", "content": user}],
         )
         return "".join(b.text for b in msg.content if b.type == "text").strip()
@@ -309,7 +507,7 @@ def generate_answer(question: str, retrieved: list[dict], backend: str, model: s
         resp = client.chat.completions.create(
             model=model or GEN_MODEL_OPENAI,
             messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "system", "content": sys_prompt},
                 {"role": "user", "content": user},
             ],
             max_tokens=700,
@@ -318,9 +516,13 @@ def generate_answer(question: str, retrieved: list[dict], backend: str, model: s
     return _extractive_answer(retrieved)
 
 
-def stream_answer(question: str, retrieved: list[dict], backend: str, model: str | None = None):
+def stream_answer(
+    question: str, retrieved: list[dict], backend: str, model: str | None = None,
+    company: str = co.DEFAULT_COMPANY,
+):
     """Yield answer text deltas. Mirrors generate_answer but streams (for the web UI)."""
     user = _user_prompt(question, retrieved)
+    sys_prompt = system_prompt(company)
     if backend == "anthropic":
         import anthropic
 
@@ -328,7 +530,7 @@ def stream_answer(question: str, retrieved: list[dict], backend: str, model: str
         with client.messages.stream(
             model=model or GEN_MODEL_ANTHROPIC,
             max_tokens=700,
-            system=SYSTEM_PROMPT,
+            system=sys_prompt,
             messages=[{"role": "user", "content": user}],
         ) as stream:
             for text in stream.text_stream:
@@ -341,7 +543,7 @@ def stream_answer(question: str, retrieved: list[dict], backend: str, model: str
         resp = client.chat.completions.create(
             model=model or GEN_MODEL_OPENAI,
             messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "system", "content": sys_prompt},
                 {"role": "user", "content": user},
             ],
             max_tokens=700,
@@ -421,6 +623,14 @@ DIFFICULTY = {
     "hard": "You are demanding and time-pressured. Challenge every claim, ask for data and exact specs, and stay skeptical until the rep clearly earns it.",
 }
 
+# Rep-facing copy for the difficulty selector (the DIFFICULTY values above are the
+# surgeon's in-character instructions; these are what the trainee reads).
+DIFFICULTY_META = {
+    "easy":   {"label": "Easy",   "blurb": "Receptive and curious. Accepts solid answers readily — a good warm-up."},
+    "medium": {"label": "Medium", "blurb": "Busy and skeptical. Expects specifics and pushes back on vague claims."},
+    "hard":   {"label": "Hard",   "blurb": "Demanding and time-pressured. Challenges every claim and wants data."},
+}
+
 SCENARIOS = [
     {
         "id": "skeptical_surgeon",
@@ -433,6 +643,11 @@ SCENARIOS = [
         "opening": "Look, I do a transosseous-equivalent double-row already and my patients do great. "
         "My retear rate is fine. So before you open a tray — why would I change anything about a "
         "technique that's working for me?",
+        "prospect": {
+            "name": "Dr. Marcus Reyes", "title": "Sports Medicine Orthopedic Surgeon",
+            "setting": "Private practice + hospital-affiliated ASC", "volume": "~300 rotator cuff repairs / yr",
+            "current": "Transosseous-equivalent double-row", "style": "Pleasant but guarded; pitched constantly",
+        },
     },
     {
         "id": "cost_objection",
@@ -445,6 +660,11 @@ SCENARIOS = [
         "opening": "I priced this out. Your SpeedBridge construct — two medial, two lateral, all that "
         "FiberTape — runs me more in implants per case than what I'm using now. Give me the business "
         "case, not the brochure.",
+        "prospect": {
+            "name": "Dr. Adaeze Okafor", "title": "Orthopedic Surgeon · Value-Analysis Committee",
+            "setting": "Mid-size community hospital", "volume": "~220 rotator cuff repairs / yr",
+            "current": "Cost-sensitive knotless double-row", "style": "Efficient, ROI-driven; defends every SKU",
+        },
     },
     {
         "id": "new_product_launch",
@@ -457,6 +677,11 @@ SCENARIOS = [
         "opening": "I keep hearing about the all-suture version — FiberTak SpeedBridge. I'm already "
         "happy with my SwiveLock medial row. What does going to soft anchors actually get me, and is "
         "it going to add a bunch of steps to my case?",
+        "prospect": {
+            "name": "Dr. Erika Lindqvist", "title": "Shoulder & Elbow Surgeon",
+            "setting": "Academic-affiliated sports medicine", "volume": "~280 rotator cuff repairs / yr",
+            "current": "Classic SpeedBridge (SwiveLock medial row)", "style": "Early adopter; pragmatic about added steps",
+        },
     },
     {
         "id": "technique_walkthrough",
@@ -469,6 +694,11 @@ SCENARIOS = [
         "opening": "Okay, I've got the tray open and the footprint's prepped. Walk me through it — "
         "medial row first, right? And tell me where people screw this up the first time, because I "
         "don't want to learn that the hard way mid-case.",
+        "prospect": {
+            "name": "Dr. Lily Tran", "title": "Orthopedic Surgeon (Arthroscopy)",
+            "setting": "Regional orthopedic group", "volume": "~120 rotator cuff repairs / yr",
+            "current": "Single-row; first knotless case", "style": "Competent but a little tense in front of her team",
+        },
     },
     {
         "id": "clinical_data_grill",
@@ -481,10 +711,140 @@ SCENARIOS = [
         "opening": "I'll save us both time: I don't care about brochures, I care about the literature. "
         "You're telling me knotless self-reinforcement is real and clinically meaningful — cite me the "
         "actual studies, and don't quote me a cadaver study as if it's a patient outcome.",
+        "prospect": {
+            "name": "Dr. Sven Halvorsen", "title": "Academic Shoulder Surgeon",
+            "setting": "University medical center", "volume": "~200 repairs / yr + active research",
+            "current": "Multiple systems; publishes outcomes", "style": "Relentless; holds reps to peer-review rigor",
+        },
+    },
+    {
+        "id": "competitor_switch",
+        "label": "Competitive switch — surgeon on a rival system",
+        "competitive": True,
+        "persona": "Dr. Bauer, a surgeon who currently uses a competitor's knotless double-row system "
+        "(Stryker / Smith & Nephew) and is happy enough with it. Loyal to his rep and skeptical that a "
+        "switch is worth the disruption to his OR routine.",
+        "goal": "Win a head-to-head: position the Arthrex construct against the competitor's on the "
+        "dimensions that matter (fixation, footprint compression, evidence, OR efficiency) — accurately, "
+        "without trashing the competitor — and earn one side-by-side trial case.",
+        "opening": "Honest with you — I'm already doing knotless double-row with another company's "
+        "anchors and I'm not unhappy. Why is yours actually better, and don't just tell me it's 'the "
+        "gold standard'?",
+        "prospect": {
+            "name": "Dr. Klaus Bauer", "title": "Sports Medicine Orthopedic Surgeon",
+            "setting": "High-volume orthopedic specialty hospital", "volume": "~340 rotator cuff repairs / yr",
+            "current": "Competitor knotless double-row system", "style": "Loyal to his current rep; switch-averse",
+        },
     },
 ]
 
 SCENARIO_BY_ID = {s["id"]: s for s in SCENARIOS}
+ARTHREX_SCENARIOS = SCENARIOS  # alias: the default company's curated scenario set
+
+
+def _generic_scenarios(company: str) -> list[dict]:
+    """Company-aware scenario set for brands without a hand-authored one.
+
+    Product-agnostic on purpose — the surgeon's technical facts come from that
+    company's KB at runtime (and competitive_insights for the competitive scenario),
+    so we never bake in a guessed competitor spec.
+    """
+    name = co.display_name(company)
+    return [
+        {
+            "id": "skeptical_surgeon",
+            "label": "Skeptical surgeon — why switch?",
+            "persona": f"Dr. Reyes, a high-volume sports-medicine surgeon who already does a "
+            f"transosseous-equivalent double-row and is satisfied with his results. Guarded — he's been "
+            f"pitched a hundred times and assumes 'new' means marketing, not medicine.",
+            "goal": f"Reframe from 'rip out what works' to a {name} knotless double-row that protects his "
+            f"outcomes, and earn one trial case.",
+            "opening": "I do a transosseous-equivalent double-row already and my patients do great. So "
+            "before you open a tray — why would I change anything that's working for me?",
+            "prospect": {
+                "name": "Dr. Marcus Reyes", "title": "Sports Medicine Orthopedic Surgeon",
+                "setting": "Private practice + hospital-affiliated ASC", "volume": "~300 rotator cuff repairs / yr",
+                "current": "Transosseous-equivalent double-row", "style": "Pleasant but guarded; pitched constantly",
+            },
+        },
+        {
+            "id": "cost_objection",
+            "label": "Cost / value-analysis objection",
+            "persona": f"Dr. Okafor, an efficient surgeon on the hospital value-analysis committee who has "
+            f"to defend every SKU to administration and won't accept 'it's better' without a total-cost argument.",
+            "goal": "Shift from implant unit price to total cost per case (OR time, reliability, revision avoidance).",
+            "opening": f"I priced out your {name} construct and it runs me more in implants per case than "
+            f"what I use now. Give me the business case, not the brochure.",
+            "prospect": {
+                "name": "Dr. Adaeze Okafor", "title": "Orthopedic Surgeon · Value-Analysis Committee",
+                "setting": "Mid-size community hospital", "volume": "~220 rotator cuff repairs / yr",
+                "current": "Cost-sensitive knotless double-row", "style": "Efficient, ROI-driven; defends every SKU",
+            },
+        },
+        {
+            "id": "technique_walkthrough",
+            "label": "First-time technique walkthrough",
+            "persona": f"Dr. Tran, a competent arthroscopist doing her first case on the {name} knotless "
+            f"construct with you at her shoulder — confident in anatomy but new to this sequence.",
+            "goal": "Guide her cleanly medial-then-lateral, pre-empting first-timer errors, to a secure construct.",
+            "opening": "Okay, tray's open and the footprint's prepped. Walk me through it — medial row first, "
+            "right? And tell me where people screw this up the first time.",
+            "prospect": {
+                "name": "Dr. Lily Tran", "title": "Orthopedic Surgeon (Arthroscopy)",
+                "setting": "Regional orthopedic group", "volume": "~120 rotator cuff repairs / yr",
+                "current": f"Single-row; first {name} knotless case", "style": "Competent but a little tense in front of her team",
+            },
+        },
+        {
+            "id": "clinical_data_grill",
+            "label": "Clinical-data grill (hard)",
+            "persona": f"Dr. Halvorsen, an academic shoulder surgeon who publishes and reviews for journals "
+            f"and will catch a rep who blurs cadaveric data with clinical outcomes.",
+            "goal": f"Defend the {name} knotless double-row evidence base accurately — right study for each "
+            f"claim, honest about biomechanical vs clinical.",
+            "opening": "I care about the literature, not brochures. Cite me the actual studies behind your "
+            "construct, and don't quote a cadaver study as if it's a patient outcome.",
+            "prospect": {
+                "name": "Dr. Sven Halvorsen", "title": "Academic Shoulder Surgeon",
+                "setting": "University medical center", "volume": "~200 repairs / yr + active research",
+                "current": "Multiple systems; publishes outcomes", "style": "Relentless; holds reps to peer-review rigor",
+            },
+        },
+        {
+            "id": "competitor_switch",
+            "label": "Competitive switch — surgeon on a rival system",
+            "competitive": True,
+            "persona": f"Dr. Bauer, a surgeon who currently uses a competitor's knotless double-row system "
+            f"(e.g. Arthrex SpeedBridge) and is happy enough with it. Skeptical a switch to {name} is worth "
+            f"disrupting his OR routine.",
+            "goal": f"Win a head-to-head: position the {name} construct against the competitor's on fixation, "
+            f"footprint compression, evidence, and OR efficiency — accurately, without trashing the rival — "
+            f"and earn one side-by-side trial case.",
+            "opening": f"Honest with you — I'm already doing knotless double-row with another company's "
+            f"anchors and I'm not unhappy. Why is {name} actually better?",
+            "prospect": {
+                "name": "Dr. Klaus Bauer", "title": "Sports Medicine Orthopedic Surgeon",
+                "setting": "High-volume orthopedic specialty hospital", "volume": "~340 rotator cuff repairs / yr",
+                "current": "Competitor knotless double-row system", "style": "Loyal to his current rep; switch-averse",
+            },
+        },
+    ]
+
+
+SCENARIOS_BY_COMPANY: dict[str, list[dict]] = {
+    co.ARTHREX: ARTHREX_SCENARIOS,
+    co.STRYKER: _generic_scenarios(co.STRYKER),
+    co.SMITH_NEPHEW: _generic_scenarios(co.SMITH_NEPHEW),
+}
+
+
+def scenarios_for(company: str = co.DEFAULT_COMPANY) -> list[dict]:
+    return SCENARIOS_BY_COMPANY.get(co.canonical_company(company), ARTHREX_SCENARIOS)
+
+
+def scenario_by_id(scenario_id: str, company: str = co.DEFAULT_COMPANY) -> dict:
+    scens = scenarios_for(company)
+    return next((s for s in scens if s["id"] == scenario_id), scens[0])
 
 # Heuristic-scorer vocab (lowercased; matched after _normalize_phrases).
 _PRODUCT_TERMS = {
@@ -511,15 +871,40 @@ _HEDGES = [
     "i think", "i guess", "maybe", "probably", "sort of", "kind of", "not sure",
     "i believe", "might be", "perhaps", "um", "uh ", "i feel like",
 ]
+# Discovery — questions that surface the surgeon's world before pitching.
+_DISCOVERY_PHRASES = [
+    "how many", "how often", "what are you", "what do you", "what's your", "whats your",
+    "which", "currently using", "right now", "today", "walk me through", "tell me",
+    "in your hands", "your patients", "your cases", "your volume", "your routine",
+    "what matters", "what would", "how do you", "where do you", "what's driving",
+    "biggest challenge", "pain point", "what's important", "help me understand",
+]
+# Closing — advancing toward a concrete commitment.
+_CLOSE_PHRASES = [
+    "trial case", "one case", "next case", "side-by-side", "side by side", "in-service",
+    "in service", "evaluation", "evaluate", "would you be open", "would you be willing",
+    "can we", "let's", "lets ", "set up", "schedule", "bring in a tray", "bring a tray",
+    "try it", "give it a try", "follow up", "follow-up", "demo", "book a", "put it on",
+    "do a case together", "watch a case", "next step",
+]
 
 
-def roleplay_system(scenario: dict, role: str, difficulty: str, context: str) -> str:
+def roleplay_system(
+    scenario: dict, role: str, difficulty: str, context: str, company: str = co.DEFAULT_COMPANY
+) -> str:
     persona = scenario.get("persona", "a skeptical orthopedic surgeon")
     goal = scenario.get("goal", "")
     r = ROLES.get(role, ROLES["sales_rep"])
     d = DIFFICULTY.get(difficulty, DIFFICULTY["medium"])
+    name = co.display_name(company)
+    competitive = scenario.get("competitive")
+    excerpt_label = (
+        f"{name} reference excerpts + cross-company competitive notes"
+        if competitive
+        else f"{name} reference excerpts"
+    )
     return (
-        f"You are role-playing as {persona}, speaking out loud to a TrainMed user who is a {r} "
+        f"You are role-playing as {persona}, speaking out loud to a TrainMed user who is a {name} {r} "
         f"practicing this sales/clinical conversation. You already opened with: "
         f"\"{scenario.get('opening', '')}\"\n\n"
         f"SPOKEN DIALOGUE ONLY — your entire response is read aloud by a text-to-speech voice, so "
@@ -531,12 +916,12 @@ def roleplay_system(scenario: dict, role: str, difficulty: str, context: str) ->
         f"raise realistic objections. Only be convinced by specific, accurate, well-supported answers. "
         f"{d}\n\n"
         f"Keep replies SHORT and conversational — 1 to 3 sentences, like real OR/booth talk. When you "
-        f"make or challenge a technical claim, rely on the Arthrex reference excerpts below so your "
-        f"facts are correct; do not invent specifications. Do NOT break character, do NOT coach the "
-        f"rep, do NOT hand them the answer, and never use [n] citation markers — you are the customer, "
-        f"not a document.\n\n"
+        f"make or challenge a technical claim, rely on the {excerpt_label} below so your facts are "
+        f"correct; do not invent specifications. Do NOT break character, do NOT coach the rep, do NOT "
+        f"hand them the answer, and never use [n] citation markers — you are the customer, not a "
+        f"document.\n\n"
         f"(The rep's objective, for your awareness: {goal})\n\n"
-        f"Arthrex reference excerpts (for your technical accuracy only):\n{context}"
+        f"{excerpt_label} (for your technical accuracy only):\n{context}"
     )
 
 
@@ -558,9 +943,10 @@ def _history_to_messages(history: list[dict]) -> list[dict]:
     return msgs
 
 
-def stream_roleplay(scenario, role, difficulty, history, message, retrieved, backend, model=None):
+def stream_roleplay(scenario, role, difficulty, history, message, retrieved, backend, model=None,
+                    company=co.DEFAULT_COMPANY):
     """Stream the AI surgeon's reply to the rep's latest message."""
-    system = roleplay_system(scenario, role, difficulty, _context_block(retrieved))
+    system = roleplay_system(scenario, role, difficulty, _context_block(retrieved), company)
     convo = _history_to_messages(history)
     convo.append({"role": "user", "content": message})
 
@@ -603,35 +989,52 @@ def _extractive_roleplay(scenario: dict, retrieved: list[dict]) -> str:
 
 # ── scoring ───────────────────────────────────────────────────────────────────
 
-SCORE_DIMENSIONS = ["technique", "product_knowledge", "objection_handling", "confidence", "completeness"]
+SCORE_DIMENSIONS = ["rapport", "discovery", "objection_handling", "product_knowledge", "closing"]
 
-COACH_SYSTEM = (
-    "You are a tough but fair Arthrex sales-training coach. Score the REP's latest message in a "
-    "roleplay with a surgeon, using the Arthrex source excerpts as the ground truth of what is "
-    "accurate. Reward specific, correct, well-structured, confident answers; penalize vagueness, "
-    "wrong/unsupported specs, hedging, and dodging the objection. Respond with ONLY a JSON object, "
-    "no prose, of exactly this shape:\n"
-    '{"scores":{"technique":1-5,"product_knowledge":1-5,"objection_handling":1-5,'
-    '"confidence":1-5,"completeness":1-5},"feedback":"1-2 sentence critique","tips":["tip","tip"]}'
-)
+def coach_system(company: str = co.DEFAULT_COMPANY) -> str:
+    name = co.display_name(company)
+    return (
+        f"You are a tough but fair {name} medical-sales coach. Score the REP's latest message in a "
+        f"roleplay with a surgeon, using the {name} source excerpts as the ground truth of what is "
+        "accurate. Score these five dimensions, each 1-5:\n"
+        "- rapport: acknowledged the surgeon, built trust, stayed composed and respectful (not defensive).\n"
+        "- discovery: asked about the surgeon's current technique, case volume, priorities or pain points "
+        "instead of just pitching.\n"
+        "- objection_handling: directly addressed the surgeon's concern with concrete evidence or data "
+        "rather than dodging it.\n"
+        "- product_knowledge: named the correct products/specs, accurate and grounded in the excerpts "
+        "(penalize wrong or unsupported specs).\n"
+        "- closing: advanced the sale toward a concrete next step — a trial case, an in-service, or a "
+        "side-by-side evaluation.\n"
+        "Reward specific, correct, confident answers; penalize vagueness, wrong specs, hedging, dodging "
+        "the objection, and failing to ask for a next step. Respond with ONLY a JSON object, no prose, of "
+        "exactly this shape:\n"
+        '{"scores":{"rapport":1-5,"discovery":1-5,"objection_handling":1-5,"product_knowledge":1-5,'
+        '"closing":1-5},"feedback":"1-2 sentence critique","tips":["tip","tip"]}'
+    )
 
 
-def score_exchange(scenario, message, retrieved, backend, model=None) -> dict:
+# Backward-compatible module constant (Arthrex).
+COACH_SYSTEM = coach_system(co.DEFAULT_COMPANY)
+
+
+def score_exchange(scenario, message, retrieved, backend, model=None, company=co.DEFAULT_COMPANY) -> dict:
     """Score a rep message. LLM coach when a key is set; deterministic heuristic otherwise."""
     if backend in ("anthropic", "openai"):
-        card = _llm_score(scenario, message, retrieved, backend, model)
+        card = _llm_score(scenario, message, retrieved, backend, model, company)
         if card:
             card["method"] = backend
             return card
-    card = _heuristic_score(message)
+    card = _heuristic_score(message, company)
     card["method"] = "heuristic"
     return card
 
 
-def _llm_score(scenario, message, retrieved, backend, model):
+def _llm_score(scenario, message, retrieved, backend, model, company=co.DEFAULT_COMPANY):
+    name = co.display_name(company)
     user = (
         f"Scenario: {scenario.get('label')} — surgeon persona: {scenario.get('persona')}\n\n"
-        f"Arthrex source excerpts (ground truth):\n{_context_block(retrieved)}\n\n"
+        f"{name} source excerpts (ground truth):\n{_context_block(retrieved)}\n\n"
         f"REP's latest message to score:\n\"\"\"{message}\"\"\""
     )
     try:
@@ -641,7 +1044,7 @@ def _llm_score(scenario, message, retrieved, backend, model):
             client = anthropic.Anthropic()
             msg = client.messages.create(
                 model=model or GEN_MODEL_ANTHROPIC, max_tokens=400,
-                system=COACH_SYSTEM, messages=[{"role": "user", "content": user}],
+                system=coach_system(company), messages=[{"role": "user", "content": user}],
             )
             raw = "".join(b.text for b in msg.content if b.type == "text")
         else:
@@ -650,7 +1053,8 @@ def _llm_score(scenario, message, retrieved, backend, model):
             client = OpenAI()
             resp = client.chat.completions.create(
                 model=model or GEN_MODEL_OPENAI,
-                messages=[{"role": "system", "content": COACH_SYSTEM}, {"role": "user", "content": user}],
+                messages=[{"role": "system", "content": coach_system(company)},
+                          {"role": "user", "content": user}],
                 max_tokens=400,
             )
             raw = resp.choices[0].message.content
@@ -686,57 +1090,65 @@ def _band(n: int, thresholds=(1, 2, 3, 4)) -> int:
     return min(5, score)
 
 
-def _heuristic_score(message: str) -> dict:
+_PRODUCT_TIP = {
+    co.ARTHREX: "Name specific products and specs (e.g. 2.6 mm FiberTak, 4.75 mm SwiveLock, 1.7 mm FiberTape).",
+    co.STRYKER: "Name specific products and specs (e.g. ReelX STT, 2.3 mm Iconix all-suture, AlphaVent anchors).",
+    co.SMITH_NEPHEW: "Name specific products and specs (e.g. HEALICOIL PRO, Q-FIX all-suture, FOOTPRINT Ultra).",
+}
+
+
+def _heuristic_score(message: str, company: str = co.DEFAULT_COMPANY) -> dict:
     text = _normalize_phrases(message or "")
     toks = set(re.findall(r"[a-z0-9-]+", text))
 
-    n_prod = len(_PRODUCT_TERMS & toks)
-    n_tech = len(_TECH_TERMS & toks)
+    n_prod = len(co.product_terms(company) & toks)
     n_evid = len(_EVIDENCE_TERMS & toks)
     n_ack = sum(1 for p in _ACK_TERMS if p in text)
     n_hedge = sum(1 for h in _HEDGES if h in text)
+    n_q = message.count("?")
+    n_disc = sum(1 for p in _DISCOVERY_PHRASES if p in text)
+    n_close = sum(1 for p in _CLOSE_PHRASES if p in text)
     words = len(message.split())
     has_spec = bool(re.search(r"\b\d+(?:\.\d+)?\s*mm\b", message, re.I))
 
-    product_knowledge = _band(n_prod + (1 if has_spec else 0))
-    technique = _band(n_tech)
+    # rapport: acknowledge + composure. Reward empathy phrases and a steady tone;
+    # penalize a thin reply or one drowning in hedges.
+    rapport = max(1, min(5, 2 + n_ack + (1 if (words >= 12 and n_hedge == 0) else 0)
+                         - (1 if n_hedge >= 2 else 0) - (1 if words < 6 else 0)))
+    # discovery: questions + phrases that probe the surgeon's world.
+    discovery = _band(n_disc + n_q)
+    # objection_handling: acknowledge the concern, then bring evidence.
     objection_handling = _band(n_ack + n_evid)
-    confidence = max(1, min(5, 4 + (1 if (n_evid or has_spec) and n_hedge == 0 else 0) - n_hedge))
-    if words < 8:
-        completeness = 1
-    elif words < 18:
-        completeness = 2
-    elif words < 45:
-        completeness = 3
-    else:
-        completeness = 4
-    if product_knowledge >= 4 and technique >= 3 and (n_evid or has_spec):
-        completeness = min(5, completeness + 1)
+    # product_knowledge: correct products + concrete specs.
+    product_knowledge = _band(n_prod + (1 if has_spec else 0))
+    # closing: did the rep ask for a concrete next step? (sparse, so weight it heavily)
+    closing = 1 if n_close == 0 else min(5, 2 + 2 * n_close)
 
     scores = {
-        "technique": technique,
-        "product_knowledge": product_knowledge,
+        "rapport": rapport,
+        "discovery": discovery,
         "objection_handling": objection_handling,
-        "confidence": confidence,
-        "completeness": completeness,
+        "product_knowledge": product_knowledge,
+        "closing": closing,
     }
     tips = []
-    if product_knowledge < 3:
-        tips.append("Name specific products and specs (e.g. 2.6 mm FiberTak, 4.75 mm SwiveLock, 1.7 mm FiberTape).")
+    if rapport < 3:
+        tips.append("Open by acknowledging the surgeon and their experience before you pitch.")
+    if discovery < 3:
+        tips.append("Ask discovery questions — current technique, case volume, what they'd change — before presenting.")
     if objection_handling < 3:
         tips.append("Acknowledge the surgeon's concern, then counter with concrete evidence or data.")
-    if confidence < 4:
-        tips.append("Cut the hedging ('I think', 'maybe') — state your points directly.")
-    if completeness < 3:
-        tips.append("Go deeper: address the actual question and add a supporting detail or step.")
+    if product_knowledge < 3:
+        tips.append(_PRODUCT_TIP.get(company, _PRODUCT_TIP[co.DEFAULT_COMPANY]))
+    if closing < 3:
+        tips.append("Always close — ask for a single trial case, an in-service, or a side-by-side evaluation.")
     if not tips:
-        tips.append("Strong answer — close with a clear next step (a trial case or a follow-up).")
+        tips.append("Strong, complete rep turn — keep that acknowledge → evidence → next-step structure.")
 
     overall = round(sum(scores.values()) / len(scores), 1)
     quality = "strong" if overall >= 4 else "solid" if overall >= 3 else "needs work"
     feedback = (
         f"{quality.capitalize()} response ({overall}/5). "
-        f"Product specificity {product_knowledge}/5, objection handling {objection_handling}/5, "
-        f"confidence {confidence}/5."
+        f"Discovery {discovery}/5, objection handling {objection_handling}/5, closing {closing}/5."
     )
     return {"scores": scores, "overall": overall, "feedback": feedback, "tips": tips[:3]}

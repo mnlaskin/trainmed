@@ -1,0 +1,206 @@
+[
+  {
+    "topic": "Transosseous-equivalent (linked double-row) constructs",
+    "category": "Construct / repair technique",
+    "summary": "Transosseous-equivalent (TOE) repair, also called the 'SutureBridge' configuration, links a medial row of anchors to lateral anchors with bridging suture/tape to compress the tendon over the entire footprint. Cadaveric biomechanics show TOE provides greater pressurized footprint contact area and higher mean interface pressure than a non-bridged double-row, and demonstrates a 'self-reinforcement' effect under load. All three majors sell a branded TOE system; the differences are largely in anchor material, eyelet design, and suture/tape rather than in proven clinical superiority of one brand over another.",
+    "companies": [
+      "Arthrex",
+      "Stryker",
+      "Smith & Nephew"
+    ],
+    "arthrex_position": "SpeedBridge is Arthrex's flagship knotless transosseous-equivalent system: 4.75 mm vented BioComposite SwiveLock medial anchors preloaded with FiberTape loops bridged to lateral BioComposite SwiveLock C (4.75 mm) or self-punching SwiveLock SP (5.5 mm) anchors. SutureBridge is the knotted/knotless TOE variant. FiberTape (flat braided tape) is the defining differentiator Arthrex markets for footprint compression. The all-soft-anchor variant is the FiberTak SpeedBridge SP.",
+    "stryker_position": "Stryker offers linked double-row TOE constructs built on its rotator cuff platform using ReelX STT (PEEK, incremental suture-reeling 'patient-specific tissue tensioning') and the self-punching Omega knotless PEEK anchor. The 'Knotilus'/loop implant workflows pair these into a bridged double-row. Stryker's differentiator is the ReelX incremental tensioning dial rather than a fixed knotless seat.",
+    "smithnephew_position": "Smith & Nephew builds TOE constructs from the HEALICOIL family - HEALICOIL REGENESORB with MINITAPE on the medial row linked to HEALICOIL KNOTLESS lateral anchors (e.g., the 'ULTRALOCK' construct). The differentiator is the open-architecture coil anchor and REGENESORB biocomposite intended to promote bone ingrowth, plus optional REGENETEN bioinductive augmentation.",
+    "rep_talk_track": "An Arthrex rep would say SpeedBridge is the most established, highest-volume TOE system with FiberTape giving ~3x the contact area of a round suture and a streamlined 2-pass workflow. A Stryker rep would counter that ReelX STT's incremental reeling lets you dial in exact tissue tension intra-op rather than being locked into a fixed knotless seat. An S&N rep would argue their open-architecture HEALICOIL plus REGENESORB and optional REGENETEN augmentation is about biology and healing, not just mechanical fixation. Honestly, all three deliver a validated TOE construct; the choice usually comes down to surgeon familiarity, anchor material preference, and whether biologic augmentation is wanted.",
+    "evidence": [
+      "Cadaveric study (Park et al.): TOE 4-suture-bridge repair achieved ~124 mm2 pressurized contact area (~78% of footprint) and ~0.27 MPa interface pressure vs ~0.19 MPa for conventional double-row.",
+      "Knotless TOE shows a greater 'self-reinforcement' effect (footprint pressure rises with tendon load) than knotted medial repair, with no difference in ultimate failure load or stiffness.",
+      "Arthrex product page confirms SpeedBridge is a knotless double-row TOE system using BioComposite SwiveLock anchors and FiberTape."
+    ],
+    "sources": [
+      "https://www.arthrex.com/shoulder/speedbridge-implant-system",
+      "https://www.stryker.com/us/en/sports-medicine/products/reelx-stt-reelx-knotless-peek-anchor.html",
+      "https://pubmed.ncbi.nlm.nih.gov/17321161/",
+      "https://pubmed.ncbi.nlm.nih.gov/28684147/",
+      "https://www.sciencedirect.com/science/article/abs/pii/S105827461400189X"
+    ],
+    "confidence": "high"
+  },
+  {
+    "topic": "Single-row vs double-row repair: clinical evidence",
+    "category": "Clinical evidence",
+    "summary": "Meta-analyses consistently show double-row (including TOE) repair lowers structural re-tear rates versus single-row, with the benefit concentrated in larger tears (>=3 cm). For small tears (<3 cm), functional outcome scores (ASES, UCLA, Constant) are generally equivalent between single- and double-row. This is a technique-level evidence base that applies across all three vendors' implants - no brand's anchors have been shown in head-to-head RCTs to beat another brand's anchors on clinical outcomes.",
+    "companies": [
+      "Arthrex",
+      "Stryker",
+      "Smith & Nephew"
+    ],
+    "arthrex_position": "Arthrex markets double-row/TOE SpeedBridge and SutureBridge as the constructs that capture the re-tear-rate advantage shown in the literature, especially for medium-to-large tears.",
+    "stryker_position": "Stryker positions its double-row platform (ReelX/Omega plus single-row CrossFT/Citrelock options) so surgeons can match construct to tear size, consistent with the size-dependent evidence.",
+    "smithnephew_position": "Smith & Nephew offers both single-row (HEALICOIL/FOOTPRINT) and knotless double-row HEALICOIL constructs, and additionally frames re-tear reduction around biologic augmentation (REGENETEN) layered on top of either construct.",
+    "rep_talk_track": "Every rep can honestly cite the same body of meta-analyses: double-row lowers re-tear rates, mostly in larger tears, with similar functional scores to single-row in small tears. The defensible, non-marketing statement is 'the construct evidence favors double-row for bigger tears, and our system executes that construct efficiently' - not 'our anchor heals better than theirs,' which is not supported by head-to-head data.",
+    "evidence": [
+      "Systematic review/meta-analysis (10 studies, 791 patients): double-row had lower re-tear rate (OR ~2.39 favoring DR), better forward-elevation ROM and ASES; for tears <3 cm no significant difference across outcome scores; for tears >=3 cm DR significantly better ASES/UCLA and markedly lower re-tear.",
+      "Multiple earlier meta-analyses (e.g., JSES 2014) reach the same directional conclusion: lower re-tear and better cuff integrity with double-row, similar function for small tears."
+    ],
+    "sources": [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10467404/",
+      "https://pubmed.ncbi.nlm.nih.gov/24183478/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC8811406/"
+    ],
+    "confidence": "high"
+  },
+  {
+    "topic": "Anchor materials: all-suture vs PEEK vs biocomposite",
+    "category": "Anchor material / biomechanics",
+    "summary": "The three dominant anchor material classes are all-suture (soft) anchors, PEEK (permanent polymer), and biocomposite (resorbable, e.g., PLLA + calcium-based fillers). A network meta-analysis found PEEK and all-suture anchors had the highest ultimate failure loads, metal intermediate, and biocomposite the lowest, with no meaningful stiffness differences; failure modes differ by type (all-suture more prone to pull-out, biocomposite to eyelet breakage, metal to suture cutting). Results are sensitive to bone mineral density. All three companies offer anchors in all three material classes, so material is often a surgeon-preference and bone-quality decision rather than a clear winner.",
+    "companies": [
+      "Arthrex",
+      "Stryker",
+      "Smith & Nephew"
+    ],
+    "arthrex_position": "Broad material menu: BioComposite (and PLLA) and nonabsorbable PEEK SwiveLock/SutureTak/PushLock anchor bodies, plus all-suture FiberTak soft anchors (e.g., 2.6 FiberTak RC). Arthrex emphasizes BioComposite for the SpeedBridge medial/lateral rows and FiberTak for low-bone-removal soft-anchor fixation.",
+    "stryker_position": "Stryker leans into PEEK for its knotless anchors (ReelX STT all-PEEK body, Omega PEEK eyelet) and also offers biocomposite (Citrelock/CrossFT biocomposite) options. The PEEK eyelet is marketed to reduce suture abrasion.",
+    "smithnephew_position": "Smith & Nephew differentiates on its REGENESORB biocomposite (designed to be replaced by bone within ~24 months) and the open-architecture HEALICOIL coil that lets marrow/stem cells reach the repair; it also offers HEALICOIL KNOTLESS PEEK and all-suture (Q-FIX) options.",
+    "rep_talk_track": "A Stryker rep can fairly cite that PEEK anchors top the biomechanical failure-load rankings and resist suture abrasion. An S&N rep counters that REGENESORB plus open architecture is about long-term bone ingrowth and leaving less permanent foreign material, trading a bit of peak failure load for biology. An Arthrex rep says 'we let you pick - BioComposite, PEEK, PLLA, or all-suture FiberTak - per bone quality.' The honest caveat: biocomposite tends to rank lowest on raw failure load, all-suture removes the least bone but pulls out more often, and the differences are bone-density-dependent. There is no RCT showing one material yields better healed-cuff clinical outcomes.",
+    "evidence": [
+      "Network meta-analysis (Yang et al., 2023): SUCRA ultimate failure load PEEK 81.9% > all-suture 76.5% > metal 38.7% > biocomposite 3.0%; no significant stiffness differences; all-suture more anchor pull-out, biocomposite more eyelet breakage; rankings shift with bone mineral density.",
+      "RCT (Arthroscopy): open-construct PEEK anchor showed better 6-month bone ingrowth than a non-vented biocomposite anchor.",
+      "Arthrex product pages confirm SwiveLock available in BioComposite, PLLA, PEEK; FiberTak is the all-suture line. Stryker confirms ReelX is PEEK. S&N confirms HEALICOIL uses REGENESORB biocomposite."
+    ],
+    "sources": [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10110812/",
+      "https://pubmed.ncbi.nlm.nih.gov/31864818/",
+      "https://www.arthrex.com/shoulder/swivelock-c",
+      "https://www.arthrex.com/shoulder/fibertak-rc-soft-anchors-26",
+      "https://www.prnewswire.com/news-releases/smithnephew-launches-healicoil-knotless-suture-anchor-redefines-healing-potential-for-rotator-cuff-repair-301126181.html"
+    ],
+    "confidence": "high"
+  },
+  {
+    "topic": "Knotless single- vs double-row construct design",
+    "category": "Construct / repair technique",
+    "summary": "Knotless constructs eliminate medial-row knot tying, reducing knot impingement and procedure steps. In a SutureBridge configuration, knotless medial rows actually show a greater load-dependent 'self-reinforcement' effect than knotted medial rows, with no loss of ultimate failure load or footprint contact in cadaveric testing. The trade-off debated in the literature is that a fully knotless medial row, if the lateral anchor pulls or the tape cuts, can lose all medial fixation (no independent medial knot as a backstop). All three vendors sell both knotted and knotless options.",
+    "companies": [
+      "Arthrex",
+      "Stryker",
+      "Smith & Nephew"
+    ],
+    "arthrex_position": "SpeedBridge is fully knotless (FiberTape bridged into SwiveLock anchors, no medial knots); Arthrex also offers knotted SutureBridge and a knotless FiberTak SpeedBridge SP for surgeons who want soft medial anchors.",
+    "stryker_position": "ReelX STT and Omega are knotless anchors; the reeling mechanism is marketed as letting the surgeon incrementally tension a knotless repair, addressing the common critique that knotless repairs lock in tension too early.",
+    "smithnephew_position": "HEALICOIL KNOTLESS is S&N's knotless lateral anchor used in ULTRALOCK-type constructs; the company frames knotless as part of a streamlined, healing-focused workflow rather than purely a mechanical claim.",
+    "rep_talk_track": "Knotless reps (any brand) honestly emphasize fewer steps, no bulky medial knot stack, and biomechanical data showing knotless medial rows self-reinforce well. A rep favoring a knotted or hybrid construct can fairly raise the counterpoint that an independent medial knot provides a fixation backstop and may matter in poor tissue. Stryker's distinctive honest pitch is incremental intra-op tensioning via the ReelX dial. None of these knotless-vs-knotted distinctions is backed by clear clinical-outcome superiority in RCTs - it is biomechanics plus workflow preference.",
+    "evidence": [
+      "Cadaveric study: knotless TOE improved biomechanical self-reinforcement vs medial knotted repair without diminishing footprint contact; no difference in ultimate failure load or stiffness.",
+      "Systematic review on tying the medial row: mixed/biomechanical evidence; no definitive clinical-outcome winner between knotted and knotless medial rows."
+    ],
+    "sources": [
+      "https://pubmed.ncbi.nlm.nih.gov/28684147/",
+      "https://www.sciencedirect.com/science/article/abs/pii/S0749806312018452",
+      "https://www.arthrex.com/shoulder/speedbridge-implant-system"
+    ],
+    "confidence": "high"
+  },
+  {
+    "topic": "Footprint compression and load-to-failure biomechanics",
+    "category": "Biomechanics",
+    "summary": "Bench/cadaveric biomechanics are the main quantitative battleground in rotator cuff marketing. Key validated findings: TOE/SutureBridge constructs increase pressurized footprint contact area and interface pressure vs simple double-row; flat suture tape increases tendon contact area vs round suture; bridging-suture tension above ~90 N raises contact pressure but not contact area and does not improve ultimate failure load; over-tensioning risks tissue strangulation. Importantly, these are construct-level and material-level findings, not validated head-to-head brand-vs-brand failure-load comparisons in patients.",
+    "companies": [
+      "Arthrex",
+      "Stryker",
+      "Smith & Nephew"
+    ],
+    "arthrex_position": "Arthrex leans heavily on footprint/contact-area messaging - FiberTape marketed as providing roughly 3x the contact area of a #2 round suture and SpeedBridge/SutureBridge providing broad TOE footprint compression.",
+    "stryker_position": "Stryker frames biomechanics around controlled tensioning (ReelX incremental reeling) and anchor pull-out strength of its PEEK anchors rather than a specific contact-area number.",
+    "smithnephew_position": "Smith & Nephew uses MINITAPE for footprint contact and emphasizes that fixation strength should be paired with biologic healing (REGENESORB ingrowth, REGENETEN), arguing raw load-to-failure is necessary but not sufficient.",
+    "rep_talk_track": "A FiberTape/SpeedBridge rep will cite ~3x contact area and high footprint pressure - legitimate bench data, but note it is largely Arthrex-sponsored or generic TOE biomechanics, not a brand-vs-brand patient outcome. A Stryker rep counters that more isn't always better - over-tensioning the bridge above ~90 N adds pressure without adding contact area or failure strength and can strangulate tissue, so controllable tensioning matters. An S&N rep reframes: fixation gets the tendon to bone day one, but healing biology determines the re-tear rate. All three points are individually defensible from the literature; the trap to avoid is implying one company's anchor 'wins' load-to-failure in patients, which no head-to-head study shows.",
+    "evidence": [
+      "Cadaveric: TOE achieved ~124 mm2 (~78% footprint) contact area and ~0.27 MPa vs ~0.19 MPa for double-row.",
+      "Cadaveric optimum-tension study: bridging tension >90 N increased contact force/pressure but not contact area, and tension did not significantly affect ultimate failure load.",
+      "Knotless wide-tape SutureBridge biomechanical comparison vs standard double-row suture repair (PubMed 32217061)."
+    ],
+    "sources": [
+      "https://pubmed.ncbi.nlm.nih.gov/17321161/",
+      "https://pubmed.ncbi.nlm.nih.gov/26150589/",
+      "https://pubmed.ncbi.nlm.nih.gov/32217061/"
+    ],
+    "confidence": "high"
+  },
+  {
+    "topic": "Biologic augmentation (REGENETEN bioinductive implant)",
+    "category": "Clinical evidence / biologics",
+    "summary": "Bioinductive augmentation adds a resorbable collagen scaffold over the repair (or as a standalone in partial tears) to induce new tendon-like tissue and thicken the cuff. Smith & Nephew's REGENETEN is the category-defining product with the strongest published evidence: an RCT reported markedly lower re-tear rates when augmenting full-thickness TOE double-row repairs, and AAOS issued a strong recommendation supporting bioinductive implants. This is one area where a specific branded product (REGENETEN) has differentiated clinical data rather than just biomechanics. Arthrex and Stryker compete more in the broader 'patch/scaffold' and dermal-allograft space than with a direct bioinductive equivalent.",
+    "companies": [
+      "Smith & Nephew",
+      "Arthrex",
+      "Stryker"
+    ],
+    "arthrex_position": "Arthrex does not market a direct bioinductive collagen equivalent; its augmentation/biologics play centers on dermal allograft (ArthroFLEX) patches, biceps/SCR techniques, and orthobiologics rather than a REGENETEN-style inductive scaffold.",
+    "stryker_position": "Stryker's irreparable/augmentation play centers on the InSpace subacromial balloon spacer for massive irreparable tears and allograft options; it does not have a direct bioinductive collagen implant competitor to REGENETEN.",
+    "smithnephew_position": "REGENETEN is Smith & Nephew's flagship differentiator: a resorbable bovine collagen bioinductive implant with RCT-level re-tear reduction data, >250,000 procedures since 2014, and an AAOS strong recommendation supporting bioinductive augmentation.",
+    "rep_talk_track": "An S&N rep can make an honest, data-backed claim here that is hard for the others to match: REGENETEN has RCT evidence of reduced re-tear rates and an AAOS strong recommendation for bioinductive augmentation - a genuine clinical-evidence edge, not just bench data. An Arthrex or Stryker rep would honestly redirect: they don't have a head-to-head bioinductive product, so they compete on the core repair construct plus different augmentation strategies (dermal allograft, balloon spacer). The fair caveat for the S&N rep is that the strongest re-tear numbers come from specific single trials and partial-tear cohorts, so they should cite the actual studies rather than over-generalize.",
+    "evidence": [
+      "RCT (Ruiz Ibán et al., Arthroscopy 2023): augmenting full-thickness TOE double-row repair with REGENETEN gave re-tear 8.3% vs 25.8% control at 1 year (RR 0.32; ~68% relative reduction).",
+      "Two-year MALLAMANGUITO RCT data: sustained ~65% relative reduction (12.3% vs 35.1%).",
+      "AAOS issued a Strong Recommendation that bioinductive tendon implants to augment or replace standard repair can lower re-tear rates and improve patient-reported outcomes.",
+      ">250,000 REGENETEN procedures globally since 2014 (company figure)."
+    ],
+    "sources": [
+      "https://www.smith-nephew.com/en/news/2024/01/11/20240111-new-study-confirms-smithnephews-regeneten-bioinductive-implant",
+      "https://www.globenewswire.com/news-release/2025/09/11/3148484/0/en/Smith-Nephew-unveils-major-clinical-evidence-and-patient-access-updates-for-its-REGENETEN-Bioinductive-Implant.html",
+      "https://aoj.amegroups.org/article/view/5816/html"
+    ],
+    "confidence": "high"
+  },
+  {
+    "topic": "Irreparable tears: SCR and other salvage options",
+    "category": "Treatment options / irreparable cuff",
+    "summary": "For massive/irreparable posterosuperior cuff tears, options include superior capsular reconstruction (SCR) with dermal allograft, fascia lata autograft/allograft, or long head of biceps; subacromial balloon spacer; biologic tuberoplasty; tendon transfer; and reverse shoulder arthroplasty. Biomechanical studies compare graft choices (fascia lata vs single/double-layer dermal allograft) but evidence is heterogeneous and outcomes are technique- and patient-dependent. Vendors differentiate by which salvage technology they champion: dermal allograft SCR (Arthrex) vs balloon spacer (Stryker InSpace) vs biologic-healing framing (S&N).",
+    "companies": [
+      "Arthrex",
+      "Stryker",
+      "Smith & Nephew"
+    ],
+    "arthrex_position": "Arthrex strongly promotes arthroscopic SCR with ArthroFLEX acellular dermal allograft (and knotless glenoid/greater-tuberosity anchor techniques), positioning SCR as a joint-preserving alternative to reverse arthroplasty in younger patients.",
+    "stryker_position": "Stryker's signature irreparable-tear product is the InSpace subacromial balloon spacer (FDA-approved 2021 for patients >65; shown non-inferior to partial repair in its pivotal data), marketed as a fast, implant-only alternative to SCR.",
+    "smithnephew_position": "Smith & Nephew leans on biologic healing (REGENETEN augmentation, REGENESORB) and dermal allograft/patch options rather than a proprietary balloon; its irreparable-tear messaging centers on inducing/strengthening native tissue and standard graft reconstruction.",
+    "rep_talk_track": "An Arthrex rep honestly pitches dermal allograft SCR as joint-preserving with growing biomechanical and clinical support, while acknowledging it's technically demanding. A Stryker rep pitches InSpace as a far simpler, quicker, implant-only option with FDA approval and non-inferiority data vs partial repair - while honestly noting it's indicated mainly for older patients. An S&N rep reframes toward augmenting reparable tissue and biologic healing before resorting to salvage. The honest disclaimer across all three: comparative evidence among SCR graft types, balloon spacer, and arthroplasty is still maturing and largely not head-to-head, so technique choice is patient-specific, not a settled 'best' device.",
+    "evidence": [
+      "Arthrex describes all-arthroscopic SCR with ArthroFLEX 2-6 mm acellular dermal allograft; biomechanical studies compare fascia lata vs single/double-layer dermal allograft with mixed conclusions.",
+      "InSpace subacromial balloon (Stryker): FDA approval 2021 for patients >65; pivotal data reported non-inferior to partial rotator cuff repair.",
+      "Biologic tuberoplasty and biceps-based SCR described as additional salvage options in the literature."
+    ],
+    "sources": [
+      "https://www.arthrex.com/resources/AN1-00530-en-US/superior-capsular-reconstruction-with-arthroflex-dermal-allograft",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10806962/",
+      "https://www.sciencedirect.com/science/article/abs/pii/S1058274617304408",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC7494154/"
+    ],
+    "confidence": "medium"
+  },
+  {
+    "topic": "Open-architecture / bone-ingrowth anchor design claims",
+    "category": "Anchor design / marketing-vs-data",
+    "summary": "A recurring marketing axis is anchor 'openness' - how much the anchor design lets bone marrow, blood, and stem cells reach the tendon-bone interface to promote ingrowth, versus how much permanent foreign material is left behind. Smith & Nephew makes 'most open architecture among leading competitors' a central claim for HEALICOIL. There is a clinical RCT showing an open-construct PEEK anchor had better 6-month bone ingrowth than a non-vented biocomposite anchor, which supports the general principle of openness/venting. However, the specific 'most open vs competitors' superiority is a marketing comparison, not a head-to-head clinical-outcome study, so it should be flagged as lower-confidence when used competitively.",
+    "companies": [
+      "Smith & Nephew",
+      "Arthrex",
+      "Stryker"
+    ],
+    "arthrex_position": "Arthrex offers vented BioComposite SwiveLock anchors (venting allows marrow elements through) and all-suture FiberTak anchors that remove minimal bone; it competes on the same ingrowth principle without using S&N's 'open architecture' branding.",
+    "stryker_position": "Stryker's Omega and ReelX use PEEK bodies; the company emphasizes self-punching efficiency and PEEK eyelet abrasion resistance more than an open-architecture/ingrowth narrative.",
+    "smithnephew_position": "Open architecture is a core S&N HEALICOIL claim - the coil design plus REGENESORB is marketed to let marrow/stem cells access the repair and to be replaced by bone within ~24 months, positioned explicitly as more open than competitors.",
+    "rep_talk_track": "An S&N rep will lead with 'most open architecture, less permanent foreign material, designed for bone ingrowth.' That principle is supported in general terms (vented/open anchors showed better ingrowth than non-vented in one RCT), so the rep can honestly say the concept is evidence-supported. The honest line they should NOT cross is claiming proven clinical superiority over a specific competitor anchor - 'most open among competitors' is a design comparison, not an outcomes study. Arthrex and Stryker reps can fairly respond that vented BioComposite, all-suture FiberTak, and PEEK options achieve similar marrow-access goals, and that no head-to-head clinical trial establishes one anchor's architecture as producing better healed-cuff rates.",
+    "evidence": [
+      "RCT: open-construct PEEK anchor showed better bone ingrowth than non-vented biocomposite anchor at 6 months (supports openness principle, not a specific brand claim).",
+      "S&N marketing: HEALICOIL 'most open architecture design among leading competitors,' REGENESORB absorbed/replaced by bone within ~24 months.",
+      "Arthrex offers vented BioComposite SwiveLock and minimal-bone-removal FiberTak all-suture anchors."
+    ],
+    "sources": [
+      "https://pubmed.ncbi.nlm.nih.gov/31864818/",
+      "https://www.prnewswire.com/news-releases/smithnephew-launches-healicoil-knotless-suture-anchor-redefines-healing-potential-for-rotator-cuff-repair-301126181.html",
+      "https://www.arthrex.com/shoulder/swivelock-c"
+    ],
+    "confidence": "medium"
+  }
+]

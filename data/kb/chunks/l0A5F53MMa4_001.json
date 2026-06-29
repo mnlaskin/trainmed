@@ -1,5 +1,6 @@
 {
   "chunk_id": "l0A5F53MMa4_001",
+  "company": "Arthrex",
   "source_id": "l0A5F53MMa4",
   "source_type": "youtube",
   "source_title": "Biological Treatment Options in Rotator Cuff Repair",
@@ -9,6 +10,17 @@
   "page_count": null,
   "language": "en",
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "SutureBridge",
+  "product_name": "SutureBridge",
+  "category": "technique_guide",
+  "technique": [
+    "double_row",
+    "transosseous_equivalent"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 1,
   "chunk_count": 3,
   "word_count": 805,

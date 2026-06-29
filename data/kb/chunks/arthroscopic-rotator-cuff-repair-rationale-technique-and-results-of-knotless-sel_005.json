@@ -1,5 +1,6 @@
 {
   "chunk_id": "arthroscopic-rotator-cuff-repair-rationale-technique-and-results-of-knotless-sel_005",
+  "company": "Arthrex",
   "source_id": "arthroscopic-rotator-cuff-repair-rationale-technique-and-results-of-knotless-sel",
   "source_type": "pdf",
   "source_title": "Knotless Self-Reinforcing Double-Row RCR (rationale/technique/results)",
@@ -9,6 +10,18 @@
   "page_count": 8,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "SpeedBridge",
+  "product_name": "SpeedBridge",
+  "category": "clinical_study",
+  "technique": [
+    "double_row",
+    "knotless",
+    "transosseous_equivalent"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 5,
   "chunk_count": 10,
   "word_count": 800,

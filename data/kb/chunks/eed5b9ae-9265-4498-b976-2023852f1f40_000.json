@@ -1,5 +1,6 @@
 {
   "chunk_id": "eed5b9ae-9265-4498-b976-2023852f1f40_000",
+  "company": "Arthrex",
   "source_id": "eed5b9ae-9265-4498-b976-2023852f1f40",
   "source_type": "pdf",
   "source_title": "FiberTak Biceps Implant System — Biceps Tenodesis Surgical Technique",
@@ -9,6 +10,17 @@
   "page_count": 4,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "FiberTak",
+  "product_name": "FiberTak",
+  "category": "technique_guide",
+  "technique": [
+    "knotless",
+    "all_suture"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 0,
   "chunk_count": 1,
   "word_count": 571,

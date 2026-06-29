@@ -28,11 +28,25 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+from . import companies as co
+
 ROOT = Path(__file__).resolve().parents[2]
 PDFS_MD_DIR = ROOT / "data" / "pdfs"
 PDFS_RAW_DIR = ROOT / "data" / "raw" / "pdfs"
 
 _UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) TrainMed-ingest/0.1"
+
+
+def md_dir_for(company: str) -> Path:
+    """Extracted-markdown dir for a company. Arthrex keeps the legacy flat dir;
+    others use data/pdfs/<Company>/ so ingest stays company-isolated."""
+    company = co.canonical_company(company)
+    return PDFS_MD_DIR if company == co.DEFAULT_COMPANY else PDFS_MD_DIR / company
+
+
+def raw_dir_for(company: str) -> Path:
+    company = co.canonical_company(company)
+    return PDFS_RAW_DIR if company == co.DEFAULT_COMPANY else PDFS_RAW_DIR / company
 
 
 # ── helpers ───────────────────────────────────────────────────────────────────
@@ -85,13 +99,14 @@ def scrape_pdf_links(page_url: str, timeout: int = 45) -> list[str]:
     return out
 
 
-def download_pdf(url: str, overwrite: bool = False) -> Path | None:
-    """Download a PDF to data/raw/pdfs/. Returns the path, or None on failure."""
-    PDFS_RAW_DIR.mkdir(parents=True, exist_ok=True)
+def download_pdf(url: str, overwrite: bool = False, company: str = co.DEFAULT_COMPANY) -> Path | None:
+    """Download a PDF to data/raw/pdfs/<company>/. Returns the path, or None on failure."""
+    raw_dir = raw_dir_for(company)
+    raw_dir.mkdir(parents=True, exist_ok=True)
     name = Path(urllib.parse.urlparse(url).path).name or slugify(url)
     if not name.lower().endswith(".pdf"):
         name = slugify(url) + ".pdf"
-    dest = PDFS_RAW_DIR / name
+    dest = raw_dir / name
     if dest.exists() and not overwrite:
         return dest
     try:
@@ -139,12 +154,15 @@ def write_md(
     page_count: int,
     text: str,
     slug: str,
+    company: str = co.DEFAULT_COMPANY,
 ) -> Path:
-    PDFS_MD_DIR.mkdir(parents=True, exist_ok=True)
+    md_dir = md_dir_for(company)
+    md_dir.mkdir(parents=True, exist_ok=True)
     front = [
         "---",
         f"title: {title}",
         f"doc_id: {slug}",
+        f"company: {co.canonical_company(company)}",
         f"source_url: {source_url}",
         "source_type: pdf",
         f"procedure_family: {family}",
@@ -157,7 +175,7 @@ def write_md(
         text,
         "",
     ]
-    md_path = PDFS_MD_DIR / f"{slug}.md"
+    md_path = md_dir / f"{slug}.md"
     md_path.write_text("\n".join(front), encoding="utf-8")
     return md_path
 
@@ -165,8 +183,9 @@ def write_md(
 # ── orchestration ─────────────────────────────────────────────────────────────
 
 
-def ingest_url(url: str, family: str, overwrite: bool, title_override: str | None = None) -> dict | None:
-    pdf_path = download_pdf(url, overwrite=overwrite)
+def ingest_url(url: str, family: str, overwrite: bool, title_override: str | None = None,
+               company: str = co.DEFAULT_COMPANY) -> dict | None:
+    pdf_path = download_pdf(url, overwrite=overwrite, company=company)
     if pdf_path is None:
         return None
     try:
@@ -187,18 +206,22 @@ def ingest_url(url: str, family: str, overwrite: bool, title_override: str | Non
         page_count=pages,
         text=text,
         slug=slug,
+        company=company,
     )
     return {"url": url, "slug": slug, "title": title, "pages": pages, "words": len(text.split()), "md": md_path}
 
 
 def main(argv: list[str] | None = None) -> int:
-    p = argparse.ArgumentParser(description="Download + extract PDFs into data/pdfs/.")
+    p = argparse.ArgumentParser(description="Download + extract PDFs into data/pdfs/<company>/.")
     p.add_argument("urls", nargs="*", help="direct PDF URLs")
     p.add_argument("--from-file", metavar="PATH", help="file of PDF URLs (one per line)")
     p.add_argument("--scrape", metavar="PAGE_URL", help="scrape .pdf links from this page")
+    p.add_argument("--company", default=co.DEFAULT_COMPANY,
+                   help=f"company this content belongs to ({', '.join(co.known_companies())}); default {co.DEFAULT_COMPANY}")
     p.add_argument("--family", default="rotator_cuff", help="procedure_family tag")
     p.add_argument("--overwrite", action="store_true", help="re-download + re-extract")
     args = p.parse_args(argv)
+    company = co.canonical_company(args.company)
 
     # Normalize every input to (url, title_override).
     targets: list[tuple[str, str | None]] = [(u, None) for u in args.urls]
@@ -218,17 +241,18 @@ def main(argv: list[str] | None = None) -> int:
     if not deduped:
         p.error("provide PDF URLs, --from-file, or --scrape")
 
-    print(f"Ingesting {len(deduped)} PDF(s)...", file=sys.stderr)
+    print(f"Ingesting {len(deduped)} PDF(s) for {company} -> {md_dir_for(company).relative_to(ROOT)}/ ...", file=sys.stderr)
     ok = failed = 0
     for i, (url, title) in enumerate(deduped, 1):
         print(f"[{i}/{len(deduped)}] {url}")
-        result = ingest_url(url, args.family, args.overwrite, title_override=title)
+        result = ingest_url(url, args.family, args.overwrite, title_override=title, company=company)
         if result:
             print(f"  ✓ {result['words']:,} words, {result['pages']} pages  {result['title'][:60]}")
             ok += 1
         else:
             failed += 1
-    print(f"\nDone. {ok} ingested, {failed} failed.", file=sys.stderr)
+    print(f"\nDone. {ok} ingested, {failed} failed. Next: python scripts/ingest_to_kb.py --company {company}",
+          file=sys.stderr)
     return 0 if failed == 0 else 2
 
 

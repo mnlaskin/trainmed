@@ -1,5 +1,6 @@
 {
   "chunk_id": "68-20-248-20arthroflex-20rcr_000",
+  "company": "Arthrex",
   "source_id": "68-20-248-20arthroflex-20rcr",
   "source_type": "pdf",
   "source_title": "Rotator Cuff Repair with ArthroFLEX Augmentation",
@@ -9,6 +10,20 @@
   "page_count": 3,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "ArthroFLEX",
+  "product_name": "ArthroFLEX",
+  "category": "technique_guide",
+  "technique": [
+    "double_row",
+    "knotless",
+    "transosseous_equivalent",
+    "augmentation",
+    "instability"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 0,
   "chunk_count": 1,
   "word_count": 594,

@@ -1,0 +1,38 @@
+{
+  "chunk_id": "ci_000_transosseous-equivalent-linked-double-ro",
+  "collection": "competitive",
+  "company": "_competitive",
+  "companies": [
+    "Arthrex",
+    "Stryker",
+    "Smith & Nephew"
+  ],
+  "source_id": "ci_000_transosseous-equivalent-linked-double-ro",
+  "source_type": "competitive_insight",
+  "source_title": "Transosseous-equivalent (linked double-row) constructs",
+  "source_url": "https://www.arthrex.com/shoulder/speedbridge-implant-system",
+  "category": "competitive_insight",
+  "product_line": "Construct / repair technique",
+  "topic": "Transosseous-equivalent (linked double-row) constructs",
+  "summary": "Transosseous-equivalent (TOE) repair, also called the 'SutureBridge' configuration, links a medial row of anchors to lateral anchors with bridging suture/tape to compress the tendon over the entire footprint. Cadaveric biomechanics show TOE provides greater pressurized footprint contact area and higher mean interface pressure than a non-bridged double-row, and demonstrates a 'self-reinforcement' effect under load. All three majors sell a branded TOE system; the differences are largely in anchor material, eyelet design, and suture/tape rather than in proven clinical superiority of one brand over another.",
+  "arthrex_position": "SpeedBridge is Arthrex's flagship knotless transosseous-equivalent system: 4.75 mm vented BioComposite SwiveLock medial anchors preloaded with FiberTape loops bridged to lateral BioComposite SwiveLock C (4.75 mm) or self-punching SwiveLock SP (5.5 mm) anchors. SutureBridge is the knotted/knotless TOE variant. FiberTape (flat braided tape) is the defining differentiator Arthrex markets for footprint compression. The all-soft-anchor variant is the FiberTak SpeedBridge SP.",
+  "stryker_position": "Stryker offers linked double-row TOE constructs built on its rotator cuff platform using ReelX STT (PEEK, incremental suture-reeling 'patient-specific tissue tensioning') and the self-punching Omega knotless PEEK anchor. The 'Knotilus'/loop implant workflows pair these into a bridged double-row. Stryker's differentiator is the ReelX incremental tensioning dial rather than a fixed knotless seat.",
+  "smithnephew_position": "Smith & Nephew builds TOE constructs from the HEALICOIL family - HEALICOIL REGENESORB with MINITAPE on the medial row linked to HEALICOIL KNOTLESS lateral anchors (e.g., the 'ULTRALOCK' construct). The differentiator is the open-architecture coil anchor and REGENESORB biocomposite intended to promote bone ingrowth, plus optional REGENETEN bioinductive augmentation.",
+  "rep_talk_track": "An Arthrex rep would say SpeedBridge is the most established, highest-volume TOE system with FiberTape giving ~3x the contact area of a round suture and a streamlined 2-pass workflow. A Stryker rep would counter that ReelX STT's incremental reeling lets you dial in exact tissue tension intra-op rather than being locked into a fixed knotless seat. An S&N rep would argue their open-architecture HEALICOIL plus REGENESORB and optional REGENETEN augmentation is about biology and healing, not just mechanical fixation. Honestly, all three deliver a validated TOE construct; the choice usually comes down to surgeon familiarity, anchor material preference, and whether biologic augmentation is wanted.",
+  "evidence": [
+    "Cadaveric study (Park et al.): TOE 4-suture-bridge repair achieved ~124 mm2 pressurized contact area (~78% of footprint) and ~0.27 MPa interface pressure vs ~0.19 MPa for conventional double-row.",
+    "Knotless TOE shows a greater 'self-reinforcement' effect (footprint pressure rises with tendon load) than knotted medial repair, with no difference in ultimate failure load or stiffness.",
+    "Arthrex product page confirms SpeedBridge is a knotless double-row TOE system using BioComposite SwiveLock anchors and FiberTape."
+  ],
+  "sources": [
+    "https://www.arthrex.com/shoulder/speedbridge-implant-system",
+    "https://www.stryker.com/us/en/sports-medicine/products/reelx-stt-reelx-knotless-peek-anchor.html",
+    "https://pubmed.ncbi.nlm.nih.gov/17321161/",
+    "https://pubmed.ncbi.nlm.nih.gov/28684147/",
+    "https://www.sciencedirect.com/science/article/abs/pii/S105827461400189X"
+  ],
+  "confidence": "high",
+  "notes": "",
+  "word_count": 435,
+  "text": "Transosseous-equivalent (linked double-row) constructs\n\nTransosseous-equivalent (TOE) repair, also called the 'SutureBridge' configuration, links a medial row of anchors to lateral anchors with bridging suture/tape to compress the tendon over the entire footprint. Cadaveric biomechanics show TOE provides greater pressurized footprint contact area and higher mean interface pressure than a non-bridged double-row, and demonstrates a 'self-reinforcement' effect under load. All three majors sell a branded TOE system; the differences are largely in anchor material, eyelet design, and suture/tape rather than in proven clinical superiority of one brand over another.\n\nArthrex: SpeedBridge is Arthrex's flagship knotless transosseous-equivalent system: 4.75 mm vented BioComposite SwiveLock medial anchors preloaded with FiberTape loops bridged to lateral BioComposite SwiveLock C (4.75 mm) or self-punching SwiveLock SP (5.5 mm) anchors. SutureBridge is the knotted/knotless TOE variant. FiberTape (flat braided tape) is the defining differentiator Arthrex markets for footprint compression. The all-soft-anchor variant is the FiberTak SpeedBridge SP.\nStryker: Stryker offers linked double-row TOE constructs built on its rotator cuff platform using ReelX STT (PEEK, incremental suture-reeling 'patient-specific tissue tensioning') and the self-punching Omega knotless PEEK anchor. The 'Knotilus'/loop implant workflows pair these into a bridged double-row. Stryker's differentiator is the ReelX incremental tensioning dial rather than a fixed knotless seat.\nSmith & Nephew: Smith & Nephew builds TOE constructs from the HEALICOIL family - HEALICOIL REGENESORB with MINITAPE on the medial row linked to HEALICOIL KNOTLESS lateral anchors (e.g., the 'ULTRALOCK' construct). The differentiator is the open-architecture coil anchor and REGENESORB biocomposite intended to promote bone ingrowth, plus optional REGENETEN bioinductive augmentation.\n\nRep positioning: An Arthrex rep would say SpeedBridge is the most established, highest-volume TOE system with FiberTape giving ~3x the contact area of a round suture and a streamlined 2-pass workflow. A Stryker rep would counter that ReelX STT's incremental reeling lets you dial in exact tissue tension intra-op rather than being locked into a fixed knotless seat. An S&N rep would argue their open-architecture HEALICOIL plus REGENESORB and optional REGENETEN augmentation is about biology and healing, not just mechanical fixation. Honestly, all three deliver a validated TOE construct; the choice usually comes down to surgeon familiarity, anchor material preference, and whether biologic augmentation is wanted.\n\nEvidence: (1) Cadaveric study (Park et al.): TOE 4-suture-bridge repair achieved ~124 mm2 pressurized contact area (~78% of footprint) and ~0.27 MPa interface pressure vs ~0.19 MPa for conventional double-row. (2) Knotless TOE shows a greater 'self-reinforcement' effect (footprint pressure rises with tendon load) than knotted medial repair, with no difference in ultimate failure load or stiffness. (3) Arthrex product page confirms SpeedBridge is a knotless double-row TOE system using BioComposite SwiveLock anchors and FiberTape."
+}

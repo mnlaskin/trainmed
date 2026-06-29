@@ -1,5 +1,6 @@
 {
   "chunk_id": "24BqkL1orIk_000",
+  "company": "Arthrex",
   "source_id": "24BqkL1orIk",
   "source_type": "youtube",
   "source_title": "Subscapularis SpeedFix™ Technique",
@@ -9,6 +10,17 @@
   "page_count": null,
   "language": "en",
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "SpeedFix",
+  "product_name": "SpeedFix",
+  "category": "technique_guide",
+  "technique": [
+    "knotless",
+    "single_row"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 0,
   "chunk_count": 1,
   "word_count": 121,

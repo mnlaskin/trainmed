@@ -1,5 +1,6 @@
 {
   "chunk_id": "TMytPkQeblM_000",
+  "company": "Arthrex",
   "source_id": "TMytPkQeblM",
   "source_type": "youtube",
   "source_title": "Knotless Shoulder Labral Repair with Arthrex® PushLock®",
@@ -9,6 +10,17 @@
   "page_count": null,
   "language": "en",
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "PushLock",
+  "product_name": "PushLock",
+  "category": "technique_guide",
+  "technique": [
+    "knotless",
+    "instability"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 0,
   "chunk_count": 1,
   "word_count": 177,

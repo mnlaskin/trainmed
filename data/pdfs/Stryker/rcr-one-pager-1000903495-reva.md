@@ -1,0 +1,74 @@
+---
+title: Rotator Cuff Repair solutions one-pager
+doc_id: rcr-one-pager-1000903495-reva
+company: Stryker
+source_url: https://www.stryker.com/content/dam/stryker/sports-medicine/procedures/rcr-shoulder/documents/RCR-One-Pager_1000903495_RevA.pdf
+source_type: pdf
+procedure_family: rotator_cuff
+page_count: 2
+source: pdf
+---
+
+# Rotator Cuff Repair solutions one-pager
+
+Omega Knotless Anchor System
+All-PEEK self-punching knotless anchor with screw-in
+fixation. The proprietary eyelet is designed to reposition
+during suture tensioning and customize its final position
+based on bone quality. With a de-coupled eyelet-screw
+construct, the platform is designed to offer unobstructed
+complete cannulation and the ease of sizing up in poor bone.
+Rotator Cuff Repair
+Product offering
+Stryker’s Rotator Cuff Platform features comprehensive solutions for arthroscopic and open rotator cuff repair.
+The implants and instrumentation are designed to offer unique solutions to address the complexities of both
+single and double row repair. The platform was designed to save the surgeon time and offer cost efficiencies by
+minimizing disposables.
+Iconix SPEED
+Self-punching all-suture anchor that is designed to
+eliminate the need to drill in rotator cuff surgery. SPEED
+offers an additional 4 suture configurations to the Iconix
+all-suture platform for a total of 14 different suture and
+tape configurations.
+Cobra
+The industry’s first reusable suture passer that does not
+require a disposable nitinol needle. Featuring a rigid
+stainless steel needle, Cobra is designed to prevent needle
+skiving, misfires and needle breakage.
+GateWay Silicone Cannula
+A flexible silicone cannula available in multiple diameters
+and lengths that is designed for easy insertion and
+improved function1. The increased stiffness of the distal
+flange is designed to prevent unintentional removal2.
+XBraid S, XBraid TT and Force Fiber
+XBraid and Force Fiber is a comprehensive suture and 
+tape portfolio, across a variety of configurations, including 
+specialty options. Available in 14 color patterns, various 
+width options, multiple lengths and offered both with and 
+without needles. 
+Eyelet 3.9mm 4.75mm 6.5mm
+
+Sports Medicine
+This document is intended solely for the use of healthcare professionals. A surgeon must always rely on his or her own professional clinical 
+judgment when deciding whether to use a particular product when treating a particular patient. We do not dispense medical advice and 
+recommend that surgeons be trained in the use of any particular product before using it in surgery.
+The information presented is intended to demonstrate Stryker’s products. A surgeon must always refer to the package insert, product label and/ 
+or instructions for use, including the instructions for cleaning and sterilization (if applicable), before using any of Stryker’s products. Products 
+may not be available in all markets because product availability is subject to the regulatory and/or medical practices in individual markets.
+Please contact your representative if you have questions about the availability of Stryker’s products in your area.
+Stryker or its affiliated entities own, use, or have applied for the following trademarks or service marks: Cobra, Iconix, Iconix SPEED, GateWay, 
+XBraid, Force Fiber, Omega and Stryker. All other trademarks are trademarks of their respective owners or holders.
+The absence of a product, feature, or service name, or logo from this list does not constitute a waiver of Stryker’s trademark or other intellectual 
+property rights concerning that name or logo.
+1000903495 Rev A 
+Copyright © 2020 Stryker
+Stryker 
+Sports Medicine 
+5670 Greenwood Plaza Blvd. 
+Ste. 200 
+Greenwood Village, CO 80111
+t: 866 596 2022 
+www.sportsmedicine.stryker.com
+References
+1. Improved function over rigid body cannula
+2. Stryker DHD13873 Rev A 2019

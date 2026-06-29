@@ -1,5 +1,6 @@
 {
   "chunk_id": "suturebridge-double-row-rotator-cuff-repair-using-the-pushlock-and-bio-corkscrew_000",
+  "company": "Arthrex",
   "source_id": "suturebridge-double-row-rotator-cuff-repair-using-the-pushlock-and-bio-corkscrew",
   "source_type": "pdf",
   "source_title": "SutureBridge Double-Row RCR (PushLock + Bio-Corkscrew FT)",
@@ -9,6 +10,18 @@
   "page_count": 6,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "SutureBridge",
+  "product_name": "SutureBridge",
+  "category": "technique_guide",
+  "technique": [
+    "double_row",
+    "transosseous_equivalent",
+    "knotless"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 0,
   "chunk_count": 2,
   "word_count": 800,

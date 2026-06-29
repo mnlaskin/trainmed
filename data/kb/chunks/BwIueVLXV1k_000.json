@@ -1,5 +1,6 @@
 {
   "chunk_id": "BwIueVLXV1k_000",
+  "company": "Arthrex",
   "source_id": "BwIueVLXV1k",
   "source_type": "youtube",
   "source_title": "FiberTak® Instability Repair",
@@ -9,6 +10,18 @@
   "page_count": null,
   "language": "en",
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "FiberTak",
+  "product_name": "FiberTak",
+  "category": "technique_guide",
+  "technique": [
+    "knotless",
+    "all_suture",
+    "instability"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 0,
   "chunk_count": 1,
   "word_count": 169,

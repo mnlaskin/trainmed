@@ -1,5 +1,6 @@
 {
   "chunk_id": "subscap-20technique_003",
+  "company": "Arthrex",
   "source_id": "subscap-20technique",
   "source_type": "pdf",
   "source_title": "Knotless Arthroscopic Repair of Subscapularis Tendon Tears",
@@ -9,6 +10,16 @@
   "page_count": 5,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Shoulder",
+  "product_family": "Instability",
+  "product_name": "Bankart Repair",
+  "category": "technique_guide",
+  "technique": [
+    "instability"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 3,
   "chunk_count": 5,
   "word_count": 800,

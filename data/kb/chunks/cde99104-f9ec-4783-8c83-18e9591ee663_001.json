@@ -1,5 +1,6 @@
 {
   "chunk_id": "cde99104-f9ec-4783-8c83-18e9591ee663_001",
+  "company": "Arthrex",
   "source_id": "cde99104-f9ec-4783-8c83-18e9591ee663",
   "source_type": "pdf",
   "source_title": "Rotator Cuff Repair Surgical Technique — FiberTak SpeedBridge",
@@ -9,6 +10,19 @@
   "page_count": 16,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "SpeedBridge",
+  "product_name": "SpeedBridge",
+  "category": "technique_guide",
+  "technique": [
+    "double_row",
+    "knotless",
+    "transosseous_equivalent",
+    "all_suture"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 1,
   "chunk_count": 3,
   "word_count": 800,

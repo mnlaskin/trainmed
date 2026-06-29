@@ -1,5 +1,6 @@
 {
   "chunk_id": "z881LVwnJSk_000",
+  "company": "Arthrex",
   "source_id": "z881LVwnJSk",
   "source_type": "youtube",
   "source_title": "Graft Preparation for Auto CuffMend™ Augmented Rotator Cuff Repair",
@@ -9,6 +10,16 @@
   "page_count": null,
   "language": "en",
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "CuffMend",
+  "product_name": "CuffMend",
+  "category": "technique_guide",
+  "technique": [
+    "augmentation"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 0,
   "chunk_count": 1,
   "word_count": 504,

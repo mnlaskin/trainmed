@@ -1,8 +1,11 @@
 """TrainMed web chatbot — FastAPI + a single static page, streaming over SSE.
 
-Reuses the shared engine in trainmed.rag (no duplicated logic). The retriever is
-built once at startup; each request retrieves top-k chunks, streams the citations
-first (so the panel renders instantly) then the answer tokens.
+Reuses the shared engine in trainmed.rag (no duplicated logic). Multi-company: ONE
+retriever PER company is built once at startup into an immutable RETRIEVERS dict, plus
+a separate competitive-insights retriever. Each request resolves its company from an
+allowlist (no defaulting to a wrong corpus) and retrieves ONLY from that company's
+retriever — the contamination firewall. Retrieved chunks pass a fail-closed company
+guard before they ever reach a prompt or citation.
 
 Run (from the repo root, with the package importable):
     pip install -e .                       # so `trainmed` imports
@@ -25,30 +28,53 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from fastapi import FastAPI, Request  # noqa: E402
 from fastapi.responses import FileResponse, Response, StreamingResponse  # noqa: E402
 
+from trainmed import companies as co  # noqa: E402
 from trainmed import stt, tts  # noqa: E402
-from trainmed.rag import (  # noqa: E402
-    DIFFICULTY,
-    ROLES,
-    SCENARIO_BY_ID,
-    SCENARIOS,
-    build_retriever,
-    citation,
-    load_chunks,
-    resolve_embed_backend,
-    resolve_gen_backend,
-    score_exchange,
-    stream_answer,
-    stream_roleplay,
-)
+from trainmed import rag  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
-app = FastAPI(title="TrainMed — Rotator Cuff Assistant")
+app = FastAPI(title="TrainMed — Surgical Sales Assistant")
 
-# Build everything once at startup (68 chunks → instant for TF-IDF).
-CHUNKS = load_chunks()
-EMBED_BACKEND, EMBED_REASON = resolve_embed_backend("auto")
-GEN_BACKEND, GEN_REASON = resolve_gen_backend("auto")
-RETRIEVER = build_retriever(CHUNKS, EMBED_BACKEND) if CHUNKS else None
+EMBED_BACKEND, EMBED_REASON = rag.resolve_embed_backend("auto")
+GEN_BACKEND, GEN_REASON = rag.resolve_gen_backend("auto")
+
+# Build ALL company retrievers once at startup into immutable dicts (no per-request
+# global mutation → no cross-company race under uvicorn concurrency). Each retriever
+# OWNS its (already company-filtered) chunks, so no caller indexes a shared list.
+AVAILABLE_COMPANIES = rag.available_companies()
+CHUNKS_BY_COMPANY: dict[str, list] = {}
+RETRIEVERS: dict[str, object] = {}
+for _company in AVAILABLE_COMPANIES:
+    _chunks = rag.load_chunks(_company)
+    if not _chunks:
+        continue
+    CHUNKS_BY_COMPANY[_company] = _chunks
+    RETRIEVERS[_company] = rag.build_retriever(_chunks, EMBED_BACKEND, namespace=_company)
+
+# Cross-company competitive insights — a SEPARATE retriever, only used for explicit
+# comparison / competitive roleplay. Never mixed into a single-company product answer.
+COMPETITIVE_CHUNKS = rag.load_competitive_insights()
+COMPETITIVE_RETRIEVER = (
+    rag.build_retriever(COMPETITIVE_CHUNKS, EMBED_BACKEND, namespace="competitive")
+    if COMPETITIVE_CHUNKS else None
+)
+
+# The company the UI defaults to: Arthrex if present, else the first available.
+DEFAULT_UI_COMPANY = (
+    co.DEFAULT_COMPANY if co.DEFAULT_COMPANY in RETRIEVERS
+    else (AVAILABLE_COMPANIES[0] if AVAILABLE_COMPANIES else co.DEFAULT_COMPANY)
+)
+
+
+def resolve_company(value: str | None) -> str:
+    """Canonical company for a request, defaulting to the UI default when unset."""
+    if not value:
+        return DEFAULT_UI_COMPANY
+    return co.canonical_company(value)
+
+
+def _sse(event: str, data) -> str:
+    return f"event: {event}\ndata: {json.dumps(data)}\n\n"
 
 
 @app.get("/")
@@ -56,14 +82,39 @@ def index():
     return FileResponse(HERE / "index.html")
 
 
-@app.get("/api/meta")
-def meta():
-    n_pdf = sum(1 for c in CHUNKS if c.get("source_type") == "pdf")
+@app.get("/api/companies")
+def companies():
+    """Every known company + whether it has an ingested KB (for the UI selector)."""
     return {
-        "chunks": len(CHUNKS),
-        "videos": len(CHUNKS) - n_pdf,
+        "companies": [
+            {
+                "id": c,
+                "label": co.display_name(c),
+                "available": c in RETRIEVERS,
+                "chunks": len(CHUNKS_BY_COMPANY.get(c, [])),
+            }
+            for c in co.known_companies()
+        ],
+        "default": DEFAULT_UI_COMPANY,
+        "competitive_insights": len(COMPETITIVE_CHUNKS),
+    }
+
+
+@app.get("/api/meta")
+def meta(company: str | None = None):
+    company = resolve_company(company)
+    chunks = CHUNKS_BY_COMPANY.get(company, [])
+    retriever = RETRIEVERS.get(company)
+    n_pdf = sum(1 for c in chunks if c.get("source_type") == "pdf")
+    return {
+        "company": company,
+        "company_label": co.display_name(company),
+        "available": company in RETRIEVERS,
+        "chunks": len(chunks),
+        "videos": len(chunks) - n_pdf,
         "pdfs": n_pdf,
-        "embed_backend": getattr(RETRIEVER, "name", EMBED_BACKEND),
+        "competitive_insights": len(COMPETITIVE_CHUNKS),
+        "embed_backend": getattr(retriever, "name", EMBED_BACKEND),
         "embed_reason": EMBED_REASON,
         "gen_backend": GEN_BACKEND,
         "gen_reason": GEN_REASON,
@@ -71,22 +122,29 @@ def meta():
 
 
 @app.get("/api/ask")
-def ask(q: str, k: int = 4):
-    if not RETRIEVER:
-        return {"error": "No KB chunks. Run scripts/ingest_to_kb.py first."}
+def ask(q: str, k: int = 4, company: str | None = None):
+    company = resolve_company(company)
+    retriever = RETRIEVERS.get(company)
+    if retriever is None:
+        return {
+            "error": f"No knowledge base for {co.display_name(company)} yet. "
+                     f"Ingest it first: python -m trainmed.pdf_ingest --company {company} "
+                     f"--from-file data/urls/<file>.txt && python scripts/ingest_to_kb.py --company {company}.",
+            "company": company,
+        }
 
-    hits = RETRIEVER.search(q, k)
-    retrieved = [CHUNKS[i] for i, _ in hits]
-    cites = [citation(n, CHUNKS[i], s) for n, (i, s) in enumerate(hits, 1)]
-
-    def sse(event: str, data) -> str:
-        return f"event: {event}\ndata: {json.dumps(data)}\n\n"
+    # retrieve() returns chunk dicts directly (no positional indexing into a global
+    # list); the guard then fail-closes on any chunk that isn't this company's.
+    hits = retriever.retrieve(q, k)
+    retrieved = rag.enforce_company([c for c, _ in hits], company)
+    cites = [rag.citation(n, c, s) for n, (c, s) in enumerate(hits, 1)
+             if c.get("company") == company]
 
     def events():
-        yield sse("sources", cites)  # render the citations panel immediately
-        for delta in stream_answer(q, retrieved, GEN_BACKEND):
-            yield sse("token", delta)
-        yield sse("done", {"embed": EMBED_BACKEND, "gen": GEN_BACKEND})
+        yield _sse("sources", cites)  # render the citations panel immediately
+        for delta in rag.stream_answer(q, retrieved, GEN_BACKEND, company=company):
+            yield _sse("token", delta)
+        yield _sse("done", {"company": company, "embed": EMBED_BACKEND, "gen": GEN_BACKEND})
 
     return StreamingResponse(events(), media_type="text/event-stream")
 
@@ -94,19 +152,25 @@ def ask(q: str, k: int = 4):
 # ── roleplay trainer ──────────────────────────────────────────────────────────
 
 
-def _sse(event: str, data) -> str:
-    return f"event: {event}\ndata: {json.dumps(data)}\n\n"
-
-
 @app.get("/api/roleplay/scenarios")
-def roleplay_scenarios():
+def roleplay_scenarios(company: str | None = None):
+    company = resolve_company(company)
+    scens = rag.scenarios_for(company)
     return {
+        "company": company,
+        "company_label": co.display_name(company),
         "scenarios": [
-            {"id": s["id"], "label": s["label"], "opening": s["opening"], "goal": s["goal"]}
-            for s in SCENARIOS
+            {"id": s["id"], "label": s["label"], "opening": s["opening"],
+             "goal": s["goal"], "competitive": bool(s.get("competitive")),
+             "persona": s.get("persona", ""), "prospect": s.get("prospect", {})}
+            for s in scens
         ],
-        "roles": [{"id": k, "label": v} for k, v in ROLES.items()],
-        "difficulties": list(DIFFICULTY.keys()),
+        "roles": [{"id": k, "label": v} for k, v in rag.ROLES.items()],
+        "difficulties": [
+            {"id": d, "label": rag.DIFFICULTY_META.get(d, {}).get("label", d.capitalize()),
+             "blurb": rag.DIFFICULTY_META.get(d, {}).get("blurb", "")}
+            for d in rag.DIFFICULTY.keys()
+        ],
         "gen_backend": GEN_BACKEND,
     }
 
@@ -114,26 +178,34 @@ def roleplay_scenarios():
 @app.post("/api/roleplay/turn")
 async def roleplay_turn(request: Request):
     body = await request.json()
-    scenario = SCENARIO_BY_ID.get(body.get("scenario_id")) or SCENARIOS[0]
+    company = resolve_company(body.get("company"))
+    scenario = rag.scenario_by_id(body.get("scenario_id"), company)
     role = body.get("role", "sales_rep")
     difficulty = body.get("difficulty", "medium")
     history = body.get("history", [])
     message = (body.get("message") or "").strip()
 
-    # Ground the surgeon's pushback (and the coach's scoring) in real Arthrex content.
-    query = message or scenario["goal"]
-    hits = RETRIEVER.search(query, 4) if RETRIEVER else []
-    retrieved = [CHUNKS[i] for i, _ in hits]
+    # Ground the surgeon's pushback (and the coach's scoring) in THIS company's content
+    # only. For a competitive scenario, ALSO add cross-company competitive insights —
+    # the curated comparison notes, never the raw competitor product corpus.
+    query = message or scenario.get("goal", "")
+    retriever = RETRIEVERS.get(company)
+    grounded = [c for c, _ in retriever.retrieve(query, 4)] if retriever else []
+    grounded = rag.enforce_company(grounded, company)  # fail-closed
+    if scenario.get("competitive") and COMPETITIVE_RETRIEVER is not None:
+        grounded = grounded[:3] + [c for c, _ in COMPETITIVE_RETRIEVER.retrieve(query, 2)]
 
     def events():
-        for delta in stream_roleplay(scenario, role, difficulty, history, message, retrieved, GEN_BACKEND):
+        for delta in rag.stream_roleplay(
+            scenario, role, difficulty, history, message, grounded, GEN_BACKEND, company=company
+        ):
             yield _sse("surgeon", delta)
         # Signal the reply is complete so the client can start TTS immediately,
         # in parallel with the coach scoring below (which no longer blocks the voice).
         yield _sse("surgeon_done", {})
-        card = score_exchange(scenario, message, retrieved, GEN_BACKEND)
+        card = rag.score_exchange(scenario, message, grounded, GEN_BACKEND, company=company)
         yield _sse("feedback", card)
-        yield _sse("done", {"gen": GEN_BACKEND})
+        yield _sse("done", {"company": company, "gen": GEN_BACKEND})
 
     return StreamingResponse(events(), media_type="text/event-stream")
 

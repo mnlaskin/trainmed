@@ -1,5 +1,6 @@
 {
   "chunk_id": "rotator-cuff-repair-with-fibertak-soft-anchors_001",
+  "company": "Arthrex",
   "source_id": "rotator-cuff-repair-with-fibertak-soft-anchors",
   "source_type": "pdf",
   "source_title": "Rotator Cuff Repair with FiberTak Soft Anchors (brochure)",
@@ -9,6 +10,19 @@
   "page_count": 8,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "FiberTak",
+  "product_name": "FiberTak",
+  "category": "technique_guide",
+  "technique": [
+    "double_row",
+    "knotless",
+    "transosseous_equivalent",
+    "all_suture"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 1,
   "chunk_count": 3,
   "word_count": 800,

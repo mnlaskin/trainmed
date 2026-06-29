@@ -1,5 +1,6 @@
 {
   "chunk_id": "speedbridge-knotless-rotator-cuff-repair_000",
+  "company": "Arthrex",
   "source_id": "speedbridge-knotless-rotator-cuff-repair",
   "source_type": "pdf",
   "source_title": "SpeedBridge Knotless Rotator Cuff Repair (technique guide)",
@@ -9,6 +10,19 @@
   "page_count": 20,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "SpeedBridge",
+  "product_name": "SpeedBridge",
+  "category": "technique_guide",
+  "technique": [
+    "double_row",
+    "knotless",
+    "transosseous_equivalent",
+    "augmentation"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 0,
   "chunk_count": 5,
   "word_count": 800,

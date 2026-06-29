@@ -1,5 +1,6 @@
 {
   "chunk_id": "bony-bankart-bridge-technique-restoration-anterior-shoulder-stability_007",
+  "company": "Arthrex",
   "source_id": "bony-bankart-bridge-technique-restoration-anterior-shoulder-stability",
   "source_type": "pdf",
   "source_title": "Bony Bankart Bridge Technique — Anterior Shoulder Stability",
@@ -9,6 +10,16 @@
   "page_count": 7,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Shoulder",
+  "product_family": "Instability",
+  "product_name": "Bankart Repair",
+  "category": "technique_guide",
+  "technique": [
+    "instability"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 7,
   "chunk_count": 9,
   "word_count": 800,
