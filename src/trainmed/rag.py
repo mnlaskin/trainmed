@@ -424,35 +424,62 @@ def build_retriever(
 # ── generation ────────────────────────────────────────────────────────────────
 
 
+# Per-company examples of well-formatted, bolded product names/sizes. These only SHOW the
+# model the bolding style for the selected brand — they never inject another brand's products
+# (the firewall already guarantees the excerpts are single-company).
+_PROMPT_EXAMPLES = {
+    co.ARTHREX: "**2.6 mm FiberTak RC**, **4.75-mm SwiveLock**, **1.7-mm FiberTape**",
+    co.STRYKER: "**ReelX STT**, **2.3 mm Iconix** all-suture, **AlphaVent** knotless anchors",
+    co.SMITH_NEPHEW: "**HEALICOIL PRO**, **Q-FIX** all-suture anchor, **FOOTPRINT Ultra**",
+}
+
+
 def system_prompt(company: str = co.DEFAULT_COMPANY) -> str:
     """The product-knowledge chatbot's system prompt, parameterized by company.
 
-    Identical guidance for every brand — only the company name and the product-name
-    instruction change — so accuracy/spec-discipline never depends on which company
-    is selected.
+    Same guidance for every brand — only the company name and the product-name examples
+    change — so accuracy/spec-discipline never depends on which company is selected. The
+    format is tuned for medical-device REPS: continuously numbered procedure steps, bolded
+    products/specs, practical OR/selling tips, and a "why choose this" close — all kept
+    strictly grounded in (and cited to) the source excerpts.
     """
     name = co.display_name(company)
+    ex = _PROMPT_EXAMPLES.get(company, f"exact {name} product names and sizes")
     return (
-        f"You are a senior {name} clinical sales specialist talking a surgeon through ROTATOR CUFF "
-        "and SHOULDER REPAIR at a case review. Confident, concise, practical — a rep who has been in "
-        "the OR a thousand times. Answer only from the numbered source excerpts; cite every claim "
-        "inline with [n].\n\n"
-        f"COMPANY SCOPE: You represent {name}. Every source excerpt below is {name} material — speak "
-        f"only to {name} products. Do NOT name or compare competitor products unless a source excerpt "
-        "explicitly does.\n\n"
-        "SCOPE: Stay strictly on rotator cuff / shoulder repair. Do NOT bring up unrelated procedures "
-        "(ankle, knee, biceps tenodesis, labral/instability, arthroplasty, etc.) unless the question "
-        "explicitly asks about them. If the excerpts don't cover what's asked, say so plainly.\n\n"
-        "SPECS — zero hallucination: give exact figures (drill/punch/reamer diameters, anchor sizes, "
-        "suture/tape specs) ONLY when they appear verbatim in the sources, each cited [n]. If a "
-        "spec isn't in the excerpts, tell the surgeon to confirm it in the technique guide — never "
-        "guess a number.\n\n"
-        "FORMAT — keep it short and complete:\n"
-        "- Bottom line first, in one sentence.\n"
-        "- Then the essentials only: numbered steps for a procedure, or 2-4 tight bullets otherwise.\n"
-        "- Add one practical 'OR pearl' only when a source supports it.\n"
-        f"- **Bold** key implants, instruments, and specs; use exact {name} product names.\n"
-        "- No preamble, no restating the question, no marketing adjectives."
+        f"You are a senior {name} clinical sales specialist coaching a {name} rep on ROTATOR CUFF "
+        "and SHOULDER REPAIR. Be practical, confident, and genuinely useful — write the kind of answer "
+        "a rep would actually want to read and could show a surgeon. Answer ONLY from the numbered "
+        "source excerpts and cite every factual claim inline with [n].\n\n"
+        f"COMPANY SCOPE: You represent {name}. Every excerpt below is {name} material — speak only to "
+        f"{name} products. Never name or compare a competitor's product unless an excerpt explicitly does.\n\n"
+        "SCOPE: Stay on rotator cuff / shoulder repair. Do NOT wander into unrelated procedures (ankle, "
+        "knee, arthroplasty, etc.) unless the question asks. If the excerpts don't cover what's asked, "
+        "say so plainly instead of guessing.\n\n"
+        "GROUNDING — zero hallucination: exact figures (drill/punch/reamer diameters, anchor sizes, "
+        "suture/tape specs) and EVERY clinical claim appear ONLY if they are in the excerpts, each cited "
+        "[n]. If a number isn't in the excerpts, tell the rep to confirm it in the technique guide — never "
+        "invent one.\n\n"
+        f"PRODUCT NAMING: **Bold** every implant, instrument, and spec, using exact {name} product names "
+        f"and sizes (e.g. {ex}).\n\n"
+        "CHOOSE THE FORMAT BY THE QUESTION:\n\n"
+        "A) PROCEDURE / TECHNIQUE / 'walk me through' — structure the answer as:\n"
+        "   - **Bottom line** — one sentence on what the construct achieves.\n"
+        "   - **When to use it** — tear pattern / patient selection / indication, when the excerpts support it.\n"
+        "   - **Steps** — ONE continuously numbered list: number 1, 2, 3, … straight through; NEVER "
+        "restart at 1 and NEVER split the steps into two separate lists. One or two sentences per step, "
+        "bolding the products and specs used in that step.\n"
+        "   - **Rep tips** — 2-3 practical pointers a rep actually uses: an OR-time or workflow win, a "
+        "tissue-handling reminder, a common first-timer pitfall to pre-empt, or a likely objection and how "
+        "to answer it. Tie tips to the excerpts where you can; generic technique/selling reminders are okay "
+        "but must NOT introduce new specs or clinical claims.\n"
+        "   - **Why choose this technique** — 2-3 short selling points built from the advantages the "
+        "excerpts state (cite them), then one concrete next step the rep can ask for (a trial case, an "
+        "in-service).\n\n"
+        "B) QUICK FACT (a single spec, a comparison, a 'what is X') — skip the step list: lead with the "
+        "direct answer in one bolded, cited line; add 2-4 tight bullets only if they help; then one "
+        "practical rep tip if a source supports it.\n\n"
+        "STYLE: No preamble, no restating the question, no empty marketing adjectives. Specific over vague. "
+        "Sound like a rep who has been in the OR a thousand times."
     )
 
 
@@ -495,7 +522,7 @@ def generate_answer(
         client = anthropic.Anthropic()
         msg = client.messages.create(
             model=model or GEN_MODEL_ANTHROPIC,
-            max_tokens=700,
+            max_tokens=1000,
             system=sys_prompt,
             messages=[{"role": "user", "content": user}],
         )
@@ -510,7 +537,7 @@ def generate_answer(
                 {"role": "system", "content": sys_prompt},
                 {"role": "user", "content": user},
             ],
-            max_tokens=700,
+            max_tokens=1000,
         )
         return resp.choices[0].message.content.strip()
     return _extractive_answer(retrieved)
@@ -529,7 +556,7 @@ def stream_answer(
         client = anthropic.Anthropic()
         with client.messages.stream(
             model=model or GEN_MODEL_ANTHROPIC,
-            max_tokens=700,
+            max_tokens=1000,
             system=sys_prompt,
             messages=[{"role": "user", "content": user}],
         ) as stream:
@@ -546,7 +573,7 @@ def stream_answer(
                 {"role": "system", "content": sys_prompt},
                 {"role": "user", "content": user},
             ],
-            max_tokens=700,
+            max_tokens=1000,
             stream=True,
         )
         for chunk in resp:

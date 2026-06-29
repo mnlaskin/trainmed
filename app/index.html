@@ -812,9 +812,11 @@ function renderMarkdown(raw){
   const closeList=()=>{ if(list){ html+='</'+list+'>'; list=null; } };
   const flushPara=()=>{ if(para.length){ html+='<p>'+para.map(mdInline).join('<br>')+'</p>'; para=[]; } };
   for(const line of lines){
-    const b=/^\s*[-*]\s+(.*)$/.exec(line); const n=/^\s*\d+\.\s+(.*)$/.exec(line);
+    const b=/^\s*[-*]\s+(.*)$/.exec(line); const n=/^\s*(\d+)\.\s+(.*)$/.exec(line);
     if(b){ flushPara(); if(list!=='ul'){ closeList(); html+='<ul>'; list='ul'; } html+='<li>'+mdInline(b[1])+'</li>'; }
-    else if(n){ flushPara(); if(list!=='ol'){ closeList(); html+='<ol>'; list='ol'; } html+='<li>'+mdInline(n[1])+'</li>'; }
+    // Honor the model's explicit step number via <li value="N"> so numbering can't visually
+    // restart at 1 when a step spans blocks or the list is interrupted (the "restart" bug).
+    else if(n){ flushPara(); if(list!=='ol'){ closeList(); html+='<ol>'; list='ol'; } html+='<li value="'+n[1]+'">'+mdInline(n[2])+'</li>'; }
     else if(line.trim()===''){ flushPara(); closeList(); }
     else { closeList(); para.push(line); }
   }
