@@ -1,5 +1,6 @@
 {
   "chunk_id": "hZLyDWKfWQU_000",
+  "company": "Arthrex",
   "source_id": "hZLyDWKfWQU",
   "source_type": "youtube",
   "source_title": "Knotless SutureTak® Instability Repair",
@@ -9,6 +10,16 @@
   "page_count": null,
   "language": "en",
   "procedure_family": "rotator_cuff",
+  "product_line": "Shoulder",
+  "product_family": "SutureTak",
+  "product_name": "SutureTak",
+  "category": "technique_guide",
+  "technique": [
+    "instability"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 0,
   "chunk_count": 1,
   "word_count": 136,

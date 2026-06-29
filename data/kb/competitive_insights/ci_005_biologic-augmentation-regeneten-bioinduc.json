@@ -1,0 +1,37 @@
+{
+  "chunk_id": "ci_005_biologic-augmentation-regeneten-bioinduc",
+  "collection": "competitive",
+  "company": "_competitive",
+  "companies": [
+    "Smith & Nephew",
+    "Arthrex",
+    "Stryker"
+  ],
+  "source_id": "ci_005_biologic-augmentation-regeneten-bioinduc",
+  "source_type": "competitive_insight",
+  "source_title": "Biologic augmentation (REGENETEN bioinductive implant)",
+  "source_url": "https://www.smith-nephew.com/en/news/2024/01/11/20240111-new-study-confirms-smithnephews-regeneten-bioinductive-implant",
+  "category": "competitive_insight",
+  "product_line": "Clinical evidence / biologics",
+  "topic": "Biologic augmentation (REGENETEN bioinductive implant)",
+  "summary": "Bioinductive augmentation adds a resorbable collagen scaffold over the repair (or as a standalone in partial tears) to induce new tendon-like tissue and thicken the cuff. Smith & Nephew's REGENETEN is the category-defining product with the strongest published evidence: an RCT reported markedly lower re-tear rates when augmenting full-thickness TOE double-row repairs, and AAOS issued a strong recommendation supporting bioinductive implants. This is one area where a specific branded product (REGENETEN) has differentiated clinical data rather than just biomechanics. Arthrex and Stryker compete more in the broader 'patch/scaffold' and dermal-allograft space than with a direct bioinductive equivalent.",
+  "arthrex_position": "Arthrex does not market a direct bioinductive collagen equivalent; its augmentation/biologics play centers on dermal allograft (ArthroFLEX) patches, biceps/SCR techniques, and orthobiologics rather than a REGENETEN-style inductive scaffold.",
+  "stryker_position": "Stryker's irreparable/augmentation play centers on the InSpace subacromial balloon spacer for massive irreparable tears and allograft options; it does not have a direct bioinductive collagen implant competitor to REGENETEN.",
+  "smithnephew_position": "REGENETEN is Smith & Nephew's flagship differentiator: a resorbable bovine collagen bioinductive implant with RCT-level re-tear reduction data, >250,000 procedures since 2014, and an AAOS strong recommendation supporting bioinductive augmentation.",
+  "rep_talk_track": "An S&N rep can make an honest, data-backed claim here that is hard for the others to match: REGENETEN has RCT evidence of reduced re-tear rates and an AAOS strong recommendation for bioinductive augmentation - a genuine clinical-evidence edge, not just bench data. An Arthrex or Stryker rep would honestly redirect: they don't have a head-to-head bioinductive product, so they compete on the core repair construct plus different augmentation strategies (dermal allograft, balloon spacer). The fair caveat for the S&N rep is that the strongest re-tear numbers come from specific single trials and partial-tear cohorts, so they should cite the actual studies rather than over-generalize.",
+  "evidence": [
+    "RCT (Ruiz Ibán et al., Arthroscopy 2023): augmenting full-thickness TOE double-row repair with REGENETEN gave re-tear 8.3% vs 25.8% control at 1 year (RR 0.32; ~68% relative reduction).",
+    "Two-year MALLAMANGUITO RCT data: sustained ~65% relative reduction (12.3% vs 35.1%).",
+    "AAOS issued a Strong Recommendation that bioinductive tendon implants to augment or replace standard repair can lower re-tear rates and improve patient-reported outcomes.",
+    ">250,000 REGENETEN procedures globally since 2014 (company figure)."
+  ],
+  "sources": [
+    "https://www.smith-nephew.com/en/news/2024/01/11/20240111-new-study-confirms-smithnephews-regeneten-bioinductive-implant",
+    "https://www.globenewswire.com/news-release/2025/09/11/3148484/0/en/Smith-Nephew-unveils-major-clinical-evidence-and-patient-access-updates-for-its-REGENETEN-Bioinductive-Implant.html",
+    "https://aoj.amegroups.org/article/view/5816/html"
+  ],
+  "confidence": "high",
+  "notes": "",
+  "word_count": 376,
+  "text": "Biologic augmentation (REGENETEN bioinductive implant)\n\nBioinductive augmentation adds a resorbable collagen scaffold over the repair (or as a standalone in partial tears) to induce new tendon-like tissue and thicken the cuff. Smith & Nephew's REGENETEN is the category-defining product with the strongest published evidence: an RCT reported markedly lower re-tear rates when augmenting full-thickness TOE double-row repairs, and AAOS issued a strong recommendation supporting bioinductive implants. This is one area where a specific branded product (REGENETEN) has differentiated clinical data rather than just biomechanics. Arthrex and Stryker compete more in the broader 'patch/scaffold' and dermal-allograft space than with a direct bioinductive equivalent.\n\nArthrex: Arthrex does not market a direct bioinductive collagen equivalent; its augmentation/biologics play centers on dermal allograft (ArthroFLEX) patches, biceps/SCR techniques, and orthobiologics rather than a REGENETEN-style inductive scaffold.\nStryker: Stryker's irreparable/augmentation play centers on the InSpace subacromial balloon spacer for massive irreparable tears and allograft options; it does not have a direct bioinductive collagen implant competitor to REGENETEN.\nSmith & Nephew: REGENETEN is Smith & Nephew's flagship differentiator: a resorbable bovine collagen bioinductive implant with RCT-level re-tear reduction data, >250,000 procedures since 2014, and an AAOS strong recommendation supporting bioinductive augmentation.\n\nRep positioning: An S&N rep can make an honest, data-backed claim here that is hard for the others to match: REGENETEN has RCT evidence of reduced re-tear rates and an AAOS strong recommendation for bioinductive augmentation - a genuine clinical-evidence edge, not just bench data. An Arthrex or Stryker rep would honestly redirect: they don't have a head-to-head bioinductive product, so they compete on the core repair construct plus different augmentation strategies (dermal allograft, balloon spacer). The fair caveat for the S&N rep is that the strongest re-tear numbers come from specific single trials and partial-tear cohorts, so they should cite the actual studies rather than over-generalize.\n\nEvidence: (1) RCT (Ruiz Ibán et al., Arthroscopy 2023): augmenting full-thickness TOE double-row repair with REGENETEN gave re-tear 8.3% vs 25.8% control at 1 year (RR 0.32; ~68% relative reduction). (2) Two-year MALLAMANGUITO RCT data: sustained ~65% relative reduction (12.3% vs 35.1%). (3) AAOS issued a Strong Recommendation that bioinductive tendon implants to augment or replace standard repair can lower re-tear rates and improve patient-reported outcomes. (4) >250,000 REGENETEN procedures globally since 2014 (company figure)."
+}

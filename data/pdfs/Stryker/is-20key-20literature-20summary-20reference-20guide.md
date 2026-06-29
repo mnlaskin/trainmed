@@ -1,0 +1,111 @@
+---
+title: InSpace key literature summary — reference guide (clinical evidence)
+doc_id: is-20key-20literature-20summary-20reference-20guide
+company: Stryker
+source_url: https://www.stryker.com/content/dam/stryker/sports-medicine/products/inspace/images/IS%20Key%20Literature%20Summary%20reference%20guide.pdf
+source_type: pdf
+procedure_family: rotator_cuff
+page_count: 2
+source: pdf
+---
+
+# InSpace key literature summary — reference guide (clinical evidence)
+
+InSpace 
+balloon implant
+Key literature summary reference guide
+Which studies have the longest 
+patient follow-up?
+• The biodegradable spacer as a novel treatment modality for massive 
+rotator cuff tears: a prospective study with 5-year follow-up 
+Senekovic V , Poberaj B, Kovacic L, Mikek M, Adar E, Markovitz E, Maman E, Dekel A. Arch Orthop 
+Trauma Surg. Jan 2017; 137(1): 95-103.
+• The subacromial balloon spacer for massive irreparable rotator cuff 
+tears: approximately 3 years of prospective follow-up
+Piekaar RSM, Bouman ICE, Van Kampen PM, Van Eijk F , Huijsmans PE. Musculoskelet Surg 2020; 
+104(2): 207-214. 
+Which study evaluates the 
+outcomes of the InSpace with 
+or without a biceps procedure? 
+• Biceps tenotomy does not affect the functional outcomes of patients 
+treated with spacer implantation
+Maman E, Safran O, Beyth S, Mozes G, Dekel A, Michael B, Chechik O, Adar E. The Open 
+Orthopaedics Journal 2017; 11: 1577-1584
+Which study performed a 
+biomechanical assessment 
+comparing the InSpace implant 
+versus superior capsular 
+reconstruction (SCR)?
+• The subacromial balloon spacer versus superior capsular reconstruction 
+in the treatment of irreparable rotator cuff tears: a biomechanical 
+assessment 
+Singh S, Reeves J, Langohr GDG, Johnson JA, Athwal GS. Arthroscopy 2019; 35(2): 382-389
+What systematic reviews are 
+there on the effectiveness of 
+the InSpace implant? 
+• Subacromial spacer implantation for the treatment of massive 
+irreparable rotator cuff tears: a systematic review 
+Moon AS, Patel HA, Ithurburn MP , Brabston EW , Ponce BA, Momaya AM. Arthroscopy 2018; 
+35(2): 607-614
+• Outcomes of subacromial balloon spacer implantation for massive 
+and irreparable rotator cuff tears: a systematic review
+Stewart RK, Kaplin L, Parada SA, Graves BR, Verma NN, Waterman BR. Orthop J Sports Med 
+2019; 7(10): 1-10
+• Implantable subacromial balloon spacers in patients with massive 
+irreparable rotator cuff tears: a systematic review of clinical, 
+biomechanical, and financial implications
+Johns WL, Ailaney N, Lacy K, Golladay GJ, Vanderbeck J, Kalore NV . Arthroscopy, Sports Medicine 
+and Rehabilitation, 2020 2(6) e855-e872
+Q: A:
+
+What types of complications 
+have been reported in the 
+literature?
+• Subacromial spacer implantation for the treatment of massive 
+irreparable rotator cuff tears: a systematic review 
+Moon AS, Patel HA, Ithurburn MP , Brabston EW , Ponce BA, Momaya AM. Arthroscopy 2018; 
+35(2): 607-614
+• Outcomes of subacromial balloon spacer implantation for massive 
+and irreparable rotator cuff tears: a systematic review
+Stewart RK, Kaplin L, Parada SA, Graves BR, Verma NN, Waterman BR. Orthop J Sports Med 
+2019; 7(10): 1-10
+• Implantable subacromial balloon spacers in patients with massive 
+irreparable rotator cuff tears: a systematic review of clinical, 
+biomechanical, and financial implications
+Johns WL, Ailaney N, Lacy K, Golladay GJ, Vanderbeck J, Kalore NV . Arthroscopy, 
+Sports Medicine and Rehabilitation, 2020 2(6) e855-e872
+How does the InSpace 
+balloon work biomechanically 
+at time zero?
+• Biomechanics of biodegradable subacromial balloon spacer for 
+irreparable superior rotator cuff tears: study of a cadaveric model
+Lobao MH, Canham RB, Melvani RT, Abboud JA, Parks BG, Murthi AM. JBJS 2019; 101(11): e49
+• The subacromial balloon spacer versus superior capsular reconstruction 
+in the treatment of irreparable rotator cuff tears: a biomechanical 
+assessment
+Singh S, Reeves J, Langohr GDG, Johnson JA, Athwal GS. Arthroscopy 2019; 35(2): 382-389
+• The effect of the subacromial balloon spacer on humeral head 
+translation in the treatment of massive, irreparable rotator cuff tears: 
+a biomechanical assessment
+Singh S, Reeves J, Langohr GDG, Johnson JA, Athwal GS. JSES 2019; 28(10): 1841-1847
+Q: A:
+Stryker 
+5670 Greenwood Plaza Blvd., 
+Suite 200 
+Greenwood Village, CO 80111 
+t: 866 596 2022 f: 303 993 6195
+stryker.com/inspace
+Sports Medicine
+This document is intended solely for the use of healthcare professionals. A surgeon must always rely on his or her own professional clinical 
+judgment when deciding whether to use a particular product when treating a particular patient. We do not dispense medical advice and 
+recommend that surgeons be trained in the use of any particular product before using it in surgery.
+The information presented is intended to demonstrate Stryker’s products. A surgeon must always refer to the package insert, product label 
+and/or instructions for use, including the instructions for cleaning and sterilization (if applicable), before using any of Stryker’s products. 
+Products may not be available in all markets because product availability is subject to the regulatory and/or medical practices in individual 
+markets. Please contact your representative if you have questions about the availability of Stryker’s products in your area.
+Stryker or its affiliated entities own, use, or have applied for the following trademarks or service marks: InSpace and Stryker. All other 
+trademarks are trademarks of their respective owners or holders. The absence of a product, feature, or service name, or logo from this list 
+does not constitute a waiver of Stryker’s trademark or other intellectual property rights concerning that name or logo.
+1000903991 Rev. A
+Copyright © 2021 Stryker
+Printed in USA

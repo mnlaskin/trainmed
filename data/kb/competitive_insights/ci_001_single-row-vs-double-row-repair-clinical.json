@@ -1,0 +1,35 @@
+{
+  "chunk_id": "ci_001_single-row-vs-double-row-repair-clinical",
+  "collection": "competitive",
+  "company": "_competitive",
+  "companies": [
+    "Arthrex",
+    "Stryker",
+    "Smith & Nephew"
+  ],
+  "source_id": "ci_001_single-row-vs-double-row-repair-clinical",
+  "source_type": "competitive_insight",
+  "source_title": "Single-row vs double-row repair: clinical evidence",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10467404/",
+  "category": "competitive_insight",
+  "product_line": "Clinical evidence",
+  "topic": "Single-row vs double-row repair: clinical evidence",
+  "summary": "Meta-analyses consistently show double-row (including TOE) repair lowers structural re-tear rates versus single-row, with the benefit concentrated in larger tears (>=3 cm). For small tears (<3 cm), functional outcome scores (ASES, UCLA, Constant) are generally equivalent between single- and double-row. This is a technique-level evidence base that applies across all three vendors' implants - no brand's anchors have been shown in head-to-head RCTs to beat another brand's anchors on clinical outcomes.",
+  "arthrex_position": "Arthrex markets double-row/TOE SpeedBridge and SutureBridge as the constructs that capture the re-tear-rate advantage shown in the literature, especially for medium-to-large tears.",
+  "stryker_position": "Stryker positions its double-row platform (ReelX/Omega plus single-row CrossFT/Citrelock options) so surgeons can match construct to tear size, consistent with the size-dependent evidence.",
+  "smithnephew_position": "Smith & Nephew offers both single-row (HEALICOIL/FOOTPRINT) and knotless double-row HEALICOIL constructs, and additionally frames re-tear reduction around biologic augmentation (REGENETEN) layered on top of either construct.",
+  "rep_talk_track": "Every rep can honestly cite the same body of meta-analyses: double-row lowers re-tear rates, mostly in larger tears, with similar functional scores to single-row in small tears. The defensible, non-marketing statement is 'the construct evidence favors double-row for bigger tears, and our system executes that construct efficiently' - not 'our anchor heals better than theirs,' which is not supported by head-to-head data.",
+  "evidence": [
+    "Systematic review/meta-analysis (10 studies, 791 patients): double-row had lower re-tear rate (OR ~2.39 favoring DR), better forward-elevation ROM and ASES; for tears <3 cm no significant difference across outcome scores; for tears >=3 cm DR significantly better ASES/UCLA and markedly lower re-tear.",
+    "Multiple earlier meta-analyses (e.g., JSES 2014) reach the same directional conclusion: lower re-tear and better cuff integrity with double-row, similar function for small tears."
+  ],
+  "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10467404/",
+    "https://pubmed.ncbi.nlm.nih.gov/24183478/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8811406/"
+  ],
+  "confidence": "high",
+  "notes": "",
+  "word_count": 287,
+  "text": "Single-row vs double-row repair: clinical evidence\n\nMeta-analyses consistently show double-row (including TOE) repair lowers structural re-tear rates versus single-row, with the benefit concentrated in larger tears (>=3 cm). For small tears (<3 cm), functional outcome scores (ASES, UCLA, Constant) are generally equivalent between single- and double-row. This is a technique-level evidence base that applies across all three vendors' implants - no brand's anchors have been shown in head-to-head RCTs to beat another brand's anchors on clinical outcomes.\n\nArthrex: Arthrex markets double-row/TOE SpeedBridge and SutureBridge as the constructs that capture the re-tear-rate advantage shown in the literature, especially for medium-to-large tears.\nStryker: Stryker positions its double-row platform (ReelX/Omega plus single-row CrossFT/Citrelock options) so surgeons can match construct to tear size, consistent with the size-dependent evidence.\nSmith & Nephew: Smith & Nephew offers both single-row (HEALICOIL/FOOTPRINT) and knotless double-row HEALICOIL constructs, and additionally frames re-tear reduction around biologic augmentation (REGENETEN) layered on top of either construct.\n\nRep positioning: Every rep can honestly cite the same body of meta-analyses: double-row lowers re-tear rates, mostly in larger tears, with similar functional scores to single-row in small tears. The defensible, non-marketing statement is 'the construct evidence favors double-row for bigger tears, and our system executes that construct efficiently' - not 'our anchor heals better than theirs,' which is not supported by head-to-head data.\n\nEvidence: (1) Systematic review/meta-analysis (10 studies, 791 patients): double-row had lower re-tear rate (OR ~2.39 favoring DR), better forward-elevation ROM and ASES; for tears <3 cm no significant difference across outcome scores; for tears >=3 cm DR significantly better ASES/UCLA and markedly lower re-tear. (2) Multiple earlier meta-analyses (e.g., JSES 2014) reach the same directional conclusion: lower re-tear and better cuff integrity with double-row, similar function for small tears."
+}

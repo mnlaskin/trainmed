@@ -1,0 +1,45 @@
+# Stryker — shoulder / rotator cuff — official Stryker.com PDF seed list (curated)
+# All URLs are direct PDFs scraped from official stryker.com product/procedure pages.
+# Excluded: foot/ankle brochures, reimbursement/admin docs, and any video/streaming media.
+# Ingest:  python -m trainmed.pdf_ingest --company Stryker --from-file data/urls/stryker_shoulder_pdfs.txt
+#   then:  python scripts/ingest_to_kb.py --company Stryker
+# Format: <url>   # Citation Title
+
+# ── Omega Knotless Anchor System (knotless double-row) ──
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/omega/resources/Omega%20product%20brochure-updated.pdf   # Omega Knotless Anchor System brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/omega/resources/Omega%20Double-Double%20Guide.pdf   # Omega Double-Double knotless double-row technique guide
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/omega/resources/Rotator%20Cuff%20Brochure.pdf   # Omega Rotator Cuff Repair brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/omega/resources/Stryker's%20Omega%20PEEK%20knotless%20anchor%20Evidence%20Matters%20.pdf   # Omega PEEK Knotless Anchor — Evidence Matters (load-to-failure data)
+
+# ── AlphaVent (knotless + hard-body screw-in anchor platform) ──
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/alphavent-knotless/resources/SHLDR_AlphaVent-Knotless-brochure_1000904690revA.pdf   # AlphaVent Knotless anchor brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/alphavent/AlphaVent_Product-Brochure.pdf   # AlphaVent hard-body screw-in anchor platform brochure
+
+# ── Iconix all-suture knotless anchor family ──
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/iconixallsutureanchorsystem/resources/Iconix%20platform%20brochure.pdf   # Iconix All-Suture Anchor platform brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/iconixallsutureanchorsystem/resources/SPEED_C_RCR.pdf   # Iconix SPEED-C rotator cuff repair technique guide
+
+# ── ReelX STT knotless anchor ──
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/reelxsttknotlessanchorsystem/resources/ReelX%20STT%20Product%20Brochure.pdf   # ReelX STT Knotless Anchor brochure
+
+# ── Shoulder / rotator-cuff portfolio + procedure ──
+https://www.stryker.com/content/dam/stryker/sports-medicine/procedures/rcr-shoulder/documents/Shoulder%20Solutions.pdf   # Stryker Shoulder Solutions portfolio overview
+https://www.stryker.com/content/dam/stryker/sports-medicine/procedures/rcr-shoulder/documents/RCR-One-Pager_1000903495_RevA.pdf   # Rotator Cuff Repair solutions one-pager
+
+# ── Additional verified rotator-cuff technique guides (official stryker.com) ──
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/alphavent/resources/eu/SM-GSNPS-TECHG-1363127-EN_US.pdf   # AlphaVent to Omega Rotator Cuff Repair surgical technique guide
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/iconix-knotless/resources/SYK_IconixKnotless_Brochure_1000904521revc-webpage.pdf   # Iconix Knotless Anchor brochure
+# NOTE: cobra/resources/RCR_Procedure_Guide_HR.pdf intentionally OMITTED — byte-identical to the Omega "Rotator Cuff Brochure" above (de-duplicated).
+
+# ── InSpace subacromial balloon spacer (irreparable rotator cuff tears) ──
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/inspace/images/1000903813%20Rev.%20A_SI200931%20InSpace%20physician%20product%20bro%20v60_ELECTRONIC.pdf   # InSpace Balloon Implant — physician product brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/inspace/images/InSpace%20key%20literature%20summary.pdf   # InSpace key clinical literature summary
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/inspace/images/IS%20Key%20Literature%20Summary%20reference%20guide.pdf   # InSpace key literature summary — reference guide (clinical evidence)
+
+# ── Expansion: additional knotless anchors + double-row + instability (official stryker.com) ──
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/Knotilus-plus/knotilus-plus_brochure_1000904524revA.pdf   # Knotilus+ PEEK knotless suture anchor brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/iconix-ha-plus/Iconix-HA-plus_brochure-1000904608RevA.pdf   # Iconix HA+ coated all-suture anchor brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/procedures/achilles-reconstruction/resources/AlphaVent_Omega_synergy_1000904196RevA.pdf   # AlphaVent + Omega double-row rotator cuff solution
+https://www.stryker.com/content/dam/stryker/sports-medicine/procedures/instability---shoulder/brochures/Instability%20Procedural%20Guide%20Brochure.pdf   # Shoulder Instability surgical procedure guide (Iconix 1 + NanoTack TT)
+https://www.stryker.com/content/dam/stryker/sports-medicine/procedures/instability---shoulder/brochures/1.4mm%20Instability%20Repair%20Platform%20Brochure.pdf   # 1.4mm Shoulder Instability Repair Platform brochure
+# NOTE: cobra/resources/Cobra_DesignFeatures_RevB.pdf intentionally OMITTED — 73-word diagram page, no usable product knowledge.

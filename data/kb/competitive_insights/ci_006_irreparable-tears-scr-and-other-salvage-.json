@@ -1,0 +1,37 @@
+{
+  "chunk_id": "ci_006_irreparable-tears-scr-and-other-salvage-",
+  "collection": "competitive",
+  "company": "_competitive",
+  "companies": [
+    "Arthrex",
+    "Stryker",
+    "Smith & Nephew"
+  ],
+  "source_id": "ci_006_irreparable-tears-scr-and-other-salvage-",
+  "source_type": "competitive_insight",
+  "source_title": "Irreparable tears: SCR and other salvage options",
+  "source_url": "https://www.arthrex.com/resources/AN1-00530-en-US/superior-capsular-reconstruction-with-arthroflex-dermal-allograft",
+  "category": "competitive_insight",
+  "product_line": "Treatment options / irreparable cuff",
+  "topic": "Irreparable tears: SCR and other salvage options",
+  "summary": "For massive/irreparable posterosuperior cuff tears, options include superior capsular reconstruction (SCR) with dermal allograft, fascia lata autograft/allograft, or long head of biceps; subacromial balloon spacer; biologic tuberoplasty; tendon transfer; and reverse shoulder arthroplasty. Biomechanical studies compare graft choices (fascia lata vs single/double-layer dermal allograft) but evidence is heterogeneous and outcomes are technique- and patient-dependent. Vendors differentiate by which salvage technology they champion: dermal allograft SCR (Arthrex) vs balloon spacer (Stryker InSpace) vs biologic-healing framing (S&N).",
+  "arthrex_position": "Arthrex strongly promotes arthroscopic SCR with ArthroFLEX acellular dermal allograft (and knotless glenoid/greater-tuberosity anchor techniques), positioning SCR as a joint-preserving alternative to reverse arthroplasty in younger patients.",
+  "stryker_position": "Stryker's signature irreparable-tear product is the InSpace subacromial balloon spacer (FDA-approved 2021 for patients >65; shown non-inferior to partial repair in its pivotal data), marketed as a fast, implant-only alternative to SCR.",
+  "smithnephew_position": "Smith & Nephew leans on biologic healing (REGENETEN augmentation, REGENESORB) and dermal allograft/patch options rather than a proprietary balloon; its irreparable-tear messaging centers on inducing/strengthening native tissue and standard graft reconstruction.",
+  "rep_talk_track": "An Arthrex rep honestly pitches dermal allograft SCR as joint-preserving with growing biomechanical and clinical support, while acknowledging it's technically demanding. A Stryker rep pitches InSpace as a far simpler, quicker, implant-only option with FDA approval and non-inferiority data vs partial repair - while honestly noting it's indicated mainly for older patients. An S&N rep reframes toward augmenting reparable tissue and biologic healing before resorting to salvage. The honest disclaimer across all three: comparative evidence among SCR graft types, balloon spacer, and arthroplasty is still maturing and largely not head-to-head, so technique choice is patient-specific, not a settled 'best' device.",
+  "evidence": [
+    "Arthrex describes all-arthroscopic SCR with ArthroFLEX 2-6 mm acellular dermal allograft; biomechanical studies compare fascia lata vs single/double-layer dermal allograft with mixed conclusions.",
+    "InSpace subacromial balloon (Stryker): FDA approval 2021 for patients >65; pivotal data reported non-inferior to partial rotator cuff repair.",
+    "Biologic tuberoplasty and biceps-based SCR described as additional salvage options in the literature."
+  ],
+  "sources": [
+    "https://www.arthrex.com/resources/AN1-00530-en-US/superior-capsular-reconstruction-with-arthroflex-dermal-allograft",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10806962/",
+    "https://www.sciencedirect.com/science/article/abs/pii/S1058274617304408",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7494154/"
+  ],
+  "confidence": "medium",
+  "notes": "",
+  "word_count": 338,
+  "text": "Irreparable tears: SCR and other salvage options\n\nFor massive/irreparable posterosuperior cuff tears, options include superior capsular reconstruction (SCR) with dermal allograft, fascia lata autograft/allograft, or long head of biceps; subacromial balloon spacer; biologic tuberoplasty; tendon transfer; and reverse shoulder arthroplasty. Biomechanical studies compare graft choices (fascia lata vs single/double-layer dermal allograft) but evidence is heterogeneous and outcomes are technique- and patient-dependent. Vendors differentiate by which salvage technology they champion: dermal allograft SCR (Arthrex) vs balloon spacer (Stryker InSpace) vs biologic-healing framing (S&N).\n\nArthrex: Arthrex strongly promotes arthroscopic SCR with ArthroFLEX acellular dermal allograft (and knotless glenoid/greater-tuberosity anchor techniques), positioning SCR as a joint-preserving alternative to reverse arthroplasty in younger patients.\nStryker: Stryker's signature irreparable-tear product is the InSpace subacromial balloon spacer (FDA-approved 2021 for patients >65; shown non-inferior to partial repair in its pivotal data), marketed as a fast, implant-only alternative to SCR.\nSmith & Nephew: Smith & Nephew leans on biologic healing (REGENETEN augmentation, REGENESORB) and dermal allograft/patch options rather than a proprietary balloon; its irreparable-tear messaging centers on inducing/strengthening native tissue and standard graft reconstruction.\n\nRep positioning: An Arthrex rep honestly pitches dermal allograft SCR as joint-preserving with growing biomechanical and clinical support, while acknowledging it's technically demanding. A Stryker rep pitches InSpace as a far simpler, quicker, implant-only option with FDA approval and non-inferiority data vs partial repair - while honestly noting it's indicated mainly for older patients. An S&N rep reframes toward augmenting reparable tissue and biologic healing before resorting to salvage. The honest disclaimer across all three: comparative evidence among SCR graft types, balloon spacer, and arthroplasty is still maturing and largely not head-to-head, so technique choice is patient-specific, not a settled 'best' device.\n\nEvidence: (1) Arthrex describes all-arthroscopic SCR with ArthroFLEX 2-6 mm acellular dermal allograft; biomechanical studies compare fascia lata vs single/double-layer dermal allograft with mixed conclusions. (2) InSpace subacromial balloon (Stryker): FDA approval 2021 for patients >65; pivotal data reported non-inferior to partial rotator cuff repair. (3) Biologic tuberoplasty and biceps-based SCR described as additional salvage options in the literature."
+}

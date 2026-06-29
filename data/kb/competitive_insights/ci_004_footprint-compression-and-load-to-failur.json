@@ -1,0 +1,36 @@
+{
+  "chunk_id": "ci_004_footprint-compression-and-load-to-failur",
+  "collection": "competitive",
+  "company": "_competitive",
+  "companies": [
+    "Arthrex",
+    "Stryker",
+    "Smith & Nephew"
+  ],
+  "source_id": "ci_004_footprint-compression-and-load-to-failur",
+  "source_type": "competitive_insight",
+  "source_title": "Footprint compression and load-to-failure biomechanics",
+  "source_url": "https://pubmed.ncbi.nlm.nih.gov/17321161/",
+  "category": "competitive_insight",
+  "product_line": "Biomechanics",
+  "topic": "Footprint compression and load-to-failure biomechanics",
+  "summary": "Bench/cadaveric biomechanics are the main quantitative battleground in rotator cuff marketing. Key validated findings: TOE/SutureBridge constructs increase pressurized footprint contact area and interface pressure vs simple double-row; flat suture tape increases tendon contact area vs round suture; bridging-suture tension above ~90 N raises contact pressure but not contact area and does not improve ultimate failure load; over-tensioning risks tissue strangulation. Importantly, these are construct-level and material-level findings, not validated head-to-head brand-vs-brand failure-load comparisons in patients.",
+  "arthrex_position": "Arthrex leans heavily on footprint/contact-area messaging - FiberTape marketed as providing roughly 3x the contact area of a #2 round suture and SpeedBridge/SutureBridge providing broad TOE footprint compression.",
+  "stryker_position": "Stryker frames biomechanics around controlled tensioning (ReelX incremental reeling) and anchor pull-out strength of its PEEK anchors rather than a specific contact-area number.",
+  "smithnephew_position": "Smith & Nephew uses MINITAPE for footprint contact and emphasizes that fixation strength should be paired with biologic healing (REGENESORB ingrowth, REGENETEN), arguing raw load-to-failure is necessary but not sufficient.",
+  "rep_talk_track": "A FiberTape/SpeedBridge rep will cite ~3x contact area and high footprint pressure - legitimate bench data, but note it is largely Arthrex-sponsored or generic TOE biomechanics, not a brand-vs-brand patient outcome. A Stryker rep counters that more isn't always better - over-tensioning the bridge above ~90 N adds pressure without adding contact area or failure strength and can strangulate tissue, so controllable tensioning matters. An S&N rep reframes: fixation gets the tendon to bone day one, but healing biology determines the re-tear rate. All three points are individually defensible from the literature; the trap to avoid is implying one company's anchor 'wins' load-to-failure in patients, which no head-to-head study shows.",
+  "evidence": [
+    "Cadaveric: TOE achieved ~124 mm2 (~78% footprint) contact area and ~0.27 MPa vs ~0.19 MPa for double-row.",
+    "Cadaveric optimum-tension study: bridging tension >90 N increased contact force/pressure but not contact area, and tension did not significantly affect ultimate failure load.",
+    "Knotless wide-tape SutureBridge biomechanical comparison vs standard double-row suture repair (PubMed 32217061)."
+  ],
+  "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/17321161/",
+    "https://pubmed.ncbi.nlm.nih.gov/26150589/",
+    "https://pubmed.ncbi.nlm.nih.gov/32217061/"
+  ],
+  "confidence": "high",
+  "notes": "",
+  "word_count": 334,
+  "text": "Footprint compression and load-to-failure biomechanics\n\nBench/cadaveric biomechanics are the main quantitative battleground in rotator cuff marketing. Key validated findings: TOE/SutureBridge constructs increase pressurized footprint contact area and interface pressure vs simple double-row; flat suture tape increases tendon contact area vs round suture; bridging-suture tension above ~90 N raises contact pressure but not contact area and does not improve ultimate failure load; over-tensioning risks tissue strangulation. Importantly, these are construct-level and material-level findings, not validated head-to-head brand-vs-brand failure-load comparisons in patients.\n\nArthrex: Arthrex leans heavily on footprint/contact-area messaging - FiberTape marketed as providing roughly 3x the contact area of a #2 round suture and SpeedBridge/SutureBridge providing broad TOE footprint compression.\nStryker: Stryker frames biomechanics around controlled tensioning (ReelX incremental reeling) and anchor pull-out strength of its PEEK anchors rather than a specific contact-area number.\nSmith & Nephew: Smith & Nephew uses MINITAPE for footprint contact and emphasizes that fixation strength should be paired with biologic healing (REGENESORB ingrowth, REGENETEN), arguing raw load-to-failure is necessary but not sufficient.\n\nRep positioning: A FiberTape/SpeedBridge rep will cite ~3x contact area and high footprint pressure - legitimate bench data, but note it is largely Arthrex-sponsored or generic TOE biomechanics, not a brand-vs-brand patient outcome. A Stryker rep counters that more isn't always better - over-tensioning the bridge above ~90 N adds pressure without adding contact area or failure strength and can strangulate tissue, so controllable tensioning matters. An S&N rep reframes: fixation gets the tendon to bone day one, but healing biology determines the re-tear rate. All three points are individually defensible from the literature; the trap to avoid is implying one company's anchor 'wins' load-to-failure in patients, which no head-to-head study shows.\n\nEvidence: (1) Cadaveric: TOE achieved ~124 mm2 (~78% footprint) contact area and ~0.27 MPa vs ~0.19 MPa for double-row. (2) Cadaveric optimum-tension study: bridging tension >90 N increased contact force/pressure but not contact area, and tension did not significantly affect ultimate failure load. (3) Knotless wide-tape SutureBridge biomechanical comparison vs standard double-row suture repair (PubMed 32217061)."
+}

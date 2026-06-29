@@ -1,5 +1,6 @@
 {
   "chunk_id": "knotless-double-row-rotator-cuff-repair-scientific-update_003",
+  "company": "Arthrex",
   "source_id": "knotless-double-row-rotator-cuff-repair-scientific-update",
   "source_type": "pdf",
   "source_title": "Knotless Double-Row RCR — Scientific Update (biomechanics)",
@@ -9,6 +10,18 @@
   "page_count": 6,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "SpeedBridge",
+  "product_name": "SpeedBridge",
+  "category": "clinical_study",
+  "technique": [
+    "double_row",
+    "knotless",
+    "transosseous_equivalent"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 3,
   "chunk_count": 4,
   "word_count": 548,

@@ -1,5 +1,6 @@
 {
   "chunk_id": "speedbridge-and-speedfix-knotless-rotator-cuff-repair-using-the-swivelock-c-anch_001",
+  "company": "Arthrex",
   "source_id": "speedbridge-and-speedfix-knotless-rotator-cuff-repair-using-the-swivelock-c-anch",
   "source_type": "pdf",
   "source_title": "SpeedBridge & SpeedFix Knotless RCR (SwiveLock C + FiberTape)",
@@ -9,6 +10,19 @@
   "page_count": 8,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "SpeedBridge",
+  "product_name": "SpeedBridge",
+  "category": "technique_guide",
+  "technique": [
+    "double_row",
+    "knotless",
+    "transosseous_equivalent",
+    "single_row"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 1,
   "chunk_count": 4,
   "word_count": 800,

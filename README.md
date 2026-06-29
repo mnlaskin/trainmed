@@ -8,6 +8,25 @@ product training webinars, and sales calls, then powers:
 - An **interactive AI roleplay trainer** for sales reps, clinical specialists,
   and surgeons to practice scenarios, objection handling, and technique discussions.
 
+## Multi-company (Arthrex · Stryker · Smith & Nephew)
+
+TrainMed serves multiple companies from one app with a **strict contamination
+firewall** — a product answer or roleplay for one company is never grounded in another's
+content. Every chunk carries a `company` field plus product metadata
+(`product_line`, `product_family`, `product_name`, `category`, `technique`,
+`advantages`, `disadvantages`, `clinical_references`); each company has its own retriever;
+and cross-company selling points live in a separate `competitive_insights` collection.
+
+**See [`docs/MULTI_COMPANY.md`](docs/MULTI_COMPANY.md)** for the schema, the firewall, the
+CLI, and the Stryker / Smith & Nephew ingestion plan.
+
+```bash
+# Ingest a company's shoulder PDFs end to end (Stryker shown):
+python -m trainmed.pdf_ingest --company Stryker --from-file data/urls/stryker_shoulder_pdfs.txt
+python scripts/ingest_to_kb.py --company Stryker
+PYTHONPATH=src python scripts/test_isolation.py     # prove no cross-company leakage
+```
+
 ## Current focus: transcript extraction → knowledge base
 
 This repo currently contains the **ingestion pipeline**: tools to extract

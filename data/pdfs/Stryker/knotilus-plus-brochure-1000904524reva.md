@@ -1,0 +1,108 @@
+---
+title: Knotilus+ PEEK knotless suture anchor brochure
+doc_id: knotilus-plus-brochure-1000904524reva
+company: Stryker
+source_url: https://www.stryker.com/content/dam/stryker/sports-medicine/products/Knotilus-plus/knotilus-plus_brochure_1000904524revA.pdf
+source_type: pdf
+procedure_family: rotator_cuff
+page_count: 4
+source: pdf
+---
+
+# Knotilus+ PEEK knotless suture anchor brochure
+
+Knotilus+
+PEEK knotless suture anchor
+Secure. Streamlined. Versatile.
+
+Knotilus+
+A streamlined, cross-specialty 
+knotless anchor portfolio.
+The Knotilus+ platform includes full procedural 
+offerings with implants and corresponding 
+instruments to facilitate procedures in the shoulder, 
+hip and foot and ankle.1
+Secure
+The anchor’s cortical barb-lock technology is designed 
+to optimize compression fixation in bone, supporting 
+secure, knotless repairs.4
+Streamlined
+Knotilus+ is designed to improve procedural 
+efficiency following insertion of the implant.2
+The knob on the inserter handle is designed to 
+provide tactile clicks to signal disengagement 
+of the implant from the inserter with just 
+four turns.2,3
+Versatile
+Procedure-specific implants and instrumentation meet 
+indication-specific needs.
+Knotilus+ facilitates multiple stich configurations such 
+as mattress stitch, simple stitch and luggage stitch.
+
+Knotilus+ 2.4x8.9mm PEEK suture anchor, hip 
+ 
+Knotilus+ 2.9x12.5mm PEEK suture anchor, hip 
+ 
+Knotilus+ 2.4x11.3mm PEEK suture anchor 
+ 
+Knotilus+ 2.9x12.5mm PEEK suture anchor 
+ 
+Knotilus+ 2.9x15.5mm PEEK suture anchor 
+ 
+19 instruments offerings 
+Available in two lengths: crown tip, fork tip, fish mouth and offset tip guides
+5 implant offerings
+Knotilus+ fork tip guide, hip 
+ 
+Knotilus+ crown tip guide, hip 
+ 
+Knotilus+ crown tip guide 
+Knotilus+ offset tip guide 
+Knotilus+ fishmouth tip guide 
+ 
+Drills to facilitate use in medium and hard bone
+
+Sports Medicine
+This document is intended solely for the use of healthcare professionals. A surgeon must always rely on his or her own professional clinical 
+judgment when deciding whether to use a particular product when treating a particular patient. We do not dispense medical advice and 
+recommend that surgeons be trained in the use of any particular product before using it in surgery.
+The information presented is intended to demonstrate Stryker’s products. A surgeon must always refer to the package insert, product label 
+and/or instructions for use, including the instructions for cleaning and sterilization (if applicable), before using any of Stryker’s products. 
+Products may not be available in all markets because product availability is subject to the regulatory and/or medical practices in individual 
+markets. Please contact your representative if you have questions about the availability of Stryker’s products in your area.
+Stryker or its affiliated entities own, use, or have applied for the following trademarks or service marks: Knotilus and Stryker. All other 
+trademarks are trademarks of their respective owners or holders. 
+The absence of a product, feature, or service name, or logo from this list does not constitute a waiver of Stryker’s trademark or other 
+intellectual property rights concerning that name or logo.
+1000904524 Rev A 
+Copyright © 2023 Stryker
+Stryker 
+Sports Medicine 
+5670 Greenwood Plaza Blvd. 
+Ste. 200 
+Greenwood Village, CO 80111
+t: 866 596 2022 
+www.sportsmedicine.stryker.com
+References:
+1. Knotilus+ IFU (P53789)
+2. DHD14627
+3. TR22906
+4. TR22978
+Part number Description
+Implants
+3911924511 Knotilus+ 2.4x11.3mm PEEK suture anchor 
+3911929512 Knotilus+ 2.9x12.5mm PEEK suture anchor 
+3911929515 Knotilus+ 2.9x15.5mm PEEK suture anchor 
+Instrumentation
+3911124511 Knotilus+ 2.4x11.3mm drill
+3911224511 Knotilus+ 2.4x11.3mm drill, hard bone
+3911129512 Knotilus+ 2.9x12.5mm drill 
+3911229512 Knotilus+ 2.9x12.5mm drill, hard bone
+3911129515 Knotilus+ 2.9x15.5mm drill
+3911229515 Knotilus+ 2.9x15.5mm drill, hard bone
+3911600501 Knotilus+ crown tip guide 
+3911600502 Knotilus+ fishmouth tip guide 
+3911600503 Knotilus+ offset tip guide 
+3911000501 Knotilus+ bullet tip obturator, cannulated 
+3911000502 Knotilus+ pencil tip obturator
+Additional part numbers coming soon.

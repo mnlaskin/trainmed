@@ -1,5 +1,6 @@
 {
   "chunk_id": "massive-rotator-cuff-repair-and-augmentation-using-the-speedbridge-and-arthrofle_000",
+  "company": "Arthrex",
   "source_id": "massive-rotator-cuff-repair-and-augmentation-using-the-speedbridge-and-arthrofle",
   "source_type": "pdf",
   "source_title": "Massive RCR & Augmentation (SpeedBridge + ArthroFLEX)",
@@ -9,6 +10,19 @@
   "page_count": 4,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "SpeedBridge",
+  "product_name": "SpeedBridge",
+  "category": "technique_guide",
+  "technique": [
+    "double_row",
+    "knotless",
+    "transosseous_equivalent",
+    "augmentation"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 0,
   "chunk_count": 1,
   "word_count": 739,

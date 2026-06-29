@@ -31,15 +31,27 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 # Repo root = parent of scripts/
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))  # so `trainmed` imports when run as a script
+from trainmed import companies as co  # noqa: E402
+
 TRANSCRIPTS_DIR = ROOT / "data" / "transcripts"
 PDFS_DIR = ROOT / "data" / "pdfs"
 KB_DIR = ROOT / "data" / "kb"
-CHUNKS_DIR = KB_DIR / "chunks"
+LEGACY_CHUNKS_DIR = KB_DIR / "chunks"  # Arthrex stays here for backward-compat
+
+
+def chunks_dir_for(company: str) -> Path:
+    """Where a company's chunks live. Arthrex keeps the legacy flat dir (so the
+    committed KB is undisturbed); every other company gets data/kb/<Company>/chunks/."""
+    company = co.canonical_company(company)
+    return LEGACY_CHUNKS_DIR if company == co.DEFAULT_COMPANY else KB_DIR / company / "chunks"
+
 
 MIN_CHUNK_WORDS = 20  # below this a transcript is treated as empty (music/intro only)
 
@@ -58,6 +70,7 @@ TOPIC_PATTERNS: list[tuple[str, str]] = [
     ("Superior Capsular Reconstruction", r"superior capsular|capsular reconstruction|\bSCR\b"),
     ("Knotless fixation", r"knotless"),
     ("Double-row repair", r"double[-\s]?row"),
+    ("Bioinductive implant", r"bioinductive|regeneten"),
     ("Suture anchors", r"\banchor"),
     ("Subscapularis", r"subscapularis"),
     ("Supraspinatus", r"supraspinatus"),
@@ -109,6 +122,14 @@ def load_segments(video_id: str) -> list[dict]:
 
 def _wc(text: str) -> int:
     return len(text.split())
+
+
+def _split_list(value: str | None) -> list[str]:
+    """Parse an optional front-matter list field (';' or ',' separated) into a list."""
+    if not value:
+        return []
+    parts = re.split(r"[;,]", value)
+    return [p.strip() for p in parts if p.strip()]
 
 
 def fmt_ts(seconds: float) -> str:
@@ -182,26 +203,43 @@ def detect_topics(text: str) -> list[str]:
 # ── main ──────────────────────────────────────────────────────────────────────
 
 
-def _collect_docs() -> list[tuple[Path, str]]:
-    """All transcript/PDF markdown files paired with their source_type."""
+def _source_dirs(company: str, kind: str) -> list[Path]:
+    """Source markdown dirs for a company. Arthrex uses the legacy flat dirs
+    (data/transcripts, data/pdfs); other companies use data/<kind>/<Company>/.
+    This keeps an Arthrex PDF from ever being re-labeled as a competitor during ingest."""
+    base = ROOT / "data" / kind
+    dirs: list[Path] = []
+    if co.canonical_company(company) == co.DEFAULT_COMPANY and base.exists():
+        dirs.append(base)
+    sub = base / co.canonical_company(company)
+    if sub.exists():
+        dirs.append(sub)
+    return dirs
+
+
+def _collect_docs(company: str) -> list[tuple[Path, str]]:
+    """That company's transcript/PDF markdown files paired with their source_type."""
     docs: list[tuple[Path, str]] = []
-    for p in sorted(TRANSCRIPTS_DIR.glob("*.md")):
-        docs.append((p, "youtube"))
-    if PDFS_DIR.exists():
-        for p in sorted(PDFS_DIR.glob("*.md")):
+    for d in _source_dirs(company, "transcripts"):
+        for p in sorted(d.glob("*.md")):
+            docs.append((p, "youtube"))
+    for d in _source_dirs(company, "pdfs"):
+        for p in sorted(d.glob("*.md")):
             docs.append((p, "pdf"))
     return docs
 
 
-def build(family: str, target: int, overlap_ratio: float, clean: bool) -> dict:
-    CHUNKS_DIR.mkdir(parents=True, exist_ok=True)
+def build(company: str, family: str, target: int, overlap_ratio: float, clean: bool) -> dict:
+    company = co.canonical_company(company)
+    out_dir = chunks_dir_for(company)
+    out_dir.mkdir(parents=True, exist_ok=True)
     overlap_words = int(target * overlap_ratio)
 
-    if clean:
-        for f in CHUNKS_DIR.glob("*.json"):
+    if clean:  # company-scoped: only this company's chunks
+        for f in out_dir.glob("*.json"):
             f.unlink()
 
-    docs = _collect_docs()
+    docs = _collect_docs(company)
     sources: list[dict] = []
     total_chunks = 0
     total_words = 0
@@ -246,8 +284,18 @@ def build(family: str, target: int, overlap_ratio: float, clean: bool) -> dict:
             topics = detect_topics(rc["text"])
             src_topics.update(topics)
             chunk_id = f"{source_id}_{idx:03d}"
+            # Multi-company metadata. Product fields are inferred from the text/title
+            # against this company's taxonomy; advantages/disadvantages/clinical_refs
+            # default empty (filled by structured product/competitive ingestion).
+            prod = co.infer_product_fields(
+                text=rc["text"], title=title, company=company, source_type=source_type
+            )
+            meta_advantages = _split_list(meta.get("advantages"))
+            meta_disadvantages = _split_list(meta.get("disadvantages"))
+            meta_clinical = _split_list(meta.get("clinical_references"))
             record = {
                 "chunk_id": chunk_id,
+                "company": company,                       # ← the firewall key
                 "source_id": source_id,
                 "source_type": source_type,  # "youtube" | "pdf"
                 "source_title": title,
@@ -257,6 +305,14 @@ def build(family: str, target: int, overlap_ratio: float, clean: bool) -> dict:
                 "page_count": page_count,
                 "language": meta.get("language") or None,
                 "procedure_family": family,
+                "product_line": prod["product_line"],
+                "product_family": prod["product_family"],
+                "product_name": prod["product_name"],
+                "category": prod["category"],
+                "technique": prod["technique"],
+                "advantages": meta_advantages,
+                "disadvantages": meta_disadvantages,
+                "clinical_references": meta_clinical,
                 "chunk_index": idx,
                 "chunk_count": chunk_count,
                 "word_count": _wc(rc["text"]),
@@ -264,7 +320,7 @@ def build(family: str, target: int, overlap_ratio: float, clean: bool) -> dict:
                 "topics": topics,
                 "text": rc["text"],
             }
-            (CHUNKS_DIR / f"{chunk_id}.json").write_text(
+            (out_dir / f"{chunk_id}.json").write_text(
                 json.dumps(record, indent=2, ensure_ascii=False), encoding="utf-8"
             )
             total_chunks += 1
@@ -283,8 +339,9 @@ def build(family: str, target: int, overlap_ratio: float, clean: bool) -> dict:
             }
         )
 
-    index_path = write_index(family, sources, total_chunks, total_words, skipped)
+    index_path = write_index(company, family, sources, total_chunks, total_words, skipped)
     return {
+        "company": company,
         "sources": len(sources),
         "videos": sum(1 for s in sources if s["source_type"] == "youtube"),
         "pdfs": sum(1 for s in sources if s["source_type"] == "pdf"),
@@ -292,10 +349,12 @@ def build(family: str, target: int, overlap_ratio: float, clean: bool) -> dict:
         "words": total_words,
         "skipped": skipped,
         "index_path": index_path,
+        "out_dir": out_dir,
     }
 
 
 def write_index(
+    company: str,
     family: str,
     sources: list[dict],
     total_chunks: int,
@@ -304,6 +363,7 @@ def write_index(
 ) -> Path:
     KB_DIR.mkdir(parents=True, exist_ok=True)
     family_label = family.replace("_", " ").title()
+    company_label = co.display_name(company)
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 
     # Tally topics across all sources.
@@ -316,10 +376,11 @@ def write_index(
     n_pdf = sum(1 for s in sources if s["source_type"] == "pdf")
 
     lines = [
-        f"# {family_label} Knowledge Base — Index",
+        f"# {company_label} — {family_label} Knowledge Base — Index",
         "",
         f"_Generated {now}_",
         "",
+        f"- **Company:** `{company}`",
         f"- **Sources ingested:** {len(sources)}  ({n_video} YouTube, {n_pdf} PDF)",
         f"- **Chunks created:** {total_chunks}",
         f"- **Total words:** {total_words:,}",
@@ -348,34 +409,42 @@ def write_index(
         for s in skipped:
             lines.append(f"- {s['title']} (`{s['source_id']}`) — {s['words']} words")
 
+    rel_dir = chunks_dir_for(company).relative_to(ROOT)
     lines += [
         "",
         "---",
-        "_Built by `scripts/ingest_to_kb.py`. Chunks live in `data/kb/chunks/`._",
+        f"_Built by `scripts/ingest_to_kb.py --company {company}`. Chunks live in `{rel_dir}/`._",
         "",
     ]
-    index_path = KB_DIR / f"{family}_index.md"
+    index_path = KB_DIR / f"{company.lower()}_{family}_index.md"
     index_path.write_text("\n".join(lines), encoding="utf-8")
     return index_path
 
 
 def main(argv: list[str] | None = None) -> int:
-    p = argparse.ArgumentParser(description="Chunk transcripts into the KB.")
+    p = argparse.ArgumentParser(description="Chunk transcripts/PDFs into the KB (company-scoped).")
+    p.add_argument("--company", default=co.DEFAULT_COMPANY,
+                   help=f"company corpus to build ({', '.join(co.known_companies())}); default {co.DEFAULT_COMPANY}")
     p.add_argument("--family", default="rotator_cuff", help="procedure_family tag")
     p.add_argument("--target", type=int, default=800, help="target words/chunk (500-1000)")
     p.add_argument("--overlap", type=float, default=0.2, help="overlap ratio (0-0.5)")
-    p.add_argument("--clean", action="store_true", help="delete existing chunks first")
+    p.add_argument("--clean", action="store_true", help="delete this company's existing chunks first")
     args = p.parse_args(argv)
 
-    if not TRANSCRIPTS_DIR.exists():
-        print(f"No transcripts dir at {TRANSCRIPTS_DIR}", flush=True)
+    company = co.canonical_company(args.company)
+    docs = _collect_docs(company)
+    if not docs:
+        searched = ", ".join(str(d.relative_to(ROOT)) for d in
+                             _source_dirs(company, "transcripts") + _source_dirs(company, "pdfs")) or "(none found)"
+        print(f"No source markdown for {company}. Looked in: {searched}", flush=True)
+        print(f"  → Ingest PDFs first, e.g.:  python -m trainmed.pdf_ingest --company {company} --from-file data/urls/<file>.txt")
         return 1
 
-    result = build(args.family, args.target, args.overlap, args.clean)
+    result = build(company, args.family, args.target, args.overlap, args.clean)
     print(
-        f"KB built: {result['sources']} sources "
+        f"[{result['company']}] KB built: {result['sources']} sources "
         f"({result['videos']} YouTube + {result['pdfs']} PDF) -> {result['chunks']} chunks "
-        f"({result['words']:,} words). Index: {result['index_path']}"
+        f"({result['words']:,} words). Chunks: {result['out_dir'].relative_to(ROOT)}/  Index: {result['index_path'].relative_to(ROOT)}"
     )
     if result["skipped"]:
         print(f"Skipped {len(result['skipped'])} empty source(s).")

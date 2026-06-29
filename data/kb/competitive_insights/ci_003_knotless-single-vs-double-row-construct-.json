@@ -1,0 +1,35 @@
+{
+  "chunk_id": "ci_003_knotless-single-vs-double-row-construct-",
+  "collection": "competitive",
+  "company": "_competitive",
+  "companies": [
+    "Arthrex",
+    "Stryker",
+    "Smith & Nephew"
+  ],
+  "source_id": "ci_003_knotless-single-vs-double-row-construct-",
+  "source_type": "competitive_insight",
+  "source_title": "Knotless single- vs double-row construct design",
+  "source_url": "https://pubmed.ncbi.nlm.nih.gov/28684147/",
+  "category": "competitive_insight",
+  "product_line": "Construct / repair technique",
+  "topic": "Knotless single- vs double-row construct design",
+  "summary": "Knotless constructs eliminate medial-row knot tying, reducing knot impingement and procedure steps. In a SutureBridge configuration, knotless medial rows actually show a greater load-dependent 'self-reinforcement' effect than knotted medial rows, with no loss of ultimate failure load or footprint contact in cadaveric testing. The trade-off debated in the literature is that a fully knotless medial row, if the lateral anchor pulls or the tape cuts, can lose all medial fixation (no independent medial knot as a backstop). All three vendors sell both knotted and knotless options.",
+  "arthrex_position": "SpeedBridge is fully knotless (FiberTape bridged into SwiveLock anchors, no medial knots); Arthrex also offers knotted SutureBridge and a knotless FiberTak SpeedBridge SP for surgeons who want soft medial anchors.",
+  "stryker_position": "ReelX STT and Omega are knotless anchors; the reeling mechanism is marketed as letting the surgeon incrementally tension a knotless repair, addressing the common critique that knotless repairs lock in tension too early.",
+  "smithnephew_position": "HEALICOIL KNOTLESS is S&N's knotless lateral anchor used in ULTRALOCK-type constructs; the company frames knotless as part of a streamlined, healing-focused workflow rather than purely a mechanical claim.",
+  "rep_talk_track": "Knotless reps (any brand) honestly emphasize fewer steps, no bulky medial knot stack, and biomechanical data showing knotless medial rows self-reinforce well. A rep favoring a knotted or hybrid construct can fairly raise the counterpoint that an independent medial knot provides a fixation backstop and may matter in poor tissue. Stryker's distinctive honest pitch is incremental intra-op tensioning via the ReelX dial. None of these knotless-vs-knotted distinctions is backed by clear clinical-outcome superiority in RCTs - it is biomechanics plus workflow preference.",
+  "evidence": [
+    "Cadaveric study: knotless TOE improved biomechanical self-reinforcement vs medial knotted repair without diminishing footprint contact; no difference in ultimate failure load or stiffness.",
+    "Systematic review on tying the medial row: mixed/biomechanical evidence; no definitive clinical-outcome winner between knotted and knotless medial rows."
+  ],
+  "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/28684147/",
+    "https://www.sciencedirect.com/science/article/abs/pii/S0749806312018452",
+    "https://www.arthrex.com/shoulder/speedbridge-implant-system"
+  ],
+  "confidence": "high",
+  "notes": "",
+  "word_count": 317,
+  "text": "Knotless single- vs double-row construct design\n\nKnotless constructs eliminate medial-row knot tying, reducing knot impingement and procedure steps. In a SutureBridge configuration, knotless medial rows actually show a greater load-dependent 'self-reinforcement' effect than knotted medial rows, with no loss of ultimate failure load or footprint contact in cadaveric testing. The trade-off debated in the literature is that a fully knotless medial row, if the lateral anchor pulls or the tape cuts, can lose all medial fixation (no independent medial knot as a backstop). All three vendors sell both knotted and knotless options.\n\nArthrex: SpeedBridge is fully knotless (FiberTape bridged into SwiveLock anchors, no medial knots); Arthrex also offers knotted SutureBridge and a knotless FiberTak SpeedBridge SP for surgeons who want soft medial anchors.\nStryker: ReelX STT and Omega are knotless anchors; the reeling mechanism is marketed as letting the surgeon incrementally tension a knotless repair, addressing the common critique that knotless repairs lock in tension too early.\nSmith & Nephew: HEALICOIL KNOTLESS is S&N's knotless lateral anchor used in ULTRALOCK-type constructs; the company frames knotless as part of a streamlined, healing-focused workflow rather than purely a mechanical claim.\n\nRep positioning: Knotless reps (any brand) honestly emphasize fewer steps, no bulky medial knot stack, and biomechanical data showing knotless medial rows self-reinforce well. A rep favoring a knotted or hybrid construct can fairly raise the counterpoint that an independent medial knot provides a fixation backstop and may matter in poor tissue. Stryker's distinctive honest pitch is incremental intra-op tensioning via the ReelX dial. None of these knotless-vs-knotted distinctions is backed by clear clinical-outcome superiority in RCTs - it is biomechanics plus workflow preference.\n\nEvidence: (1) Cadaveric study: knotless TOE improved biomechanical self-reinforcement vs medial knotted repair without diminishing footprint contact; no difference in ultimate failure load or stiffness. (2) Systematic review on tying the medial row: mixed/biomechanical evidence; no definitive clinical-outcome winner between knotted and knotless medial rows."
+}

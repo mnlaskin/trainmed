@@ -1,5 +1,6 @@
 {
   "chunk_id": "knotless-corkscrew-pasta-bridge-repair_001",
+  "company": "Arthrex",
   "source_id": "knotless-corkscrew-pasta-bridge-repair",
   "source_type": "pdf",
   "source_title": "Knotless Corkscrew PASTA Bridge Repair",
@@ -9,6 +10,17 @@
   "page_count": 8,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Rotator Cuff",
+  "product_family": "Corkscrew",
+  "product_name": "Corkscrew",
+  "category": "technique_guide",
+  "technique": [
+    "knotless",
+    "all_suture"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 1,
   "chunk_count": 2,
   "word_count": 550,

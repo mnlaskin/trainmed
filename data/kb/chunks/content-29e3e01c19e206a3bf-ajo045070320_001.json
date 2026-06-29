@@ -1,5 +1,6 @@
 {
   "chunk_id": "content-29e3e01c19e206a3bf-ajo045070320_001",
+  "company": "Arthrex",
   "source_id": "content-29e3e01c19e206a3bf-ajo045070320",
   "source_type": "pdf",
   "source_title": "The Arthroscopic Superior Capsular Reconstruction (AJO)",
@@ -9,6 +10,18 @@
   "page_count": 5,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Shoulder",
+  "product_family": "SCR",
+  "product_name": "Superior Capsular Reconstruction",
+  "category": "technique_guide",
+  "technique": [
+    "augmentation",
+    "SCR",
+    "instability"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 1,
   "chunk_count": 5,
   "word_count": 800,

@@ -3,61 +3,138 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TrainMed — Rotator Cuff Assistant</title>
+<title>TrainMed — Medical Sales Training</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy:#06324f; --navy-2:#0b4a73;
-    --blue:#1574c4; --blue-d:#0f5fa6; --blue-soft:#e9f2fc;
-    --bg:#eef2f6; --surface:#ffffff; --panel:#f6f9fc;
-    --line:#e3e9f0; --line-2:#d3dde7;
-    --text:#15212e; --text-2:#48586b; --muted:#8595a6;
-    --video:#c0392b; --guide:#0e7c86; --good:#1f9d57; --mid:#c2890f; --bad:#c0392b;
-    --surgeon:#f2f5f9; --rep:#e9f2fc;
-    --shadow-sm:0 1px 2px rgba(16,42,67,.07);
-    --shadow:0 1px 2px rgba(16,42,67,.06), 0 6px 20px rgba(16,42,67,.07);
+    --navy:#072740; --navy-2:#0b3a5c;
+    --blue:#1f74d0; --blue-d:#155ca8; --blue-soft:#e8f1fc;
+    --green:#15a35b; --green-d:#0f7f46; --green-soft:#e4f6ec;
+    --bg:#f1f5f9; --surface:#ffffff; --panel:#f7fafd;
+    --line:#e5ebf2; --line-2:#d6e0ea;
+    --text:#13212f; --text-2:#4a5b6e; --muted:#8497a8;
+    --video:#c0392b; --guide:#0e7c86; --good:#1f9d57; --mid:#d59512; --bad:#d6483b;
+    --surgeon:#eef3f8; --rep:#e7f1fc;
+    /* dark live stage */
+    --d-bg:#081b2c; --d-bg-2:#0c2538; --d-panel:#102d44; --d-line:#1d3e58;
+    --d-text:#eaf2f9; --d-text-2:#9fb6cb; --d-muted:#6e8aa3;
+    --d-surgeon:#13314a; --d-rep:#1d4f86;
+    --shadow-sm:0 1px 2px rgba(11,40,66,.06);
+    --shadow:0 1px 2px rgba(11,40,66,.05), 0 8px 24px rgba(11,40,66,.07);
+    --shadow-lg:0 10px 40px rgba(11,40,66,.13);
+    --r:14px;
   }
   * { box-sizing:border-box; }
+  [hidden] { display:none !important; }   /* author display:flex on .stage/.view must not override the hidden attr */
+  html,body { height:100%; }
   body { margin:0; font:15px/1.55 'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-         background:var(--bg); color:var(--text); height:100vh; height:100dvh; display:flex; flex-direction:column;
-         -webkit-font-smoothing:antialiased; }
-  /* ---------- header / brand ---------- */
-  header { display:flex; align-items:center; gap:22px; padding:0 24px; height:60px; flex:none;
-           background:linear-gradient(100deg,var(--navy),var(--navy-2)); color:#fff;
-           box-shadow:0 2px 14px rgba(6,50,79,.20); z-index:5; }
-  .brand { display:flex; align-items:center; gap:11px; }
-  .brand-mark { width:34px; height:34px; border-radius:9px; display:grid; place-items:center;
-                background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.20); color:#fff; }
-  .brand-name { font-size:17px; font-weight:800; letter-spacing:-.2px; line-height:1; }
-  .brand-sub { font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-top:3px; }
-  .tabs { display:flex; gap:4px; background:rgba(255,255,255,.10); padding:4px; border-radius:10px; }
-  .tab { padding:8px 16px; border:0; border-radius:7px; background:transparent; color:rgba(255,255,255,.78);
-         cursor:pointer; font-size:13.5px; font-weight:600; font-family:inherit; transition:all .15s ease; }
-  .tab:hover { color:#fff; }
-  .tab.active { background:#fff; color:var(--navy); box-shadow:0 1px 3px rgba(0,0,0,.18); }
-  #status { margin-left:auto; font-size:11.5px; color:rgba(255,255,255,.6); text-align:right; line-height:1.45; }
-  /* ---------- layout ---------- */
-  .view { flex:1; display:grid; grid-template-columns:1fr 380px; min-height:0; }
+         background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased;
+         display:flex; height:100vh; height:100dvh; overflow:hidden; }
+  button { font-family:inherit; cursor:pointer; }
+  ::-webkit-scrollbar { width:10px; height:10px; }
+  ::-webkit-scrollbar-thumb { background:#cdd9e5; border-radius:8px; border:2px solid transparent; background-clip:content-box; }
+  ::-webkit-scrollbar-thumb:hover { background:#b6c6d6; background-clip:content-box; }
+
+  /* ============ SIDEBAR ============ */
+  .sidebar { width:248px; flex:none; background:var(--surface); border-right:1px solid var(--line);
+             display:flex; flex-direction:column; padding:18px 14px; z-index:20; }
+  .brand { display:flex; align-items:center; gap:11px; padding:6px 8px 18px; }
+  .brand-mark { width:38px; height:38px; border-radius:11px; flex:none; display:grid; place-items:center; color:#fff;
+                background:linear-gradient(135deg,var(--navy),var(--blue)); box-shadow:0 4px 12px rgba(21,116,196,.28); }
+  .brand-name { font-size:17.5px; font-weight:800; letter-spacing:-.3px; line-height:1; color:var(--navy); }
+  .brand-sub { font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-top:4px; }
+  .nav { display:flex; flex-direction:column; gap:3px; margin-top:4px; }
+  .nav-item { display:flex; align-items:center; gap:12px; width:100%; text-align:left; padding:11px 12px; border:0; border-radius:11px;
+              background:transparent; color:var(--text-2); font-size:14.5px; font-weight:600; transition:all .14s ease; }
+  .nav-item svg { width:19px; height:19px; flex:none; color:var(--muted); transition:color .14s ease; }
+  .nav-item:hover { background:var(--panel); color:var(--text); }
+  .nav-item.active { background:var(--blue-soft); color:var(--blue-d); }
+  .nav-item.active svg { color:var(--blue); }
+  .nav-sec { font-size:9.5px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); font-weight:700; padding:6px 12px 8px; }
+  .side-spacer { flex:1; }
+  /* representing selector */
+  .representing { position:relative; border-top:1px solid var(--line); padding-top:12px; }
+  .rep-current { display:flex; align-items:center; gap:11px; width:100%; padding:9px 10px; border:1px solid var(--line-2);
+                 border-radius:12px; background:var(--surface); transition:all .14s ease; }
+  .rep-current:hover { border-color:var(--blue); box-shadow:var(--shadow-sm); }
+  .mono { width:34px; height:34px; flex:none; border-radius:9px; display:grid; place-items:center; font-size:12.5px; font-weight:800; letter-spacing:.02em; }
+  .rep-meta { flex:1; min-width:0; text-align:left; display:flex; flex-direction:column; }
+  .rep-name { font-size:14px; font-weight:700; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .rep-role { font-size:10.5px; color:var(--muted); margin-top:1px; }
+  .rep-caret { width:15px; height:15px; flex:none; color:var(--muted); }
+  .rep-menu { position:absolute; bottom:calc(100% + 8px); left:0; right:0; background:var(--surface); border:1px solid var(--line);
+              border-radius:14px; box-shadow:var(--shadow-lg); padding:7px; z-index:40; }
+  .rep-menu[hidden]{ display:none; }
+  .rep-menu-h { font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:700; padding:7px 9px 6px; }
+  .rep-opt { display:flex; align-items:center; gap:11px; width:100%; padding:9px 9px; border:0; border-radius:10px; background:transparent; text-align:left; transition:background .12s ease; }
+  .rep-opt:hover { background:var(--panel); }
+  .rep-opt .nm { font-size:13.5px; font-weight:600; color:var(--text); }
+  .rep-opt .av { font-size:10.5px; color:var(--muted); margin-top:1px; }
+  .rep-opt .tick { margin-left:auto; color:var(--blue); width:16px; height:16px; }
+  .rep-foot { font-size:10.5px; color:var(--muted); padding:8px 9px 4px; line-height:1.4; border-top:1px solid var(--line); margin-top:5px; }
+
+  /* ============ MAIN ============ */
+  .main { flex:1; min-width:0; height:100vh; height:100dvh; display:flex; flex-direction:column; overflow:hidden; }
+  .view { flex:1; min-height:0; display:flex; flex-direction:column; }
   .view[hidden]{ display:none; }
-  .col-main { display:flex; flex-direction:column; min-height:0; min-width:0; }  /* min-width:0 so the grid track can't be widened past the viewport by nowrap content */
-  .thread { flex:1; overflow:auto; padding:28px 34px; }
-  .side { border-left:1px solid var(--line); background:var(--panel); overflow:auto; padding:22px 20px; }
-  .side h2 { font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--blue-d); font-weight:700; margin:0 0 14px; }
-  .empty { color:var(--muted); }
-  .loc { color:var(--muted); font-size:12px; }
-  /* ---------- hero / knowledge ---------- */
-  .hero { max-width:680px; }
-  .hero-title { font-size:26px; font-weight:800; letter-spacing:-.5px; color:var(--navy); margin:4px 0 8px; }
-  .hero-sub { font-size:15px; color:var(--text-2); margin:0 0 20px; line-height:1.6; }
-  .examples { display:flex; flex-wrap:wrap; gap:10px; }
-  .chip { font-size:13px; color:var(--text-2); border:1px solid var(--line-2); border-radius:10px;
-          padding:9px 13px; cursor:pointer; background:var(--surface); box-shadow:var(--shadow-sm); transition:all .15s ease; }
+  .scroll { flex:1; min-height:0; overflow:auto; }
+  .wrap { max-width:1080px; margin:0 auto; padding:40px 44px 56px; }
+  .eyebrow { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--blue-d); font-weight:700; }
+  .h1 { font-size:30px; font-weight:800; letter-spacing:-.6px; color:var(--navy); margin:6px 0 6px; }
+  .lead { font-size:15.5px; color:var(--text-2); margin:0; line-height:1.6; }
+  .muted { color:var(--muted); }
+
+  /* ============ HOME ============ */
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:30px 0 8px; }
+  .stat { background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:18px 18px 16px; box-shadow:var(--shadow-sm); }
+  .stat .st-top { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:12px; font-weight:600; }
+  .stat .st-top svg { width:15px; height:15px; }
+  .stat .st-num { font-size:30px; font-weight:800; letter-spacing:-1px; color:var(--navy); margin:8px 0 2px; }
+  .stat .st-sub { font-size:12px; color:var(--muted); }
+  .cards2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:26px 0; }
+  .bigcard { position:relative; overflow:hidden; border:1px solid var(--line); border-radius:18px; padding:24px; background:var(--surface);
+             box-shadow:var(--shadow-sm); text-align:left; transition:all .16s ease; display:flex; flex-direction:column; gap:13px; }
+  .bigcard:hover { transform:translateY(-2px); box-shadow:var(--shadow); border-color:var(--line-2); }
+  .bigcard .bc-ic { width:46px; height:46px; border-radius:13px; display:grid; place-items:center; color:#fff; }
+  .bigcard.kn .bc-ic { background:linear-gradient(135deg,var(--blue),var(--blue-d)); }
+  .bigcard.rp .bc-ic { background:linear-gradient(135deg,var(--green),var(--green-d)); }
+  .bigcard .bc-ic svg { width:24px; height:24px; }
+  .bigcard h3 { margin:0; font-size:19px; font-weight:800; letter-spacing:-.3px; color:var(--navy); }
+  .bigcard p { margin:0; font-size:13.5px; color:var(--text-2); line-height:1.55; flex:1; }
+  .bc-go { display:inline-flex; align-items:center; gap:7px; font-size:13.5px; font-weight:700; color:var(--blue-d); }
+  .bigcard.rp .bc-go { color:var(--green-d); }
+  .bc-go svg { width:16px; height:16px; transition:transform .15s ease; }
+  .bigcard:hover .bc-go svg { transform:translateX(3px); }
+  .feed { background:var(--surface); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow-sm); }
+  .feed-h { padding:16px 20px; border-bottom:1px solid var(--line); font-size:13px; font-weight:700; color:var(--navy); letter-spacing:-.1px; }
+  .feed-row { display:flex; align-items:center; gap:13px; padding:13px 20px; border-bottom:1px solid var(--line); }
+  .feed-row:last-child { border-bottom:0; }
+  .feed-ic { width:36px; height:36px; flex:none; border-radius:10px; display:grid; place-items:center; }
+  .feed-ic.rp { background:var(--green-soft); color:var(--green-d); }
+  .feed-ic.kn { background:var(--blue-soft); color:var(--blue-d); }
+  .feed-ic svg { width:18px; height:18px; }
+  .feed-main { flex:1; min-width:0; }
+  .feed-title { font-size:14px; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .feed-meta { font-size:12px; color:var(--muted); margin-top:1px; }
+  .feed-when { font-size:12px; color:var(--muted); flex:none; }
+  .score-chip { flex:none; font-size:12.5px; font-weight:800; padding:4px 10px; border-radius:8px; color:#fff; }
+  .feed-empty { padding:34px 20px; text-align:center; color:var(--muted); font-size:13.5px; }
+
+  /* ============ KNOWLEDGE ============ */
+  .kn-wrap { flex:1; min-height:0; display:flex; }
+  .kn-main { flex:1; min-width:0; display:flex; flex-direction:column; }
+  .thread { flex:1; overflow:auto; padding:30px 36px; }
+  .kn-side { width:340px; flex:none; border-left:1px solid var(--line); background:var(--panel); overflow:auto; padding:24px 22px; }
+  .kn-side h2 { font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--blue-d); font-weight:700; margin:0 0 14px; }
+  .kn-hero { max-width:640px; }
+  .examples { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+  .chip { font-size:13px; color:var(--text-2); border:1px solid var(--line-2); border-radius:11px; padding:9px 13px;
+          background:var(--surface); box-shadow:var(--shadow-sm); transition:all .14s ease; text-align:left; }
   .chip:hover { border-color:var(--blue); color:var(--blue-d); transform:translateY(-1px); box-shadow:var(--shadow); }
-  /* ---------- chat messages ---------- */
-  .msg { margin:0 0 20px; max-width:760px; }
-  .msg .who { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:5px; }
+  .msg { margin:0 0 22px; max-width:760px; }
+  .msg .who { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:700; margin-bottom:6px; }
   .answer { line-height:1.62; color:var(--text); }
   .answer > :first-child { margin-top:0; } .answer > :last-child { margin-bottom:0; }
   .answer p { margin:0 0 12px; }
@@ -65,279 +142,651 @@
   .answer li { margin:3px 0; padding-left:2px; }
   .answer strong { font-weight:700; color:var(--text); }
   .answer em { font-style:italic; }
-  .answer code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.92em;
-                 background:var(--blue-soft); padding:1px 5px; border-radius:5px; }
+  .answer code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.92em; background:var(--blue-soft); padding:1px 5px; border-radius:5px; }
   .answer a { color:var(--blue-d); text-decoration:underline; text-underline-offset:2px; }
   .answer a:hover { color:var(--blue); }
   .answer .cmark { color:var(--blue); font-weight:700; }
-  /* ---------- inputs / buttons ---------- */
-  form { display:flex; gap:10px; padding:16px 24px; border-top:1px solid var(--line); background:var(--surface); }
-  input, select { padding:11px 13px; border:1px solid var(--line-2); border-radius:10px;
-                  background:var(--surface); color:var(--text); font-size:14.5px; font-family:inherit; }
-  input { flex:1; } input::placeholder { color:var(--muted); }
-  input:focus, select:focus { outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(21,116,196,.14); }
-  button { padding:11px 18px; border:0; border-radius:10px; background:var(--blue); color:#fff; font-weight:600;
-           cursor:pointer; font-size:14px; font-family:inherit; transition:all .15s ease; box-shadow:var(--shadow-sm); }
-  button:hover:not(:disabled) { background:var(--blue-d); }
-  button:disabled { opacity:.45; cursor:default; box-shadow:none; }
-  .btn-primary { background:var(--navy); } .btn-primary:hover:not(:disabled) { background:var(--navy-2); }
-  /* ---------- citations ---------- */
-  .cite { display:block; border:1px solid var(--line); border-radius:11px; padding:12px 13px; margin:0 0 11px;
-          text-decoration:none; color:inherit; background:var(--surface); box-shadow:var(--shadow-sm); transition:all .15s ease; }
+  .empty { color:var(--muted); font-size:13px; }
+  .loc { color:var(--muted); font-size:12px; }
+  .barform { display:flex; gap:10px; padding:16px 24px; border-top:1px solid var(--line); background:var(--surface); }
+  .barform input { flex:1; padding:13px 15px; border:1px solid var(--line-2); border-radius:12px; background:var(--surface);
+                   color:var(--text); font-size:14.5px; font-family:inherit; }
+  .barform input::placeholder { color:var(--muted); }
+  .barform input:focus { outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(31,116,208,.14); }
+  .btn { padding:13px 20px; border:0; border-radius:12px; background:var(--blue); color:#fff; font-weight:700; font-size:14px;
+         transition:all .14s ease; box-shadow:var(--shadow-sm); }
+  .btn:hover:not(:disabled) { background:var(--blue-d); }
+  .btn:disabled { opacity:.45; cursor:default; box-shadow:none; }
+  .btn-ghost { background:var(--panel); color:var(--text-2); border:1px solid var(--line-2); box-shadow:none; }
+  .btn-ghost:hover:not(:disabled) { background:#eef3f8; color:var(--text); }
+  .btn-green { background:var(--green); }
+  .btn-green:hover:not(:disabled) { background:var(--green-d); }
+  /* citations */
+  .cite { display:block; border:1px solid var(--line); border-radius:12px; padding:12px 13px; margin:0 0 11px;
+          text-decoration:none; color:inherit; background:var(--surface); box-shadow:var(--shadow-sm); transition:all .14s ease; }
   .cite:hover { border-color:var(--blue); transform:translateY(-1px); box-shadow:var(--shadow); }
   .cite .row { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
-  .badge { font-size:9.5px; font-weight:700; letter-spacing:.04em; padding:3px 8px; border-radius:6px; color:#fff; }
+  .badge { font-size:9.5px; font-weight:800; letter-spacing:.04em; padding:3px 8px; border-radius:6px; color:#fff; }
   .badge.video { background:var(--video); } .badge.pdf { background:var(--guide); }
-  .cite .n { font-weight:700; color:var(--blue-d); } .cite .title { font-size:13.5px; font-weight:500; color:var(--text); }
+  .cite .n { font-weight:800; color:var(--blue-d); } .cite .title { font-size:13.5px; font-weight:500; color:var(--text); }
   .cite .loc { color:var(--muted); font-size:12px; margin-top:3px; }
-  /* ---------- roleplay setup (compact, voice-first) ---------- */
-  .setup { padding:14px 24px; border-bottom:1px solid var(--line); background:var(--panel); }
-  .setup[hidden]{ display:none; }
-  .eyebrow { font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--blue-d); font-weight:700; margin-bottom:11px; }
-  .setup-grid { display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; }
-  .field { display:flex; flex-direction:column; gap:4px; }
-  .field.grow { flex:1; min-width:240px; }
-  .field .flab { font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-weight:600; }
-  .field select { width:100%; min-width:140px; text-transform:capitalize; }
-  /* preview line under the dropdowns — replaces the bulky card grid */
-  .preview { display:flex; align-items:baseline; gap:9px; margin-top:11px; font-size:13px; color:var(--text-2); line-height:1.45; }
-  .pv-cat { flex:none; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; color:#fff;
-            background:var(--blue); padding:3px 8px; border-radius:6px; }
-  .pv-goal { min-width:0; }
-  /* primary call-to-action row */
-  .cta { display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin-top:14px; }
-  .voicebtn.lg { padding:13px 22px; font-size:15px; }
-  .voicebtn.sm { padding:8px 14px; font-size:13px; }
-  .textlink { background:none; border:0; box-shadow:none; padding:4px 2px; color:var(--blue-d); font-weight:600; font-size:13px;
-              cursor:pointer; text-decoration:underline; text-underline-offset:2px; }
-  .textlink:hover { color:var(--blue); background:none; }
-  .autoplay { display:flex; align-items:center; gap:7px; font-size:13px; color:var(--text-2); white-space:nowrap; }
-  .autoplay input { margin:0; accent-color:var(--blue); }
-  .voicemeta { font-size:12px; }
-  /* slim bar shown once a session is running, so the transcript owns the screen */
-  .sessionbar { display:flex; align-items:center; gap:12px; padding:11px 24px; border-bottom:1px solid var(--line); background:var(--panel); }
-  .sessionbar[hidden]{ display:none; }
-  .sb-info { display:flex; align-items:baseline; gap:9px; min-width:0; flex:1; }
-  .sb-cat { flex:none; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:700; color:#fff;
-            background:var(--navy); padding:3px 8px; border-radius:6px; }
-  .sb-title { font-size:14px; font-weight:700; color:var(--navy); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
-  /* ---------- roleplay bubbles ---------- */
-  .bubble { padding:11px 14px; border-radius:13px; max-width:80%; white-space:pre-wrap; line-height:1.5; box-shadow:var(--shadow-sm); }
-  .bubble.surgeon { background:var(--surgeon); border:1px solid var(--line); color:var(--text); border-top-left-radius:4px; }
-  .bubble.rep { background:var(--rep); border:1px solid #d4e6f8; color:var(--text); margin-left:auto; border-top-right-radius:4px; }
-  .turnlabel { font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); font-weight:600; margin:0 0 4px; display:flex; align-items:center; gap:3px; }
-  .playbtn { background:none; border:0; padding:0 3px; cursor:pointer; font-size:13px; color:var(--muted); line-height:1; box-shadow:none; }
-  .playbtn:hover { color:var(--blue); } .playbtn.playing { color:var(--good); }
-  /* ---------- mic / voice ---------- */
-  .micbtn { padding:11px 13px; border:1px solid var(--line-2); background:var(--surface); color:var(--text-2);
-            border-radius:10px; cursor:pointer; font-size:15px; line-height:1; box-shadow:var(--shadow-sm); }
-  .micbtn:hover:not(:disabled) { border-color:var(--blue); color:var(--blue); }
-  .micbtn:disabled { opacity:.4; cursor:default; box-shadow:none; }
+
+  /* ============ ROLEPLAY SETUP ============ */
+  .step-h { display:flex; align-items:center; gap:11px; margin:30px 0 14px; }
+  .step-n { width:26px; height:26px; flex:none; border-radius:50%; background:var(--navy); color:#fff; font-size:13px; font-weight:800; display:grid; place-items:center; }
+  .step-t { font-size:15px; font-weight:800; color:var(--navy); letter-spacing:-.2px; }
+  .step-hint { font-size:12.5px; color:var(--muted); margin-left:auto; font-weight:500; }
+  .scen-grid { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
+  .scen { border:1.5px solid var(--line-2); border-radius:13px; padding:15px 16px; background:var(--surface); text-align:left;
+          transition:all .14s ease; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:7px; }
+  .scen:hover { border-color:var(--blue); transform:translateY(-1px); box-shadow:var(--shadow); }
+  .scen.sel { border-color:var(--blue); box-shadow:0 0 0 3px rgba(31,116,208,.13), var(--shadow); }
+  .scen-top { display:flex; align-items:center; gap:8px; }
+  .scen-tag { font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:800; color:#fff; background:var(--blue); padding:3px 8px; border-radius:6px; }
+  .scen-tag.competitive { background:var(--mid); }
+  .scen-check { margin-left:auto; width:19px; height:19px; border-radius:50%; border:2px solid var(--line-2); display:grid; place-items:center; color:#fff; }
+  .scen.sel .scen-check { background:var(--blue); border-color:var(--blue); }
+  .scen.sel .scen-check svg { display:block; }
+  .scen-check svg { width:11px; height:11px; display:none; }
+  .scen-label { font-size:14.5px; font-weight:700; color:var(--text); letter-spacing:-.2px; }
+  .scen-goal { font-size:12.5px; color:var(--text-2); line-height:1.5; }
+  .diff-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
+  .diff { border:1.5px solid var(--line-2); border-radius:13px; padding:15px 16px; background:var(--surface); text-align:left;
+          transition:all .14s ease; box-shadow:var(--shadow-sm); }
+  .diff:hover { border-color:var(--blue); transform:translateY(-1px); }
+  .diff.sel { border-color:var(--blue); box-shadow:0 0 0 3px rgba(31,116,208,.13), var(--shadow); }
+  .diff-top { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+  .diff-dot { display:flex; gap:3px; }
+  .diff-dot i { width:7px; height:7px; border-radius:50%; background:var(--line-2); display:block; }
+  .diff[data-d="easy"] .diff-dot i:nth-child(-n+1), .diff[data-d="medium"] .diff-dot i:nth-child(-n+2), .diff[data-d="hard"] .diff-dot i:nth-child(-n+3) { background:var(--blue); }
+  .diff[data-d="easy"].sel .diff-dot i:nth-child(-n+1), .diff[data-d="medium"].sel .diff-dot i:nth-child(-n+2), .diff[data-d="hard"].sel .diff-dot i:nth-child(-n+3) { background:var(--green); }
+  .diff-name { font-size:14.5px; font-weight:800; color:var(--text); }
+  .diff-blurb { font-size:12px; color:var(--text-2); line-height:1.45; }
+  .role-pills { display:inline-flex; gap:4px; background:var(--panel); border:1px solid var(--line-2); border-radius:11px; padding:4px; }
+  .role-pill { border:0; background:transparent; color:var(--text-2); font-size:13px; font-weight:600; padding:7px 14px; border-radius:8px; transition:all .12s ease; }
+  .role-pill.sel { background:var(--surface); color:var(--navy); box-shadow:var(--shadow-sm); }
+  /* prospect card */
+  .prospect { display:flex; gap:16px; border:1px solid var(--line); border-radius:16px; padding:20px; background:var(--surface); box-shadow:var(--shadow-sm); }
+  .pros-av { width:58px; height:58px; flex:none; border-radius:15px; display:grid; place-items:center; font-size:19px; font-weight:800; color:#fff;
+             background:linear-gradient(135deg,var(--navy),var(--blue-d)); }
+  .pros-main { flex:1; min-width:0; }
+  .pros-name { font-size:17px; font-weight:800; color:var(--navy); letter-spacing:-.2px; }
+  .pros-title { font-size:13px; color:var(--text-2); margin-top:1px; }
+  .pros-grid { display:grid; grid-template-columns:1fr 1fr; gap:11px 22px; margin-top:14px; }
+  .pros-f .k { font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  .pros-f .v { font-size:13.5px; color:var(--text); font-weight:500; margin-top:2px; }
+  .pros-quote { margin-top:15px; padding:13px 15px; background:var(--panel); border-left:3px solid var(--blue); border-radius:0 9px 9px 0;
+                font-size:13.5px; color:var(--text-2); font-style:italic; line-height:1.5; }
+  .launch { display:flex; flex-wrap:wrap; align-items:center; gap:16px; margin:26px 0 8px; }
+  .launch .btn-green { padding:15px 26px; font-size:15.5px; display:inline-flex; align-items:center; gap:9px; box-shadow:0 6px 18px rgba(21,163,91,.28); }
+  .launch .btn-green svg { width:19px; height:19px; }
+  .textlink { background:none; border:0; box-shadow:none; padding:5px 2px; color:var(--blue-d); font-weight:700; font-size:13.5px; text-decoration:underline; text-underline-offset:2px; }
+  .textlink:hover { color:var(--blue); }
+  .autoplay { display:flex; align-items:center; gap:7px; font-size:13px; color:var(--text-2); }
+  .autoplay input { margin:0; accent-color:var(--green); width:15px; height:15px; }
+  .voicemeta { font-size:12px; color:var(--muted); }
+
+  /* ============ ROLEPLAY LIVE (dark stage) ============ */
+  .stage { flex:1; min-height:0; display:flex; flex-direction:column; background:var(--d-bg);
+           background-image:radial-gradient(1200px 500px at 70% -10%, rgba(31,116,208,.10), transparent 60%); }
+  .stage-top { display:flex; align-items:center; gap:14px; padding:16px 26px; border-bottom:1px solid var(--d-line); background:rgba(8,27,44,.6); }
+  .surg-av { width:46px; height:46px; flex:none; border-radius:13px; display:grid; place-items:center; font-size:16px; font-weight:800; color:#fff;
+             background:linear-gradient(135deg,#1d3e58,#2f6fb0); box-shadow:0 4px 14px rgba(0,0,0,.3); }
+  .surg-id { min-width:0; }
+  .surg-name { font-size:16px; font-weight:800; color:var(--d-text); letter-spacing:-.2px; }
+  .surg-title { font-size:12px; color:var(--d-text-2); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .stage-tags { display:flex; gap:8px; margin-left:auto; }
+  .stag { font-size:10px; letter-spacing:.07em; text-transform:uppercase; font-weight:800; padding:5px 10px; border-radius:7px; }
+  .stag.cat { background:rgba(31,116,208,.18); color:#7fb6f0; }
+  .stag.diff { background:rgba(255,255,255,.08); color:var(--d-text-2); }
+  .end-btn { display:inline-flex; align-items:center; gap:7px; padding:10px 16px; border:1px solid rgba(214,72,59,.5); border-radius:11px;
+             background:rgba(214,72,59,.12); color:#ff8f84; font-weight:700; font-size:13px; transition:all .14s ease; }
+  .end-btn:hover { background:var(--bad); color:#fff; border-color:var(--bad); }
+  .end-btn svg { width:15px; height:15px; }
+  .stage-body { flex:1; min-height:0; display:flex; }
+  .stage-convo { flex:1; min-width:0; display:flex; flex-direction:column; }
+  #rp-thread { flex:1; overflow:auto; padding:26px 30px; }
+  .turnlabel { font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--d-muted); font-weight:700; margin:0 0 5px; display:flex; align-items:center; gap:5px; }
+  .bubble { padding:12px 15px; border-radius:14px; max-width:82%; white-space:pre-wrap; line-height:1.5; font-size:14.5px; box-shadow:0 2px 8px rgba(0,0,0,.18); margin-bottom:18px; }
+  .bubble.surgeon { background:var(--d-surgeon); color:var(--d-text); border:1px solid var(--d-line); border-top-left-radius:5px; }
+  .bubble.rep { background:var(--d-rep); color:#fff; margin-left:auto; border-top-right-radius:5px; }
+  .b-wrap.rep .turnlabel { justify-content:flex-end; }
+  .playbtn { background:none; border:0; padding:0 3px; font-size:13px; color:var(--d-muted); line-height:1; box-shadow:none; }
+  .playbtn:hover { color:#7fb6f0; } .playbtn.playing { color:var(--good); }
+  .stage-empty { color:var(--d-muted); font-size:14px; text-align:center; margin-top:40px; }
+  /* live scorecard */
+  .stage-side { width:320px; flex:none; border-left:1px solid var(--d-line); background:var(--d-bg-2); overflow:auto; padding:22px 20px; }
+  .ss-h { display:flex; align-items:center; gap:8px; font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:#7fb6f0; font-weight:800; margin-bottom:16px; }
+  .ss-live { width:7px; height:7px; border-radius:50%; background:var(--good); box-shadow:0 0 0 0 rgba(31,157,87,.5); animation:livePulse 1.6s infinite; }
+  @keyframes livePulse { 0%{box-shadow:0 0 0 0 rgba(31,157,87,.5)} 70%{box-shadow:0 0 0 7px rgba(31,157,87,0)} 100%{box-shadow:0 0 0 0 rgba(31,157,87,0)} }
+  .ss-overall { display:flex; align-items:baseline; gap:8px; margin-bottom:4px; }
+  .ss-num { font-size:34px; font-weight:800; letter-spacing:-1.5px; color:var(--d-text); }
+  .ss-of { font-size:13px; color:var(--d-muted); }
+  .ss-run { font-size:12px; color:var(--d-muted); margin-bottom:16px; }
+  .bar { margin:11px 0; }
+  .bar .lab { display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px; }
+  .bar .lab .nm { color:var(--d-text-2); }
+  .bar .lab .vl { color:var(--d-text); font-weight:700; }
+  .bar .track { height:7px; background:rgba(255,255,255,.08); border-radius:5px; overflow:hidden; }
+  .bar .fill { height:100%; border-radius:5px; width:0; transition:width .5s cubic-bezier(.4,0,.2,1); }
+  .ss-tip { margin-top:18px; padding:13px 14px; background:var(--d-panel); border:1px solid var(--d-line); border-radius:11px; font-size:12.5px; color:var(--d-text-2); line-height:1.5; }
+  .ss-tip b { color:#7fb6f0; display:block; font-size:10px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:4px; }
+  /* bottom controls */
+  .stage-foot { border-top:1px solid var(--d-line); background:rgba(8,27,44,.7); }
+  .typed { display:flex; gap:10px; padding:16px 26px calc(16px + env(safe-area-inset-bottom)); align-items:center; }
+  .typed input { flex:1; padding:13px 15px; border:1px solid var(--d-line); border-radius:12px; background:var(--d-panel); color:var(--d-text); font-size:14.5px; font-family:inherit; }
+  .typed input::placeholder { color:var(--d-muted); }
+  .typed input:focus { outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(31,116,208,.22); }
+  .micbtn { padding:13px 15px; border:1px solid var(--d-line); background:var(--d-panel); color:var(--d-text-2); border-radius:12px; font-size:16px; line-height:1; }
+  .micbtn:hover:not(:disabled) { border-color:var(--blue); color:#7fb6f0; }
+  .micbtn:disabled { opacity:.4; cursor:default; }
   .micbtn.recording { background:var(--bad); border-color:var(--bad); color:#fff; animation:pulse 1s infinite; }
-  .micbtn.transcribing { color:var(--blue); }
+  .micbtn.transcribing { color:#7fb6f0; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
-  .voicebtn { padding:11px 18px; border:0; border-radius:10px; background:linear-gradient(100deg,var(--navy),var(--blue));
-              color:#fff; font-weight:700; cursor:pointer; font-size:13.5px; white-space:nowrap; box-shadow:var(--shadow-sm); }
-  .voicebtn:hover { filter:brightness(1.07); }
-  .voicebtn.on { background:#e7edf3; color:var(--text-2); }
-  .voicepanel[hidden], #rp-form[hidden] { display:none; }
-  .voicepanel { display:flex; align-items:center; gap:16px; padding:18px 24px; border-top:1px solid var(--line); background:var(--surface); }
-  .voicepanel .vinfo { flex:1; min-width:0; }
-  .vstate { font-size:16px; font-weight:700; color:var(--navy); }
-  .endvoice { padding:11px 17px; border:1px solid var(--bad); border-radius:10px; background:transparent;
-              color:var(--bad); font-weight:600; cursor:pointer; box-shadow:none; }
-  .endvoice:hover { background:var(--bad); color:#fff; }
-  .orb { width:46px; height:46px; border-radius:50%; flex:none; background:#cfd8e2; }
+  .gobtn { display:inline-flex; align-items:center; gap:8px; padding:13px 18px; border:0; border-radius:12px; background:var(--green); color:#fff; font-weight:700; font-size:14px; box-shadow:0 4px 14px rgba(21,163,91,.3); }
+  .gobtn:hover { background:var(--green-d); }
+  .gobtn svg { width:17px; height:17px; }
+  .send { padding:13px 20px; border:0; border-radius:12px; background:var(--blue); color:#fff; font-weight:700; font-size:14px; }
+  .send:hover:not(:disabled) { background:var(--blue-d); } .send:disabled { opacity:.45; cursor:default; }
+  /* continuous voice panel */
+  .voicepanel { display:flex; align-items:center; gap:18px; padding:18px 26px calc(18px + env(safe-area-inset-bottom)); }
+  .voicepanel[hidden], .typed[hidden] { display:none; }
+  .orb { width:50px; height:50px; border-radius:50%; flex:none; background:#27496b; }
   .orb.listening { background:var(--good); animation:orbPulse 1.4s ease-in-out infinite; }
-  .orb.thinking  { background:var(--mid); animation:orbPulse 1s ease-in-out infinite; }
-  .orb.speaking  { background:var(--blue); animation:orbPulse 0.7s ease-in-out infinite; }
-  @keyframes orbPulse { 0%,100%{box-shadow:0 0 0 0 rgba(21,116,196,0); transform:scale(1)}
-                        50%{box-shadow:0 0 0 12px rgba(21,116,196,.14); transform:scale(1.07)} }
-  /* ---------- scorecard ---------- */
-  .scorecard { border:1px solid var(--line); border-radius:12px; padding:15px; background:var(--surface); margin-bottom:12px; box-shadow:var(--shadow-sm); }
-  .bar { margin:9px 0; }
-  .bar .lab { display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px; color:var(--text-2); }
-  .bar .track { height:7px; background:#eaeff4; border-radius:5px; overflow:hidden; }
-  .bar .fill { height:100%; border-radius:5px; }
-  .overall { font-size:30px; font-weight:800; color:var(--navy); letter-spacing:-1px; }
-  .fb { font-size:13px; color:var(--text); margin:10px 0; line-height:1.5; }
-  .tips { font-size:12.5px; color:var(--text-2); padding-left:18px; margin:6px 0 0; }
-  .tips li { margin:4px 0; }
-  .method { font-size:10.5px; color:var(--muted); margin-top:10px; text-transform:uppercase; letter-spacing:.05em; }
-  @media (max-width:860px){ .view{grid-template-columns:1fr;} .side{display:none;} }
-  /* ---------- phones ---------- */
-  @media (max-width:560px){
-    /* header: drop the diagnostic meta + subtitle that overflowed, tighten so brand + tabs fit */
-    header { gap:10px; padding:0 12px; }
-    #status { display:none; }                 /* the "109 chunks … answer:anthropic" line was bleeding off-screen */
-    .brand-sub { display:none; }              /* "Clinical Sales Training" was wrapping to 3 lines */
-    .brand-name { font-size:15px; }
-    .brand-mark { width:30px; height:30px; }
-    .tabs { margin-left:auto; }               /* push tabs right now that #status is gone */
-    .tab { padding:7px 11px; font-size:12.5px; }
-    /* give the transcript and setup a little more width */
-    .thread { padding:18px 16px; }
-    .setup, .sessionbar { padding:12px 16px; }
-    /* bottom input bar: comfortable padding that respects the iOS home indicator / Safari toolbar */
-    form { gap:8px; padding:12px 14px calc(12px + env(safe-area-inset-bottom)); }
-    input, select { font-size:16px; }         /* >=16px stops iOS Safari from zooming the page on focus */
-    #q, #rp-input { min-width:0; }             /* let the field shrink instead of forcing overflow */
-    #chat-send, #rp-send { flex:none; padding:11px 16px; }
-    /* voice panel: same safe-area treatment, slightly more compact */
-    .voicepanel { gap:12px; padding:14px 16px calc(14px + env(safe-area-inset-bottom)); }
-    .vstate { font-size:15px; }
-    .orb { width:40px; height:40px; }
-    .endvoice { padding:10px 14px; font-size:13px; }
-    .micbtn { padding:11px 12px; }
-    /* roleplay setup controls stack full-width and read cleanly */
-    .cta { gap:10px; } .voicebtn.lg { width:100%; justify-content:center; }
+  .orb.thinking { background:var(--mid); animation:orbPulse 1s ease-in-out infinite; }
+  .orb.speaking { background:var(--blue); animation:orbPulse .7s ease-in-out infinite; }
+  @keyframes orbPulse { 0%,100%{box-shadow:0 0 0 0 rgba(31,116,208,0); transform:scale(1)} 50%{box-shadow:0 0 0 14px rgba(31,116,208,.18); transform:scale(1.06)} }
+  .vinfo { flex:1; min-width:0; }
+  .vstate { font-size:16px; font-weight:800; color:var(--d-text); }
+  .vcaption { font-size:13px; color:var(--d-text-2); margin-top:2px; min-height:18px; }
+  .vswitch { padding:11px 16px; border:1px solid var(--d-line); border-radius:11px; background:var(--d-panel); color:var(--d-text-2); font-weight:700; font-size:13px; }
+  .vswitch:hover { border-color:var(--blue); color:#7fb6f0; }
+
+  /* ============ DEBRIEF ============ */
+  .debrief-top { display:flex; gap:28px; align-items:center; background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:26px 28px; box-shadow:var(--shadow-sm); margin:26px 0; }
+  .ring-wrap { position:relative; width:132px; height:132px; flex:none; }
+  .ring-wrap svg { transform:rotate(-90deg); }
+  .ring-bg { fill:none; stroke:var(--line); stroke-width:13; }
+  .ring-fg { fill:none; stroke-width:13; stroke-linecap:round; transition:stroke-dashoffset .9s cubic-bezier(.4,0,.2,1); }
+  .ring-c { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .ring-num { font-size:34px; font-weight:800; letter-spacing:-1.5px; color:var(--navy); line-height:1; }
+  .ring-of { font-size:11px; color:var(--muted); margin-top:3px; }
+  .debrief-head { flex:1; min-width:0; }
+  .debrief-band { display:inline-block; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; padding:5px 12px; border-radius:8px; margin-bottom:9px; }
+  .debrief-head h2 { margin:0 0 6px; font-size:22px; font-weight:800; color:var(--navy); letter-spacing:-.4px; }
+  .debrief-head p { margin:0; font-size:14px; color:var(--text-2); line-height:1.55; }
+  .cols2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:24px; }
+  .panel { background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:20px 22px; box-shadow:var(--shadow-sm); }
+  .panel-h { display:flex; align-items:center; gap:9px; font-size:14px; font-weight:800; color:var(--navy); margin-bottom:13px; }
+  .panel-h svg { width:18px; height:18px; }
+  .panel-h.good { color:var(--green-d); } .panel-h.work { color:var(--mid); }
+  .pt-list { list-style:none; margin:0; padding:0; }
+  .pt-list li { display:flex; gap:10px; font-size:13.5px; color:var(--text); line-height:1.5; margin:10px 0; }
+  .pt-list li svg { width:16px; height:16px; flex:none; margin-top:2px; }
+  .pt-list.good li svg { color:var(--green); } .pt-list.work li svg { color:var(--mid); }
+  .timeline { position:relative; padding-left:6px; }
+  .moment { display:flex; gap:14px; padding:0 0 18px; position:relative; }
+  .moment:last-child { padding-bottom:0; }
+  .moment::before { content:''; position:absolute; left:7px; top:20px; bottom:-2px; width:2px; background:var(--line); }
+  .moment:last-child::before { display:none; }
+  .m-dot { width:16px; height:16px; flex:none; border-radius:50%; border:3px solid var(--surface); background:var(--blue); margin-top:3px; box-shadow:0 0 0 1px var(--line-2); z-index:1; }
+  .m-body { flex:1; min-width:0; }
+  .m-top { display:flex; align-items:center; gap:9px; flex-wrap:wrap; }
+  .m-time { font-size:12px; font-weight:700; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .m-tag { font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; font-weight:800; color:#fff; padding:3px 8px; border-radius:6px; }
+  .m-sc { margin-left:auto; font-size:12.5px; font-weight:800; }
+  .m-text { font-size:13.5px; color:var(--text-2); margin-top:5px; line-height:1.5; }
+  .m-text b { color:var(--text); font-weight:600; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:1080px){ .stage-side{ width:280px; } .kn-side{ width:300px; } }
+  @media (max-width:900px){
+    .stats{ grid-template-columns:repeat(2,1fr); } .cards2{ grid-template-columns:1fr; }
+    .scen-grid{ grid-template-columns:1fr; } .cols2{ grid-template-columns:1fr; }
+    .kn-side{ display:none; } .stage-side{ display:none; }
+  }
+  @media (max-width:760px){
+    body{ flex-direction:column; }
+    .sidebar{ width:100%; flex-direction:row; align-items:center; padding:8px 12px; border-right:0; border-bottom:1px solid var(--line); gap:8px; overflow-x:auto; }
+    .brand{ padding:0; } .brand-sub{ display:none; }
+    .nav{ flex-direction:row; margin:0 0 0 6px; } .nav-sec{ display:none; }
+    .nav-item{ padding:8px 11px; } .nav-item span{ display:none; }
+    .side-spacer{ flex:1; }
+    .representing{ border-top:0; padding-top:0; } .rep-meta{ display:none; } .rep-caret{ display:none; }
+    .rep-current{ padding:6px; } .rep-menu{ bottom:auto; top:calc(100% + 8px); left:auto; right:0; width:240px; }
+    .diff-grid{ grid-template-columns:1fr; } .prospect{ flex-direction:column; }
+    .wrap{ padding:24px 18px 44px; } .thread{ padding:20px 16px; } .barform{ padding:12px 14px calc(12px + env(safe-area-inset-bottom)); }
+    .debrief-top{ flex-direction:column; text-align:center; } .pros-grid{ grid-template-columns:1fr; }
   }
 </style>
 </head>
 <body>
-  <header>
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
     <div class="brand">
       <div class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
       </div>
-      <div class="brand-text">
+      <div>
         <div class="brand-name">TrainMed</div>
-        <div class="brand-sub">Clinical Sales Training</div>
+        <div class="brand-sub">Medical Sales Training</div>
       </div>
     </div>
-    <nav class="tabs">
-      <button class="tab active" id="tab-chat" onclick="showView('chat')">Knowledge Assistant</button>
-      <button class="tab" id="tab-rp" onclick="showView('rp')">Roleplay Trainer</button>
+    <nav class="nav">
+      <button class="nav-item active" id="nav-home" onclick="showView('home')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>
+        <span>Home</span>
+      </button>
+      <button class="nav-item" id="nav-knowledge" onclick="showView('knowledge')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 0 2 2h12"/></svg>
+        <span>Knowledge</span>
+      </button>
+      <button class="nav-item" id="nav-roleplay" onclick="showView('roleplay')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/></svg>
+        <span>Role-play</span>
+      </button>
     </nav>
-    <div id="status" hidden></div>
-  </header>
-
-  <!-- ============ KNOWLEDGE CHATBOT ============ -->
-  <div class="view" id="chat-view">
-    <div class="col-main">
-      <div class="thread" id="thread">
-        <div class="hero" id="chat-hero">
-          <div class="eyebrow">Rotator Cuff &amp; Shoulder Repair</div>
-          <h1 class="hero-title">Knowledge Assistant</h1>
-          <p class="hero-sub">Ask about techniques, products, and specifications across the Arthrex rotator cuff portfolio. Every answer is grounded in official sources and cited to the exact video moment or technique guide.</p>
-          <div class="examples" id="examples"></div>
-        </div>
-      </div>
-      <form id="chat-form">
-        <input id="q" placeholder="Ask about SpeedBridge, SutureBridge, FiberTak, SCR, anchor specs…" autocomplete="off">
-        <button id="chat-send">Ask</button>
-      </form>
-    </div>
-    <aside class="side">
-      <h2>Sources</h2>
-      <div id="cites"><div class="empty" style="font-size:13px">Citations appear here, linked to the exact video moment or guide.</div></div>
-    </aside>
-  </div>
-
-  <!-- ============ ROLEPLAY TRAINER ============ -->
-  <div class="view" id="rp-view" hidden>
-    <div class="col-main">
-      <div class="setup" id="rp-setup">
-        <div class="eyebrow">Roleplay Trainer — practice live with an AI surgeon</div>
-        <div class="setup-grid">
-          <label class="field grow"><span class="flab">Scenario</span><select id="rp-scenario"></select></label>
-          <label class="field"><span class="flab">Your role</span><select id="rp-role"></select></label>
-          <label class="field"><span class="flab">Difficulty</span><select id="rp-diff"></select></label>
-        </div>
-        <div class="preview">
-          <span class="pv-cat" id="rp-pv-cat"></span>
-          <span class="pv-goal" id="rp-pv-goal"></span>
-        </div>
-        <div class="cta">
-          <button type="button" id="rp-voicebtn" class="voicebtn lg">🎙️ Start Voice Roleplay</button>
-          <button type="button" id="rp-textbtn" class="textlink">or practice by typing</button>
-          <label class="autoplay"><input type="checkbox" id="rp-autoplay" checked> Auto-play voice</label>
-          <span id="rp-voice" class="loc voicemeta"></span>
-        </div>
-      </div>
-      <div class="sessionbar" id="rp-sessionbar" hidden>
-        <div class="sb-info"><span class="sb-cat" id="rp-sb-cat"></span><span class="sb-title" id="rp-sb-title"></span></div>
-        <button type="button" id="rp-sb-voice" class="voicebtn sm">🎙️ Voice</button>
-        <button type="button" id="rp-restart" class="textlink">↺ New scenario</button>
-      </div>
-      <div class="thread" id="rp-thread">
-        <div class="empty">Pick a scenario and press Start Voice Roleplay. You play the rep; the AI plays the surgeon and a coach scores each reply.</div>
-      </div>
-      <form id="rp-form">
-        <button type="button" id="rp-mic" class="micbtn" title="Voice input" disabled>🎤</button>
-        <input id="rp-input" placeholder="Start the session first…" autocomplete="off" disabled>
-        <button id="rp-send" disabled>Send</button>
-      </form>
-      <div id="rp-voicepanel" class="voicepanel" hidden>
-        <div class="orb" id="rp-orb"></div>
-        <div class="vinfo">
-          <div id="rp-vstate" class="vstate">Starting…</div>
-          <div id="rp-vcaption" class="loc"></div>
-        </div>
-        <button type="button" id="rp-endvoice" class="endvoice">⏹ End Voice Mode</button>
+    <div class="side-spacer"></div>
+    <div class="representing">
+      <div class="nav-sec">Representing</div>
+      <button class="rep-current" id="rep-current" aria-haspopup="true">
+        <span class="mono" id="rep-mono">AX</span>
+        <span class="rep-meta"><span class="rep-name" id="rep-name">Arthrex</span><span class="rep-role">Switch knowledge base</span></span>
+        <svg class="rep-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="rep-menu" id="rep-menu" hidden>
+        <div class="rep-menu-h">Choose company</div>
+        <div id="rep-opts"></div>
+        <div class="rep-foot">Each company's knowledge base is firewalled — answers never cross brands.</div>
       </div>
     </div>
-    <aside class="side">
-      <h2>Coach feedback</h2>
-      <div id="rp-running" class="empty" style="font-size:13px;margin-bottom:10px">Your average score appears here after your first reply.</div>
-      <div id="rp-feedback"><div class="empty" style="font-size:13px">Scorecard (technique, product knowledge, objection handling, confidence, completeness) appears after each reply.</div></div>
-    </aside>
-  </div>
+  </aside>
+
+  <main class="main">
+    <!-- ============ HOME ============ -->
+    <section class="view" id="view-home">
+      <div class="scroll"><div class="wrap">
+        <div class="eyebrow" id="home-eyebrow">Dashboard</div>
+        <h1 class="h1" id="home-greet">Welcome back</h1>
+        <p class="lead" id="home-sub">Sharpen your pitch with grounded product knowledge and live AI role-play.</p>
+
+        <div class="cards2">
+          <button class="bigcard kn" onclick="showView('knowledge')">
+            <div class="bc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 0 2 2h12"/></svg></div>
+            <h3>Product Knowledge</h3>
+            <p>Ask anything about techniques, products, and specs. Every answer is grounded in official sources and cited to the exact video moment or technique guide.</p>
+            <span class="bc-go">Open assistant <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </button>
+          <button class="bigcard rp" onclick="showView('roleplay')">
+            <div class="bc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/></svg></div>
+            <h3>Sales Role-play</h3>
+            <p>Practice live with an AI surgeon. Handle objections by voice, get scored in real time on rapport, discovery, objection handling, product knowledge, and closing.</p>
+            <span class="bc-go">Start a session <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </button>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="st-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s5 4 5 9a5 5 0 0 1-10 0c0-2 1-3 1-3s0 2 2 2c0-3 2-5 2-8z"/></svg> Practice streak</div>
+            <div class="st-num" id="stat-streak">0</div>
+            <div class="st-sub" id="stat-streak-sub">Start one today</div>
+          </div>
+          <div class="stat">
+            <div class="st-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/><path d="M21 8v5h-5"/></svg> Avg session score</div>
+            <div class="st-num" id="stat-avg">—</div>
+            <div class="st-sub" id="stat-avg-sub">No sessions yet</div>
+          </div>
+          <div class="stat">
+            <div class="st-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg> Sessions this week</div>
+            <div class="st-num" id="stat-week">0</div>
+            <div class="st-sub">Last 7 days</div>
+          </div>
+          <div class="stat">
+            <div class="st-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 10a7 7 0 0 0 14 0"/></svg> Role-plays logged</div>
+            <div class="st-num" id="stat-total">0</div>
+            <div class="st-sub">All time</div>
+          </div>
+        </div>
+
+        <div class="feed">
+          <div class="feed-h">Recent activity</div>
+          <div id="home-activity"></div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- ============ KNOWLEDGE ============ -->
+    <section class="view" id="view-knowledge" hidden>
+      <div class="kn-wrap">
+        <div class="kn-main">
+          <div class="thread" id="thread">
+            <div class="kn-hero" id="chat-hero">
+              <div class="eyebrow" id="kn-eyebrow">Rotator Cuff &amp; Shoulder Repair</div>
+              <h1 class="h1">Knowledge Assistant</h1>
+              <p class="lead hero-sub">Ask about techniques, products, and specifications across the portfolio. Every answer is grounded in official sources and cited to the exact video moment or technique guide.</p>
+              <div class="examples" id="examples"></div>
+            </div>
+          </div>
+          <form class="barform" id="chat-form">
+            <input id="q" placeholder="Ask about anchors, double-row constructs, specs…" autocomplete="off">
+            <button class="btn" id="chat-send">Ask</button>
+          </form>
+        </div>
+        <aside class="kn-side">
+          <h2>Sources</h2>
+          <div id="cites"><div class="empty">Citations appear here, linked to the exact video moment or guide.</div></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ ROLEPLAY ============ -->
+    <section class="view" id="view-roleplay" hidden>
+
+      <!-- setup -->
+      <div class="view" id="rp-setup">
+        <div class="scroll"><div class="wrap">
+          <div class="eyebrow">Role-play Trainer</div>
+          <h1 class="h1">New role-play session</h1>
+          <p class="lead">Pick a scenario and a difficulty, meet your prospect, then start a live voice session. The AI plays the surgeon; a coach scores every reply.</p>
+
+          <div class="step-h"><span class="step-n">1</span><span class="step-t">Choose a scenario</span></div>
+          <div class="scen-grid" id="rp-scenario-cards"></div>
+
+          <div class="step-h"><span class="step-n">2</span><span class="step-t">Set the difficulty</span>
+            <span class="step-hint">How tough the surgeon will be</span></div>
+          <div class="diff-grid" id="rp-diff-cards"></div>
+
+          <div class="step-h"><span class="step-n">3</span><span class="step-t">Meet your prospect</span>
+            <span class="step-hint"><span class="role-pills" id="rp-role-pills"></span></span></div>
+          <div class="prospect" id="rp-prospect"></div>
+
+          <div class="launch">
+            <button type="button" id="rp-voicebtn" class="btn-green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/></svg>
+              Start voice session</button>
+            <button type="button" id="rp-textbtn" class="textlink">or practice by typing</button>
+            <label class="autoplay"><input type="checkbox" id="rp-autoplay" checked> Auto-play surgeon voice</label>
+            <span id="rp-voice" class="voicemeta"></span>
+          </div>
+
+          <!-- hidden source-of-truth controls -->
+          <select id="rp-scenario" hidden></select>
+          <select id="rp-role" hidden></select>
+          <select id="rp-diff" hidden></select>
+        </div></div>
+      </div>
+
+      <!-- live (dark stage) -->
+      <div class="stage" id="rp-live" hidden>
+        <div class="stage-top">
+          <div class="surg-av" id="rp-surg-av">DR</div>
+          <div class="surg-id">
+            <div class="surg-name" id="rp-surg-name">Surgeon</div>
+            <div class="surg-title" id="rp-surg-title"></div>
+          </div>
+          <div class="stage-tags">
+            <span class="stag cat" id="rp-live-cat"></span>
+            <span class="stag diff" id="rp-live-diff"></span>
+          </div>
+          <button type="button" class="end-btn" id="rp-end">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
+            End &amp; score</button>
+        </div>
+        <div class="stage-body">
+          <div class="stage-convo">
+            <div id="rp-thread"><div class="stage-empty">Your conversation will appear here.</div></div>
+            <div class="stage-foot">
+              <form class="typed" id="rp-form">
+                <button type="button" id="rp-mic" class="micbtn" title="Voice input" disabled>🎤</button>
+                <input id="rp-input" placeholder="Respond to the surgeon…" autocomplete="off" disabled>
+                <button type="button" id="rp-sb-voice" class="gobtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 10a7 7 0 0 0 14 0"/></svg> Voice</button>
+                <button id="rp-send" class="send" disabled>Send</button>
+              </form>
+              <div id="rp-voicepanel" class="voicepanel" hidden>
+                <div class="orb" id="rp-orb"></div>
+                <div class="vinfo">
+                  <div id="rp-vstate" class="vstate">Starting…</div>
+                  <div id="rp-vcaption" class="vcaption"></div>
+                </div>
+                <button type="button" id="rp-endvoice" class="vswitch">⌨ Switch to typing</button>
+              </div>
+            </div>
+          </div>
+          <aside class="stage-side">
+            <div class="ss-h"><span class="ss-live"></span> Live scorecard</div>
+            <div class="ss-overall"><span class="ss-num" id="rp-overall">—</span><span class="ss-of">/ 5</span></div>
+            <div class="ss-run" id="rp-running">Reply to the surgeon to get scored.</div>
+            <div id="rp-scorebars"></div>
+            <div class="ss-tip" id="rp-tip" hidden></div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- debrief -->
+      <div class="view" id="rp-debrief" hidden>
+        <div class="scroll"><div class="wrap">
+          <div class="eyebrow">Session debrief</div>
+          <h1 class="h1" id="rp-debrief-title">How that went</h1>
+          <p class="lead" id="rp-debrief-sub"></p>
+
+          <div class="debrief-top">
+            <div class="ring-wrap">
+              <svg width="132" height="132" viewBox="0 0 132 132">
+                <circle class="ring-bg" cx="66" cy="66" r="56"/>
+                <circle class="ring-fg" id="rp-ring" cx="66" cy="66" r="56" stroke-dasharray="351.86" stroke-dashoffset="351.86"/>
+              </svg>
+              <div class="ring-c"><div class="ring-num" id="rp-ring-num">—</div><div class="ring-of">out of 5</div></div>
+            </div>
+            <div class="debrief-head">
+              <span class="debrief-band" id="rp-ring-band">—</span>
+              <h2 id="rp-debrief-band-h">Overall performance</h2>
+              <p id="rp-debrief-summary"></p>
+            </div>
+          </div>
+
+          <div class="cols2">
+            <div class="panel">
+              <div class="panel-h good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> What worked</div>
+              <ul class="pt-list good" id="rp-worked"></ul>
+            </div>
+            <div class="panel">
+              <div class="panel-h work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 20h20z"/><path d="M12 9v5M12 17v.5"/></svg> Sharpen next time</div>
+              <ul class="pt-list work" id="rp-sharpen"></ul>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-bottom:24px">
+            <div class="panel-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Key moments</div>
+            <div class="timeline" id="rp-moments"></div>
+          </div>
+
+          <div class="launch">
+            <button type="button" id="rp-again" class="btn-green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+              Practice again</button>
+            <button type="button" id="rp-home" class="textlink">back to dashboard</button>
+          </div>
+        </div></div>
+      </div>
+
+    </section>
+  </main>
 
 <script>
-const EXAMPLES = [
-  "What anchor and FiberTape sizes does the FiberTak SpeedBridge use?",
-  "SpeedBridge vs SutureBridge — biomechanical difference?",
-  "Walk me through a SpeedBridge repair",
-  "PASTA bridge — anchors and guidewire?",
-];
+// ===================== STATE =====================
+let COMPANY = 'Arthrex';
+const COMPANY_COPY = {
+  Arthrex: {
+    eyebrow: "Rotator Cuff & Shoulder Repair",
+    blurb: "Ask about techniques, products, and specifications across the Arthrex rotator cuff portfolio. Every answer is grounded in official Arthrex sources and cited to the exact video moment or technique guide.",
+    placeholder: "Ask about SpeedBridge, SutureBridge, FiberTak, SCR, anchor specs…",
+    examples: ["What anchor and FiberTape sizes does the FiberTak SpeedBridge use?","SpeedBridge vs SutureBridge — biomechanical difference?","Walk me through a SpeedBridge repair","PASTA bridge — anchors and guidewire?"],
+  },
+  Stryker: {
+    eyebrow: "Sports Medicine — Shoulder",
+    blurb: "Ask about techniques, products, and specifications across the Stryker Sports Medicine shoulder portfolio. Every answer is grounded in official Stryker sources and cited to the technique guide or study.",
+    placeholder: "Ask about Omega, AlphaVent, Iconix, knotless double-row…",
+    examples: ["How does the Omega knotless anchor work?","Omega vs AlphaVent — which for the lateral row?","Iconix all-suture anchor sizes?","Walk me through a knotless double-row rotator cuff repair"],
+  },
+  SmithNephew: {
+    eyebrow: "Shoulder Repair",
+    blurb: "Ask about techniques, products, and specifications across the Smith & Nephew shoulder portfolio. Every answer is grounded in official Smith & Nephew sources.",
+    placeholder: "Ask about HEALICOIL, Q-FIX, FOOTPRINT Ultra, REGENESORB…",
+    examples: ["HEALICOIL PRO vs HEALICOIL REGENESORB?","Q-FIX all-suture anchor specs?","Double-row rotator cuff repair with HEALICOIL","FOOTPRINT Ultra knotless fixation — how does it work?"],
+  },
+};
+const COMPANY_BRAND = {
+  Arthrex:     { mono:'AX', color:'#0b3a5c', fg:'#ffffff' },
+  Stryker:     { mono:'SK', color:'#f4a826', fg:'#1a1407' },
+  SmithNephew: { mono:'SN', color:'#0a8f86', fg:'#ffffff' },
+};
+function companyCopy(){ return COMPANY_COPY[COMPANY] || COMPANY_COPY.Arthrex; }
+function brand(id){ return COMPANY_BRAND[id] || { mono:(id||'??').slice(0,2).toUpperCase(), color:'#0b3a5c', fg:'#fff' }; }
 
-// ---------- tabs ----------
+const SCEN_CAT = { skeptical_surgeon:'Objection', cost_objection:'Value', new_product_launch:'Launch', technique_walkthrough:'Technique', clinical_data_grill:'Evidence', competitor_switch:'Competitive' };
+const SCORE_LABELS = { rapport:'Rapport', discovery:'Discovery', objection_handling:'Objection handling', product_knowledge:'Product knowledge', closing:'Closing' };
+const MOMENT_TAG = { rapport:'Rapport', discovery:'Discovery', objection_handling:'Objection', product_knowledge:'Proof', closing:'Close' };
+
+// ===================== NAVIGATION =====================
 function showView(v){
-  document.getElementById('chat-view').hidden = v !== 'chat';
-  document.getElementById('rp-view').hidden = v !== 'rp';
-  document.getElementById('tab-chat').classList.toggle('active', v==='chat');
-  document.getElementById('tab-rp').classList.toggle('active', v==='rp');
-  if(v==='rp' && !rpLoaded) loadScenarios();
+  if(voice.active && v!=='roleplay') endVoiceMode();          // leaving the room ends the call
+  document.getElementById('view-home').hidden = v!=='home';
+  document.getElementById('view-knowledge').hidden = v!=='knowledge';
+  document.getElementById('view-roleplay').hidden = v!=='roleplay';
+  document.getElementById('nav-home').classList.toggle('active', v==='home');
+  document.getElementById('nav-knowledge').classList.toggle('active', v==='knowledge');
+  document.getElementById('nav-roleplay').classList.toggle('active', v==='roleplay');
+  if(v==='home') renderHome();
+  if(v==='knowledge'){ applyCompanyCopy(); setTimeout(()=>qInput.focus(),30); }
+  if(v==='roleplay'){ if(!rpLoaded) loadScenarios(); if(!rpActive) showRpStep('setup'); }
+}
+function showRpStep(step){   // 'setup' | 'live' | 'debrief'
+  document.getElementById('rp-setup').hidden = step!=='setup';
+  document.getElementById('rp-live').hidden = step!=='live';
+  document.getElementById('rp-debrief').hidden = step!=='debrief';
 }
 
-// ---------- status (developer diagnostics — hidden from end users) ----------
-// The chunk/video/pdf + backend line is dev-only metadata, not for end users. Show it ONLY
-// behind a dev flag (?debug=1) or on localhost, so production shows a clean answer interface.
-// The data stays available to developers via this flag or by hitting /api/meta directly.
+// ===================== COMPANY SELECTOR =====================
+let COMPANIES_DATA = [];
+const repCurrent=document.getElementById('rep-current'), repMenu=document.getElementById('rep-menu'), repOpts=document.getElementById('rep-opts');
+function renderRepCurrent(){
+  const b=brand(COMPANY);
+  const mono=document.getElementById('rep-mono');
+  mono.textContent=b.mono; mono.style.background=b.color; mono.style.color=b.fg;
+  document.getElementById('rep-name').textContent = (COMPANIES_DATA.find(c=>c.id===COMPANY)||{}).label || COMPANY;
+}
+function renderRepMenu(){
+  repOpts.innerHTML='';
+  COMPANIES_DATA.forEach(c=>{
+    const b=brand(c.id);
+    const btn=document.createElement('button'); btn.className='rep-opt'; btn.type='button';
+    btn.innerHTML=`<span class="mono" style="background:${b.color};color:${b.fg}">${b.mono}</span>`+
+      `<span class="rep-meta"><span class="nm">${c.label}</span><span class="av">${c.available?(c.chunks+' sources'):'no KB yet'}</span></span>`+
+      (c.id===COMPANY?'<svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>':'');
+    btn.onclick=()=>{ repMenu.hidden=true; if(c.id!==COMPANY) setCompany(c.id); };
+    repOpts.appendChild(btn);
+  });
+}
+repCurrent.onclick=(e)=>{ e.stopPropagation(); repMenu.hidden=!repMenu.hidden; if(!repMenu.hidden) renderRepMenu(); };
+document.addEventListener('click',()=>{ repMenu.hidden=true; });
+repMenu.onclick=(e)=>e.stopPropagation();
+
+function setCompany(id){
+  COMPANY=id; renderRepCurrent(); applyCompanyCopy(); refreshMeta();
+  // reset surfaces so no prior-company content lingers
+  thread.querySelectorAll('.msg').forEach(n=>n.remove());
+  citesEl.innerHTML='<div class="empty">Citations appear here, linked to the exact video moment or guide.</div>';
+  if(rpLoaded) restartScenario();
+  rpLoaded=false;
+  if(!document.getElementById('view-roleplay').hidden) loadScenarios();
+  renderHome();
+}
+function initCompanies(){
+  fetch('/api/companies').then(r=>r.json()).then(d=>{
+    COMPANY = d.default || COMPANY;
+    COMPANIES_DATA = d.companies || [];
+    renderRepCurrent(); applyCompanyCopy(); refreshMeta(); renderHome();
+  }).catch(()=>{ applyCompanyCopy(); refreshMeta(); renderHome(); });
+}
+
+// ---------- dev diagnostics (hidden in prod; available via ?debug=1 or localhost) ----------
 const DEBUG = /[?&]debug=1\b/.test(location.search) || ['localhost','127.0.0.1','[::1]'].includes(location.hostname);
-if(DEBUG){
-  const statusEl=document.getElementById('status');
-  statusEl.hidden=false; statusEl.textContent='connecting…';
-  fetch('/api/meta').then(r=>r.json()).then(m=>{
-    const gen = m.gen_backend==='extractive' ? 'extractive (no key)' : m.gen_backend;
-    statusEl.textContent =
-      `${m.chunks} chunks (${m.videos} video · ${m.pdfs} pdf) · embed: ${m.embed_backend} · answer: ${gen}`;
-  }).catch(()=>statusEl.textContent='offline');
-}
+function refreshMeta(){ if(!DEBUG) return; fetch('/api/meta?company='+encodeURIComponent(COMPANY)).then(r=>r.json()).then(m=>{ console.log('[TrainMed]', m.company_label, m.chunks+' chunks', 'embed:'+m.embed_backend, 'gen:'+m.gen_backend); }).catch(()=>{}); }
 
-// ===================== KNOWLEDGE CHATBOT =====================
+// ===================== LOCAL ACTIVITY / STATS =====================
+const STORE_KEY='trainmed.activity.v1';
+function loadStore(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||'{}'); }catch(e){ return {}; } }
+function eventsFor(c){ return (loadStore()[c]||[]); }
+function saveEvent(ev){
+  const s=loadStore(); (s[COMPANY]=s[COMPANY]||[]).unshift(ev); s[COMPANY]=s[COMPANY].slice(0,60);
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(s)); }catch(e){}
+}
+function dayKey(ts){ const d=new Date(ts); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+function rel(ts){ const s=(Date.now()-ts)/1000; if(s<60)return'just now'; const m=s/60; if(m<60)return Math.floor(m)+'m ago'; const h=m/60; if(h<24)return Math.floor(h)+'h ago'; const d=h/24; if(d<2)return'yesterday'; if(d<7)return Math.floor(d)+'d ago'; return new Date(ts).toLocaleDateString(); }
+function scoreColorHex(v){ return v>=4?'#1f9d57':v>=3?'#d59512':'#d6483b'; }
+function computeStats(){
+  const evs=eventsFor(COMPANY), rps=evs.filter(e=>e.type==='roleplay');
+  const days=new Set(rps.map(e=>dayKey(e.ts)));
+  let streak=0; for(let i=0;i<400;i++){ const d=new Date(); d.setDate(d.getDate()-i); if(days.has(dayKey(d.getTime()))) streak++; else if(i===0) continue; else break; }
+  const avg = rps.length ? (rps.reduce((a,b)=>a+(b.overall||0),0)/rps.length) : null;
+  const week = rps.filter(e=>Date.now()-e.ts < 7*864e5).length;
+  return { streak, avg, week, total:rps.length };
+}
+function greetWord(){ const h=new Date().getHours(); return h<12?'Good morning':h<18?'Good afternoon':'Good evening'; }
+function renderHome(){
+  const label=(COMPANIES_DATA.find(c=>c.id===COMPANY)||{}).label||COMPANY;
+  document.getElementById('home-eyebrow').textContent=label+' · Dashboard';
+  document.getElementById('home-greet').textContent=greetWord()+'.';
+  document.getElementById('home-sub').textContent=`Let's sharpen your ${label} pitch — grounded knowledge and live AI role-play.`;
+  const s=computeStats();
+  document.getElementById('stat-streak').textContent=s.streak;
+  document.getElementById('stat-streak-sub').textContent = s.streak>=2?'days in a row 🔥' : s.streak===1?'day — keep it going':'Start one today';
+  const avgEl=document.getElementById('stat-avg');
+  avgEl.textContent = s.avg==null?'—':s.avg.toFixed(1);
+  avgEl.style.color = s.avg==null?'var(--navy)':scoreColorHex(s.avg);
+  document.getElementById('stat-avg-sub').textContent = s.avg==null?'No sessions yet':`across ${s.total} session${s.total>1?'s':''}`;
+  document.getElementById('stat-week').textContent=s.week;
+  document.getElementById('stat-total').textContent=s.total;
+
+  const feed=document.getElementById('home-activity'); const evs=eventsFor(COMPANY).slice(0,6);
+  if(!evs.length){ feed.innerHTML='<div class="feed-empty">No activity yet — ask a knowledge question or run a role-play to get started.</div>'; return; }
+  feed.innerHTML=evs.map(e=>{
+    if(e.type==='roleplay'){
+      const col=scoreColorHex(e.overall);
+      return `<div class="feed-row"><div class="feed-ic rp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 10a7 7 0 0 0 14 0"/></svg></div>`+
+        `<div class="feed-main"><div class="feed-title">${esc(e.label||'Role-play session')}</div><div class="feed-meta">${cap(e.difficulty||'')} · ${e.turns||0} repl${e.turns===1?'y':'ies'}</div></div>`+
+        `<span class="score-chip" style="background:${col}">${(e.overall||0).toFixed(1)}</span><span class="feed-when">${rel(e.ts)}</span></div>`;
+    }
+    return `<div class="feed-row"><div class="feed-ic kn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 0 2 2h12"/></svg></div>`+
+      `<div class="feed-main"><div class="feed-title">${esc(e.q||'Knowledge question')}</div><div class="feed-meta">Knowledge · answered</div></div>`+
+      `<span class="feed-when">${rel(e.ts)}</span></div>`;
+  }).join('');
+}
+function esc(s){ return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function cap(s){ return s?s.charAt(0).toUpperCase()+s.slice(1):s; }
+
+// ===================== KNOWLEDGE ASSISTANT =====================
 const thread=document.getElementById('thread'), citesEl=document.getElementById('cites');
 const qInput=document.getElementById('q'), chatSend=document.getElementById('chat-send');
 const exWrap=document.getElementById('examples');
-EXAMPLES.forEach(t=>{const c=document.createElement('span');c.className='chip';c.textContent=t;
-  c.onclick=()=>{qInput.value=t;askChat();};exWrap.appendChild(c);});
-
-// Markdown → safe HTML for assistant answers. The model is told to emit markdown
-// (**bold**, bullets, [n] citations); we render it instead of showing raw asterisks.
-// XSS boundary: we HTML-escape the ENTIRE string FIRST, so no live tag from the model
-// (or from RAG-retrieved text it echoes) can survive. We then re-introduce only a fixed,
-// known-safe tag set (strong/em/code/a/p/ul/ol/li/br/span.cmark). Links are scheme-locked
-// to http(s) and quote-neutralized, so no javascript: URIs or attribute breakouts.
+function renderExamples(){
+  exWrap.innerHTML='';
+  companyCopy().examples.forEach(t=>{ const c=document.createElement('button'); c.className='chip'; c.type='button'; c.textContent=t; c.onclick=()=>{qInput.value=t;askChat();}; exWrap.appendChild(c); });
+}
+function applyCompanyCopy(){
+  const sub=document.querySelector('#chat-hero .hero-sub'); if(sub) sub.textContent=companyCopy().blurb;
+  const eb=document.getElementById('kn-eyebrow'); if(eb) eb.textContent=companyCopy().eyebrow;
+  if(qInput) qInput.placeholder=companyCopy().placeholder;
+  renderExamples();
+}
+// Markdown → safe HTML (escape first, then re-introduce a fixed safe tag set).
 function mdEscape(s){ return s.replace(/[&<>]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[ch])); }
 function mdInline(t){
-  // links [text](http(s)://url) FIRST so the citation pass doesn't grab the [text] part
-  t=t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,(m,txt,url)=>
-      '<a href="'+url.replace(/"/g,'%22')+'" target="_blank" rel="noopener">'+txt+'</a>');
-  t=t.replace(/\[(\d+)\]/g,'<span class="cmark">[$1]</span>');   // [n] citation markers
-  t=t.replace(/\*\*([^*]+?)\*\*/g,'<strong>$1</strong>');         // **bold**
-  t=t.replace(/(^|[^*])\*([^*\n]+?)\*/g,'$1<em>$2</em>');         // *italic* (bold already consumed)
-  t=t.replace(/`([^`]+?)`/g,'<code>$1</code>');                   // `code`
+  t=t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,(m,txt,url)=>'<a href="'+url.replace(/"/g,'%22')+'" target="_blank" rel="noopener">'+txt+'</a>');
+  t=t.replace(/\[(\d+)\]/g,'<span class="cmark">[$1]</span>');
+  t=t.replace(/\*\*([^*]+?)\*\*/g,'<strong>$1</strong>');
+  t=t.replace(/(^|[^*])\*([^*\n]+?)\*/g,'$1<em>$2</em>');
+  t=t.replace(/`([^`]+?)`/g,'<code>$1</code>');
   return t;
 }
 function renderMarkdown(raw){
@@ -346,160 +795,335 @@ function renderMarkdown(raw){
   const closeList=()=>{ if(list){ html+='</'+list+'>'; list=null; } };
   const flushPara=()=>{ if(para.length){ html+='<p>'+para.map(mdInline).join('<br>')+'</p>'; para=[]; } };
   for(const line of lines){
-    const b=/^\s*[-*]\s+(.*)$/.exec(line);          // - bullet  /  * bullet
-    const n=/^\s*\d+\.\s+(.*)$/.exec(line);         // 1. numbered
+    const b=/^\s*[-*]\s+(.*)$/.exec(line); const n=/^\s*\d+\.\s+(.*)$/.exec(line);
     if(b){ flushPara(); if(list!=='ul'){ closeList(); html+='<ul>'; list='ul'; } html+='<li>'+mdInline(b[1])+'</li>'; }
     else if(n){ flushPara(); if(list!=='ol'){ closeList(); html+='<ol>'; list='ol'; } html+='<li>'+mdInline(n[1])+'</li>'; }
-    else if(line.trim()===''){ flushPara(); closeList(); }   // blank line = paragraph break
+    else if(line.trim()===''){ flushPara(); closeList(); }
     else { closeList(); para.push(line); }
   }
-  flushPara(); closeList();
-  return html;
+  flushPara(); closeList(); return html;
 }
-function renderAnswer(el,text){ el.innerHTML = renderMarkdown(text); }
+function renderAnswer(el,text){ el.innerHTML=renderMarkdown(text); }
 function renderCitations(list){
   citesEl.innerHTML='';
-  list.forEach(c=>{const isVid=c.type==='youtube';const a=document.createElement('a');
-    a.className='cite';a.href=c.url;a.target='_blank';a.rel='noopener';
-    a.innerHTML=`<div class="row"><span class="badge ${isVid?'video':'pdf'}">${isVid?'▶ VIDEO':'📄 GUIDE'}</span>`+
-      `<span class="n">[${c.n}]</span><span class="loc">${c.loc} · ${c.score}</span></div><div class="title">${c.title}</div>`;
-    citesEl.appendChild(a);});
+  if(!list.length){ citesEl.innerHTML='<div class="empty">No sources for this answer.</div>'; return; }
+  list.forEach(c=>{ const isVid=c.type==='youtube'; const a=document.createElement('a'); a.className='cite'; a.href=c.url; a.target='_blank'; a.rel='noopener';
+    a.innerHTML=`<div class="row"><span class="badge ${isVid?'video':'pdf'}">${isVid?'▶ VIDEO':'📄 GUIDE'}</span><span class="n">[${c.n}]</span><span class="loc">${c.loc} · ${c.score}</span></div><div class="title">${c.title}</div>`;
+    citesEl.appendChild(a); });
 }
+let lastKnowledgeQ='';
 function askChat(){
-  const q=qInput.value.trim(); if(!q) return; chatSend.disabled=true;
-  const um=document.createElement('div'); um.className='msg';
-  um.innerHTML=`<div class="who">You</div><div class="answer">${q.replace(/</g,'&lt;')}</div>`; thread.appendChild(um);
+  const q=qInput.value.trim(); if(!q) return; chatSend.disabled=true; lastKnowledgeQ=q;
+  const um=document.createElement('div'); um.className='msg'; um.innerHTML=`<div class="who">You</div><div class="answer">${esc(q)}</div>`; thread.appendChild(um);
   const am=document.createElement('div'); am.className='msg'; am.innerHTML=`<div class="who">TrainMed</div>`;
   const ansEl=document.createElement('div'); ansEl.className='answer'; ansEl.textContent='…'; am.appendChild(ansEl);
   thread.appendChild(am); thread.scrollTop=thread.scrollHeight;
-  citesEl.innerHTML='<div class="empty" style="font-size:13px">Retrieving…</div>';
-  let answer=''; const es=new EventSource('/api/ask?q='+encodeURIComponent(q)+'&k=4');
+  citesEl.innerHTML='<div class="empty">Retrieving…</div>';
+  let answer=''; const es=new EventSource('/api/ask?q='+encodeURIComponent(q)+'&k=4&company='+encodeURIComponent(COMPANY));
   es.addEventListener('sources',ev=>renderCitations(JSON.parse(ev.data)));
-  es.addEventListener('token',ev=>{answer+=JSON.parse(ev.data);renderAnswer(ansEl,answer);thread.scrollTop=thread.scrollHeight;});
-  es.addEventListener('done',()=>{es.close();chatSend.disabled=false;qInput.focus();});
-  es.onerror=()=>{es.close();chatSend.disabled=false; if(!answer) ansEl.textContent='Error contacting server.';};
+  es.addEventListener('token',ev=>{ answer+=JSON.parse(ev.data); renderAnswer(ansEl,answer); thread.scrollTop=thread.scrollHeight; });
+  es.addEventListener('done',()=>{ es.close(); chatSend.disabled=false; qInput.focus(); if(answer) saveEvent({type:'knowledge', q:lastKnowledgeQ, ts:Date.now()}); });
+  es.onerror=()=>{ es.close(); chatSend.disabled=false; if(!answer) ansEl.textContent='Error contacting server.'; };
   qInput.value='';
 }
 document.getElementById('chat-form').onsubmit=e=>{e.preventDefault();askChat();};
 
-// ===================== ROLEPLAY TRAINER =====================
-let rpLoaded=false, rpScenarios=[], rpHistory=[], rpScores=[], sessionSeq=0;   // sessionSeq bumped on every (re)start; in-flight turns check it
-const rpThread=document.getElementById('rp-thread'), rpFeedback=document.getElementById('rp-feedback');
+// ===================== ROLEPLAY SETUP =====================
+let rpLoaded=false, rpScenarios=[], rpDiffs=[], rpHistory=[], rpScores=[], rpTurns=[], rpStartMs=0, sessionSeq=0;
+const rpThread=document.getElementById('rp-thread');
 const rpInput=document.getElementById('rp-input'), rpSend=document.getElementById('rp-send');
 const selScenario=document.getElementById('rp-scenario'), selRole=document.getElementById('rp-role'), selDiff=document.getElementById('rp-diff');
 
-// ---------- voice (TTS): ElevenLabs via server, else browser speechSynthesis ----------
-let ttsProvider='browser', currentAudio=null, speakSeq=0;
-const speakTimers=new Set();     // every speak() watchdog timer, so we can clear them all on stop
-const liveAudios=new Set();      // every <audio> we create, so stop can kill ALL of them, not just the latest
-let voiceGen=0;                  // bumped on voice start/end; stale-turn callbacks check this
-function loadTtsStatus(){
-  fetch('/api/tts/status').then(r=>r.json()).then(s=>{
-    ttsProvider=s.provider;
-    const el=document.getElementById('rp-voice');
-    if(el) el.textContent = s.provider==='elevenlabs' ? `(${s.voice} · ElevenLabs)` : '(browser voice)';
-  }).catch(()=>{});
+function currentScenario(){ return rpScenarios.find(s=>s.id===selScenario.value)||rpScenarios[0]; }
+function initials(name){ const p=String(name||'').replace(/^Dr\.?\s*/i,'').trim().split(/\s+/); return ((p[0]||'')[0]||'')+((p[1]||'')[0]||'') || 'DR'; }
+
+function renderScenarioCards(){
+  const wrap=document.getElementById('rp-scenario-cards'); wrap.innerHTML='';
+  rpScenarios.forEach(s=>{
+    const cat=SCEN_CAT[s.id]||'Scenario'; const sel=s.id===selScenario.value;
+    const card=document.createElement('button'); card.type='button'; card.className='scen'+(sel?' sel':'');
+    card.innerHTML=`<div class="scen-top"><span class="scen-tag${s.competitive?' competitive':''}">${cat}</span>`+
+      `<span class="scen-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>`+
+      `<div class="scen-label">${esc(s.label)}</div><div class="scen-goal">${esc(s.goal||'')}</div>`;
+    card.onclick=()=>selectScenario(s.id);
+    wrap.appendChild(card);
+  });
 }
-// SECURITY: strip anything dev-only/sensitive before the surgeon's text is spoken.
+function renderDiffCards(){
+  const wrap=document.getElementById('rp-diff-cards'); wrap.innerHTML='';
+  rpDiffs.forEach(d=>{
+    const sel=d.id===selDiff.value;
+    const card=document.createElement('button'); card.type='button'; card.className='diff'+(sel?' sel':''); card.dataset.d=d.id;
+    card.innerHTML=`<div class="diff-top"><span class="diff-dot"><i></i><i></i><i></i></span><span class="diff-name">${esc(d.label)}</span></div>`+
+      `<div class="diff-blurb">${esc(d.blurb||'')}</div>`;
+    card.onclick=()=>{ selDiff.value=d.id; renderDiffCards(); };
+    wrap.appendChild(card);
+  });
+}
+function renderRolePills(roles){
+  const wrap=document.getElementById('rp-role-pills'); wrap.innerHTML='';
+  roles.forEach(r=>{
+    const sel=r.id===selRole.value;
+    const b=document.createElement('button'); b.type='button'; b.className='role-pill'+(sel?' sel':''); b.textContent = r.id==='sales_rep'?'Sales rep':'Clinical specialist';
+    b.onclick=()=>{ selRole.value=r.id; renderRolePills(roles); };
+    wrap.appendChild(b);
+  });
+}
+function renderProspect(){
+  const s=currentScenario(); if(!s) return; const p=s.prospect||{};
+  const av=document.getElementById('rp-prospect');
+  const fields=[ ['Setting',p.setting], ['Case volume',p.volume], ['Currently using',p.current], ['Temperament',p.style] ].filter(f=>f[1]);
+  av.innerHTML=`<div class="pros-av">${initials(p.name)}</div><div class="pros-main">`+
+    `<div class="pros-name">${esc(p.name||'Your prospect')}</div><div class="pros-title">${esc(p.title||'')}</div>`+
+    `<div class="pros-grid">${fields.map(f=>`<div class="pros-f"><div class="k">${f[0]}</div><div class="v">${esc(f[1])}</div></div>`).join('')}</div>`+
+    (s.opening?`<div class="pros-quote">“${esc(s.opening)}”</div>`:'')+`</div>`;
+}
+function selectScenario(id){ if(id) selScenario.value=id; renderScenarioCards(); renderProspect(); }
+function loadScenarios(){
+  fetch('/api/roleplay/scenarios?company='+encodeURIComponent(COMPANY)).then(r=>r.json()).then(d=>{
+    rpScenarios=d.scenarios||[]; rpDiffs=d.difficulties||[];
+    selScenario.innerHTML=rpScenarios.map(s=>`<option value="${s.id}">${esc(s.label)}</option>`).join('');
+    selRole.innerHTML=(d.roles||[]).map(r=>`<option value="${r.id}">${esc(r.label)}</option>`).join('');
+    selDiff.innerHTML=rpDiffs.map(x=>`<option value="${x.id}">${esc(x.label)}</option>`).join('');
+    if(rpScenarios.length) selScenario.value=rpScenarios[0].id;
+    selDiff.value = (rpDiffs.find(x=>x.id==='medium')||rpDiffs[1]||rpDiffs[0]||{}).id;
+    selRole.value = ((d.roles||[])[0]||{}).id || 'sales_rep';
+    renderScenarioCards(); renderDiffCards(); renderRolePills(d.roles||[]); renderProspect();
+    rpLoaded=true;
+  });
+  loadTtsStatus(); loadSttStatus();
+}
+selScenario.onchange=()=>selectScenario(selScenario.value);
+
+// ===================== ROLEPLAY SESSION =====================
+function bubble(role, text){
+  const wrap=document.createElement('div'); wrap.className='b-wrap '+role;
+  const label=document.createElement('div'); label.className='turnlabel';
+  label.appendChild(document.createTextNode(role==='surgeon'?'Surgeon':'You (rep)'));
+  let playBtn=null;
+  const b=document.createElement('div'); b.className='bubble '+role; b.textContent=text;
+  if(role==='surgeon'){ playBtn=document.createElement('button'); playBtn.type='button'; playBtn.className='playbtn'; playBtn.title='Play voice'; playBtn.textContent='🔊'; playBtn.onclick=()=>speak(b.textContent, playBtn); label.appendChild(playBtn); }
+  wrap.appendChild(label); wrap.appendChild(b);
+  rpThread.appendChild(wrap); rpThread.scrollTop=rpThread.scrollHeight;
+  b._playBtn=playBtn; return b;
+}
+function renderLiveChrome(scen){
+  const p=scen.prospect||{};
+  document.getElementById('rp-surg-av').textContent=initials(p.name);
+  document.getElementById('rp-surg-name').textContent=p.name||'Surgeon';
+  document.getElementById('rp-surg-title').textContent=p.title||'';
+  document.getElementById('rp-live-cat').textContent=SCEN_CAT[scen.id]||'Scenario';
+  const d=rpDiffs.find(x=>x.id===selDiff.value); document.getElementById('rp-live-diff').textContent=(d&&d.label)||selDiff.value;
+}
+function renderScorebars(scores){
+  return Object.keys(SCORE_LABELS).map(k=>{ const v=(scores&&scores[k])||0;
+    return `<div class="bar"><div class="lab"><span class="nm">${SCORE_LABELS[k]}</span><span class="vl">${v?v+'/5':'—'}</span></div>`+
+      `<div class="track"><div class="fill" style="width:${v/5*100}%;background:${scoreColorHex(v)}"></div></div></div>`; }).join('');
+}
+function resetLiveScore(){
+  document.getElementById('rp-overall').textContent='—';
+  document.getElementById('rp-overall').style.color='var(--d-text)';
+  document.getElementById('rp-running').textContent='Reply to the surgeon to get scored.';
+  document.getElementById('rp-scorebars').innerHTML=renderScorebars(null);
+  document.getElementById('rp-tip').hidden=true;
+}
+function renderScorecard(card){
+  const ov=document.getElementById('rp-overall'); ov.textContent=card.overall; ov.style.color=scoreColorHex(card.overall);
+  document.getElementById('rp-scorebars').innerHTML=renderScorebars(card.scores);
+  rpScores.push(card.overall);
+  const avg=(rpScores.reduce((a,b)=>a+b,0)/rpScores.length);
+  document.getElementById('rp-running').innerHTML=`Average <b style="color:${scoreColorHex(avg)}">${avg.toFixed(1)}/5</b> over ${rpScores.length} repl${rpScores.length>1?'ies':'y'}`;
+  const tip=(card.tips||[])[0];
+  const tipEl=document.getElementById('rp-tip');
+  if(tip){ tipEl.hidden=false; tipEl.innerHTML='<b>Coach tip</b>'+esc(tip); } else tipEl.hidden=true;
+}
+function startSession(){
+  const scen=currentScenario(); if(!scen) return;
+  sessionSeq++; rpHistory=[]; rpScores=[]; rpTurns=[]; rpStartMs=performance.now();
+  rpThread.innerHTML=''; renderLiveChrome(scen); resetLiveScore();
+  showRpStep('live');
+  const ob=bubble('surgeon', scen.opening); rpHistory.push({role:'surgeon', content:scen.opening});
+  maybeAutoplay(scen.opening, ob._playBtn);
+  rpInput.disabled=false; rpSend.disabled=false; rpInput.placeholder='Respond to the surgeon…';
+  rpActive=true; updateMicUI();
+  if(!voice.active) rpInput.focus();
+}
+function restartScenario(){
+  if(voice.active) endVoiceMode();
+  sessionSeq++; rpActive=false; rpHistory=[]; rpScores=[]; rpTurns=[];
+  rpInput.disabled=true; rpSend.disabled=true; rpInput.value=''; rpInput.placeholder='Respond to the surgeon…';
+  updateMicUI(); showVoicePanel(false); showRpStep('setup');
+}
+function endSession(){
+  const turns=rpTurns.slice();
+  if(voice.active) endVoiceMode();
+  rpActive=false; updateMicUI();
+  if(!turns.length){ showRpStep('setup'); return; }
+  const scen=currentScenario();
+  const avg=turns.reduce((a,t)=>a+(t.card.overall||0),0)/turns.length;
+  saveEvent({ type:'roleplay', ts:Date.now(), scenario:scen.id, label:scen.label, difficulty:selDiff.value, overall:Math.round(avg*10)/10, turns:turns.length });
+  renderDebrief(turns, scen);
+  showRpStep('debrief');
+}
+document.getElementById('rp-textbtn').onclick=()=>{ if(rpScenarios.length) startSession(); };
+document.getElementById('rp-end').onclick=endSession;
+document.getElementById('rp-again').onclick=restartScenario;
+document.getElementById('rp-home').onclick=()=>showView('home');
+
+async function streamPost(url, body, onEvent){
+  const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const reader=res.body.getReader(), dec=new TextDecoder(); let buf='';
+  while(true){
+    const {done,value}=await reader.read(); if(done) break;
+    buf+=dec.decode(value,{stream:true}); let i;
+    while((i=buf.indexOf('\n\n'))>=0){
+      const raw=buf.slice(0,i); buf=buf.slice(i+2); let ev='message', data='';
+      for(const line of raw.split('\n')){ if(line.startsWith('event:')) ev=line.slice(6).trim(); else if(line.startsWith('data:')) data+=line.slice(5).trim(); }
+      if(data){ try{ onEvent(ev, JSON.parse(data)); }catch(e){} }
+    }
+  }
+}
+async function sendRep(onSurgeonDone){
+  const msg=rpInput.value.trim(); if(!msg) return '';
+  const voiceTurn=voice.active; const mySeq=sessionSeq; const repT=(performance.now()-rpStartMs)/1000;
+  rpSend.disabled=true; rpInput.disabled=true;
+  bubble('rep', msg);
+  const priorHistory=rpHistory.slice(); rpHistory.push({role:'rep', content:msg}); rpInput.value='';
+  const sb=bubble('surgeon','…'); let surgeon='', signaled=false, lastCard=null;
+  try{
+    await streamPost('/api/roleplay/turn',
+      {company:COMPANY, scenario_id:selScenario.value, role:selRole.value, difficulty:selDiff.value, history:priorHistory, message:msg},
+      (ev,data)=>{
+        if(mySeq!==sessionSeq) return;
+        if(ev==='surgeon'){ surgeon+=data; sb.textContent=surgeon; rpThread.scrollTop=rpThread.scrollHeight; }
+        else if(ev==='surgeon_done'){ if(onSurgeonDone && !signaled){ signaled=true; onSurgeonDone(surgeon); } }
+        else if(ev==='feedback'){ lastCard=data; renderScorecard(data); }
+      });
+    if(mySeq!==sessionSeq) return surgeon;
+    rpHistory.push({role:'surgeon', content:surgeon});
+    if(lastCard) rpTurns.push({ rep:msg, surgeon, card:lastCard, t:repT });
+  }catch(e){ if(mySeq===sessionSeq) sb.textContent='Error contacting server.'; }
+  if(mySeq!==sessionSeq) return surgeon;
+  rpSend.disabled=false; rpInput.disabled=false;
+  if(!voiceTurn && !voice.active){ rpInput.focus(); maybeAutoplay(surgeon, sb._playBtn); }
+  return surgeon;
+}
+document.getElementById('rp-form').onsubmit=e=>{e.preventDefault();sendRep();};
+
+// ===================== DEBRIEF =====================
+function mmss(sec){ sec=Math.max(0,Math.round(sec)); const m=Math.floor(sec/60), s=sec%60; return m+':'+(s<10?'0':'')+s; }
+function bandFor(v){ return v>=4?{t:'Strong',c:'var(--good)',bg:'#e4f6ec',fg:'#0f7f46'} : v>=3?{t:'Solid',c:'var(--mid)',bg:'#fbf2dd',fg:'#9a6c08'} : {t:'Needs work',c:'var(--bad)',bg:'#fbe6e4',fg:'#b23528'}; }
+function renderDebrief(turns, scen){
+  const dims=Object.keys(SCORE_LABELS);
+  const avgDim={}; dims.forEach(k=>{ avgDim[k]=turns.reduce((a,t)=>a+(t.card.scores[k]||0),0)/turns.length; });
+  const overall=turns.reduce((a,t)=>a+(t.card.overall||0),0)/turns.length;
+  // ring
+  const C=2*Math.PI*56;
+  const ring=document.getElementById('rp-ring'); ring.setAttribute('stroke',scoreColorHex(overall)); ring.setAttribute('stroke-dasharray',C.toFixed(2));
+  requestAnimationFrame(()=>{ ring.setAttribute('stroke-dashoffset', (C*(1-overall/5)).toFixed(2)); });
+  const num=document.getElementById('rp-ring-num'); num.textContent=overall.toFixed(1); num.style.color=scoreColorHex(overall);
+  const band=bandFor(overall); const bandEl=document.getElementById('rp-ring-band');
+  bandEl.textContent=band.t; bandEl.style.background=band.bg; bandEl.style.color=band.fg;
+  document.getElementById('rp-debrief-sub').textContent=`${scen.label} · ${cap(selDiff.value)} · ${turns.length} repl${turns.length>1?'ies':'y'}`;
+  document.getElementById('rp-debrief-summary').textContent =
+    overall>=4 ? "Confident, well-grounded selling. You moved the conversation forward and earned the surgeon's attention."
+    : overall>=3 ? "A solid showing with real moments of strength — a few habits to tighten and this becomes a clear win."
+    : "Good practice rep. Focus on the fundamentals below and the score will climb fast.";
+
+  const ranked=dims.slice().sort((a,b)=>avgDim[b]-avgDim[a]);
+  const worked=ranked.filter(k=>avgDim[k]>=3.5).slice(0,3); if(!worked.length) worked.push(ranked[0]);
+  // relatively weakest dimensions (below near-perfect) — what to drill next, even after a strong run
+  const weak=ranked.slice().reverse().filter(k=>avgDim[k]<4.5).slice(0,2);
+  const WORK_LINE={ rapport:"Built rapport — acknowledged the surgeon and kept a steady, credible tone.",
+    discovery:"Strong discovery — you probed their world before pitching.",
+    objection_handling:"Handled objections head-on with evidence instead of dodging.",
+    product_knowledge:"Sharp product knowledge — specific, accurate, well-grounded.",
+    closing:"Drove toward a concrete next step instead of leaving it open." };
+  const GROW_LINE={ rapport:"Open by acknowledging the surgeon and their experience before pitching.",
+    discovery:"Ask more discovery questions — current technique, case volume, what they'd change.",
+    objection_handling:"Acknowledge the concern first, then counter with concrete data.",
+    product_knowledge:"Name specific products and exact specs to back your claims.",
+    closing:"Always close — ask for a single trial case, an in-service, or a side-by-side." };
+  const tick='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  const arrow='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  document.getElementById('rp-worked').innerHTML=worked.map(k=>`<li>${tick}<span><b>${SCORE_LABELS[k]} ${avgDim[k].toFixed(1)}/5.</b> ${WORK_LINE[k]}</span></li>`).join('');
+  let sharpen = weak.map(k=>`<b>${SCORE_LABELS[k]} ${avgDim[k].toFixed(1)}/5.</b> ${GROW_LINE[k]}`);
+  if(!sharpen.length) sharpen = ["Excellent across the board — raise the difficulty or try the competitive scenario to keep growing."];
+  document.getElementById('rp-sharpen').innerHTML=sharpen.map(s=>`<li>${arrow}<span>${s}</span></li>`).join('');
+
+  // key moments timeline
+  const mom=document.getElementById('rp-moments');
+  mom.innerHTML=turns.map((t)=>{
+    const sc=t.card.scores||{}; let best='rapport'; dims.forEach(k=>{ if((sc[k]||0)>(sc[best]||0)) best=k; });
+    const tag=MOMENT_TAG[best]||'Moment'; const col=scoreColorHex(t.card.overall);
+    return `<div class="moment"><div class="m-dot" style="background:${col}"></div><div class="m-body">`+
+      `<div class="m-top"><span class="m-time">${mmss(t.t)}</span><span class="m-tag" style="background:${col}">${tag}</span>`+
+      `<span class="m-sc" style="color:${col}">${t.card.overall}/5</span></div>`+
+      `<div class="m-text"><b>You:</b> ${esc(t.rep.length>150?t.rep.slice(0,150)+'…':t.rep)}</div></div></div>`;
+  }).join('');
+}
+
+// ===================== VOICE: TTS (ElevenLabs via server, else browser speech) =====================
+let ttsProvider='browser', currentAudio=null, speakSeq=0;
+const speakTimers=new Set(), liveAudios=new Set();
+let voiceGen=0;
+function loadTtsStatus(){
+  fetch('/api/tts/status').then(r=>r.json()).then(s=>{ ttsProvider=s.provider; const el=document.getElementById('rp-voice'); if(el) el.textContent = s.provider==='elevenlabs' ? `Voice: ${s.voice} · ElevenLabs` : 'Voice: browser speech'; }).catch(()=>{});
+}
 function sanitizeForVoice(raw){
-  if(!raw) return '';
-  let t=String(raw);
-  // Remove bracketed dev asides that mention keys / the demo fallback, e.g.
-  // "[demo persona — set ANTHROPIC_API_KEY or OPENAI_API_KEY for live role-play]".
+  if(!raw) return ''; let t=String(raw);
   t=t.replace(/\[[^\]]*?(api[_\s-]?key|demo persona|role-?play|fallback|extractive)[^\]]*?\]/gi,' ');
-  // Strip stage directions / emotes so they're never spoken aloud.
-  t=t.replace(/\*[^*]*\*/g,' ');                                  // *laughs*, *leans in*
-  t=t.replace(/\b(?:he|she|the surgeon)\s+(?:says|asks|replies|adds|continues)[:,]?\s*/gi,' '); // "he says:"
-  t=t.replace(/\((?:[^)]*\b(?:laugh|chuckl|sigh|smile|grin|nod|shrug|scoff|pause|frown|gestur|clears? throat|leans?|raises?|wink|exhal|inhal|smirk|beat)\w*[^)]*)\)/gi,' '); // (laughs), (sighs)
-  // Drop any remaining sentence/line containing sensitive tokens.
+  t=t.replace(/\*[^*]*\*/g,' ');
+  t=t.replace(/\b(?:he|she|the surgeon)\s+(?:says|asks|replies|adds|continues)[:,]?\s*/gi,' ');
+  t=t.replace(/\((?:[^)]*\b(?:laugh|chuckl|sigh|smile|grin|nod|shrug|scoff|pause|frown|gestur|clears? throat|leans?|raises?|wink|exhal|inhal|smirk|beat)\w*[^)]*)\)/gi,' ');
   const BAD=/(api[_\s-]?key|anthropic|openai|eleven\s?labs|voice id|demo persona|extractive|sk-[a-z0-9-]{6,})/i;
   t=t.split(/(?<=[.!?])\s+|\n+/).filter(s=>!BAD.test(s)).join(' ');
   return t.replace(/\s+/g,' ').trim();
 }
-// AUDIO QUEUE: hard-stop BOTH engines so ElevenLabs + browser speech can never overlap.
-// Hard-kill the current ElevenLabs <audio>: detach handlers so no late onended/onerror
-// fires, stop + mute it, and fully detach the source so a buffering request can't play later.
-// Hard-kill ONE <audio>: detach every handler so no late event re-fires, silence it (mute + zero
-// volume), stop it, and fully detach the source so an in-flight /api/tts fetch can't play later.
 function hardKillAudio(a){
   if(!a) return;
-  try{
-    a.onended=null; a.onerror=null; a.oncanplay=null; a.oncanplaythrough=null; a.onplaying=null; a.onloadeddata=null; a.ontimeupdate=null;
-    a.muted=true; a.volume=0;
-    a.pause();
-    a.removeAttribute('src'); try{ a.load(); }catch(e){}   // abort any in-flight /api/tts fetch + buffered data
-  }catch(e){}
+  try{ a.onended=null; a.onerror=null; a.oncanplay=null; a.oncanplaythrough=null; a.onplaying=null; a.onloadeddata=null; a.ontimeupdate=null; a.muted=true; a.volume=0; a.pause(); a.removeAttribute('src'); try{ a.load(); }catch(e){} }catch(e){}
   liveAudios.delete(a);
 }
-function killCurrentAudio(){
-  const a=currentAudio; currentAudio=null;
-  hardKillAudio(a);
-}
-function stopAudio(){
-  killCurrentAudio();
-  if('speechSynthesis' in window){ try{ speechSynthesis.cancel(); }catch(e){} }
-}
-// BULLETPROOF stop: invalidate every pending speak (seq), clear all watchdog timers, kill EVERY
-// audio element we've created + browser speech, so nothing queued can fire after voice mode ends.
+function killCurrentAudio(){ const a=currentAudio; currentAudio=null; hardKillAudio(a); }
+function stopAudio(){ killCurrentAudio(); if('speechSynthesis' in window){ try{ speechSynthesis.cancel(); }catch(e){} } }
 function forceStopAllAudio(){
-  speakSeq++;                                          // any pending finish()/onEnd/ttsFail is now stale
-  speakTimers.forEach(id=>clearTimeout(id)); speakTimers.clear();
-  currentAudio=null;
-  liveAudios.forEach(a=>hardKillAudio(a)); liveAudios.clear();   // not just the latest — kill them all
+  speakSeq++; speakTimers.forEach(id=>clearTimeout(id)); speakTimers.clear(); currentAudio=null;
+  liveAudios.forEach(a=>hardKillAudio(a)); liveAudios.clear();
   if('speechSynthesis' in window){ try{ speechSynthesis.cancel(); speechSynthesis.cancel(); }catch(e){} }
 }
 function speak(rawText, btn, onEnd){
-  const text=sanitizeForVoice(rawText);
-  const seq=++speakSeq;            // any in-flight speak is now stale
-  stopAudio();                     // stop both engines before starting a new one
+  const text=sanitizeForVoice(rawText); const seq=++speakSeq; stopAudio();
   if(!text){ if(btn) btn.classList.remove('playing'); onEnd&&onEnd(); return; }
   let fired=false, failed=false, wd=null;
   const finish=()=>{ if(fired) return; fired=true; if(wd){ clearTimeout(wd); speakTimers.delete(wd); } if(btn) btn.classList.remove('playing'); if(seq===speakSeq) onEnd&&onEnd(); };
-  // When an ElevenLabs key is present we NEVER use the robotic browser voice — show a message instead.
   const ttsFail=()=>{ if(failed) return; failed=true; if(seq===speakSeq) showVoiceError('Voice unavailable — check your ElevenLabs key, voice ID, or quota.'); finish(); };
-  wd=setTimeout(finish, Math.min(60000, 6000 + text.length*90)); speakTimers.add(wd);   // backstop; tracked so End can clear it
+  wd=setTimeout(finish, Math.min(60000, 6000 + text.length*90)); speakTimers.add(wd);
   if(btn) btn.classList.add('playing');
   if(ttsProvider==='elevenlabs'){
-    const a=new Audio('/api/tts?text='+encodeURIComponent(text.slice(0,1800)));
-    currentAudio=a; liveAudios.add(a); a.onended=finish;
-    a.onerror=ttsFail;                           // ElevenLabs failed → message, NO robot voice
-    a.play().catch(ttsFail);                     // autoplay blocked → message, NO robot voice
-  } else {
-    browserSpeak(text, finish, seq);             // only when there is no ElevenLabs key at all
-  }
+    const a=new Audio('/api/tts?text='+encodeURIComponent(text.slice(0,1800))); currentAudio=a; liveAudios.add(a);
+    a.onended=finish; a.onerror=ttsFail; a.play().catch(ttsFail);
+  } else { browserSpeak(text, finish, seq); }
 }
 function browserSpeak(text, done, seq){
   if(!('speechSynthesis' in window)){ done&&done(); return; }
-  try{ speechSynthesis.cancel(); }catch(e){}                 // never stack utterances
-  if(seq!==undefined && seq!==speakSeq){ done&&done(); return; }   // superseded by a newer speak
-  const u=new SpeechSynthesisUtterance(text);
-  const v=pickMaleVoice(); if(v) u.voice=v; u.rate=0.96; u.pitch=0.9;
-  u.onend=()=>done&&done(); u.onerror=()=>done&&done();
-  speechSynthesis.speak(u);
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(seq!==undefined && seq!==speakSeq){ done&&done(); return; }
+  const u=new SpeechSynthesisUtterance(text); const v=pickMaleVoice(); if(v) u.voice=v; u.rate=0.96; u.pitch=0.9;
+  u.onend=()=>done&&done(); u.onerror=()=>done&&done(); speechSynthesis.speak(u);
 }
-function pickMaleVoice(){
-  const vs=('speechSynthesis' in window && speechSynthesis.getVoices())||[];
-  const en=vs.filter(v=>/^en/i.test(v.lang));
-  return en.find(v=>/(daniel|alex|david|fred|google uk english male|\bmale\b)/i.test(v.name)) || en[0] || vs[0] || null;
-}
+function pickMaleVoice(){ const vs=('speechSynthesis' in window && speechSynthesis.getVoices())||[]; const en=vs.filter(v=>/^en/i.test(v.lang)); return en.find(v=>/(daniel|alex|david|fred|google uk english male|\bmale\b)/i.test(v.name)) || en[0] || vs[0] || null; }
 if('speechSynthesis' in window){ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices(); }
 function maybeAutoplay(text, btn){ if(voice.active) return; const cb=document.getElementById('rp-autoplay'); if(cb && cb.checked) speak(text, btn); }
 
-// ---------- speech-to-text (mic): ElevenLabs via server → browser recognition → typing ----------
+// ===================== VOICE: STT (mic input) =====================
 let sttProvider='none', rpActive=false, mediaRecorder=null, recChunks=[], browserRec=null, recognizing=false;
 const micBtn=document.getElementById('rp-mic');
 function loadSttStatus(){ fetch('/api/stt/status').then(r=>r.json()).then(s=>{ sttProvider=s.provider; updateMicUI(); }).catch(()=>{}); }
-function micMode(){
-  if(sttProvider==='elevenlabs') return 'recorder';
-  if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) return 'browser';
-  return 'none';
-}
+function micMode(){ if(sttProvider==='elevenlabs') return 'recorder'; if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) return 'browser'; return 'none'; }
 function updateMicUI(){
-  const m=micMode();
-  micBtn.disabled = !rpActive || m==='none';
-  micBtn.title = m==='recorder' ? 'Click to record your reply, click again to send'
-    : m==='browser' ? 'Click to speak (browser speech recognition)'
-    : 'Voice input needs ELEVENLABS_API_KEY or a supported browser';
+  const m=micMode(); micBtn.disabled = !rpActive || m==='none';
+  micBtn.title = m==='recorder' ? 'Click to record your reply, click again to send' : m==='browser' ? 'Click to speak (browser speech recognition)' : 'Voice input needs ELEVENLABS_API_KEY or a supported browser';
 }
 function micReset(){ micBtn.classList.remove('recording','transcribing'); micBtn.textContent='🎤'; }
 function toggleMic(){ const m=micMode(); if(m==='recorder') toggleRecorder(); else if(m==='browser') toggleBrowserRec(); }
@@ -509,24 +1133,15 @@ async function toggleRecorder(){
   try{ stream=await navigator.mediaDevices.getUserMedia({audio:true}); }
   catch(e){ rpInput.placeholder='Mic permission denied — type your reply.'; micReset(); return; }
   const mime=['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg'].find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported(t))||'';
-  mediaRecorder=new MediaRecorder(stream, mime?{mimeType:mime}:undefined);
-  recChunks=[];
+  mediaRecorder=new MediaRecorder(stream, mime?{mimeType:mime}:undefined); recChunks=[];
   mediaRecorder.ondataavailable=e=>{ if(e.data && e.data.size) recChunks.push(e.data); };
   mediaRecorder.onstop=async()=>{
-    stream.getTracks().forEach(t=>t.stop());
-    micBtn.classList.remove('recording'); micBtn.classList.add('transcribing'); micBtn.textContent='…';
+    stream.getTracks().forEach(t=>t.stop()); micBtn.classList.remove('recording'); micBtn.classList.add('transcribing'); micBtn.textContent='…';
     const blob=new Blob(recChunks, {type:(mediaRecorder.mimeType||'audio/webm').split(';')[0]});
-    try{
-      const res=await fetch('/api/stt',{method:'POST', headers:{'Content-Type':blob.type}, body:blob});
-      if(!res.ok) throw new Error('stt '+res.status);
-      const {text}=await res.json();
-      micReset();
-      if(text && text.trim()){ rpInput.value=text.trim(); sendRep(); }
-      else rpInput.placeholder='Didn’t catch that — try again or type.';
-    }catch(e){ micReset(); rpInput.placeholder='Transcription failed — type your reply.'; }
+    try{ const res=await fetch('/api/stt',{method:'POST', headers:{'Content-Type':blob.type}, body:blob}); if(!res.ok) throw new Error('stt '+res.status); const {text}=await res.json(); micReset(); if(text && text.trim()){ rpInput.value=text.trim(); sendRep(); } else rpInput.placeholder='Didn’t catch that — try again or type.'; }
+    catch(e){ micReset(); rpInput.placeholder='Transcription failed — type your reply.'; }
   };
-  mediaRecorder.start();
-  micBtn.classList.add('recording'); micBtn.textContent='⏺';
+  mediaRecorder.start(); micBtn.classList.add('recording'); micBtn.textContent='⏺';
   setTimeout(()=>{ if(mediaRecorder && mediaRecorder.state==='recording') mediaRecorder.stop(); }, 20000);
 }
 function toggleBrowserRec(){
@@ -542,157 +1157,11 @@ function toggleBrowserRec(){
 }
 if(micBtn) micBtn.onclick=toggleMic;
 
-const SCEN_CAT={skeptical_surgeon:'Objection',cost_objection:'Value',new_product_launch:'Launch',technique_walkthrough:'Technique',clinical_data_grill:'Evidence'};
-function selectScenario(id){
-  if(id) selScenario.value=id;
-  updatePreview();
-}
-function updatePreview(){
-  const s=rpScenarios.find(x=>x.id===selScenario.value)||rpScenarios[0]; if(!s) return;
-  const cat=SCEN_CAT[s.id]||'Scenario';
-  const set=(elId,txt)=>{ const el=document.getElementById(elId); if(el) el.textContent=txt; };
-  set('rp-pv-cat',cat); set('rp-pv-goal',s.goal||'');         // setup preview
-  set('rp-sb-cat',cat); set('rp-sb-title',s.label||'');       // slim session bar
-}
-function loadScenarios(){
-  fetch('/api/roleplay/scenarios').then(r=>r.json()).then(d=>{
-    rpScenarios=d.scenarios;
-    selScenario.innerHTML=d.scenarios.map(s=>`<option value="${s.id}">${s.label}</option>`).join('');
-    selRole.innerHTML=d.roles.map(r=>`<option value="${r.id}">${r.label}</option>`).join('');
-    selDiff.innerHTML=d.difficulties.map(x=>`<option value="${x}"${x==='medium'?' selected':''}>${x}</option>`).join('');
-    if(d.scenarios.length) selectScenario(d.scenarios[0].id);
-    rpLoaded=true;
-  });
-  loadTtsStatus();
-  loadSttStatus();
-}
-selScenario.onchange=()=>selectScenario(selScenario.value);
-function bubble(role, text){
-  const wrap=document.createElement('div');
-  const label=document.createElement('div'); label.className='turnlabel';
-  label.appendChild(document.createTextNode(role==='surgeon'?'Surgeon':'You (rep)'));
-  let playBtn=null;
-  const b=document.createElement('div'); b.className='bubble '+role; b.textContent=text;
-  if(role==='surgeon'){
-    playBtn=document.createElement('button'); playBtn.type='button'; playBtn.className='playbtn';
-    playBtn.title='Play voice'; playBtn.textContent='🔊';
-    playBtn.onclick=()=>speak(b.textContent, playBtn);
-    label.appendChild(playBtn);
-  }
-  wrap.appendChild(label); wrap.appendChild(b);
-  rpThread.appendChild(wrap); rpThread.scrollTop=rpThread.scrollHeight;
-  b._playBtn=playBtn; return b;
-}
-// Collapse the bulky setup into a slim bar once a session is running, so the transcript owns the screen.
-function setSessionUI(active){
-  const setup=document.getElementById('rp-setup'), bar=document.getElementById('rp-sessionbar');
-  if(setup) setup.hidden=active;
-  if(bar) bar.hidden=!active;
-}
-function startSession(){
-  const scen=rpScenarios.find(s=>s.id===selScenario.value)||rpScenarios[0];
-  sessionSeq++;                              // any in-flight turn from a prior session is now stale
-  rpHistory=[]; rpScores=[]; rpThread.innerHTML='';
-  rpFeedback.innerHTML='<div class="empty" style="font-size:13px">Reply to the surgeon to get scored.</div>';
-  document.getElementById('rp-running').textContent='Your average score appears here after your first reply.';
-  updatePreview(); setSessionUI(true);
-  const ob=bubble('surgeon', scen.opening);
-  rpHistory.push({role:'surgeon', content:scen.opening});
-  maybeAutoplay(scen.opening, ob._playBtn);              // no-op while voice.active (controller speaks it)
-  rpInput.disabled=false; rpSend.disabled=false; rpInput.placeholder='Respond to the surgeon…';
-  rpActive=true; updateMicUI();
-  if(!voice.active) rpInput.focus();
-}
-// "New scenario" — fully tear down the current session (stops voice/audio) and reveal the setup again.
-function restartScenario(){
-  if(voice.active) endVoiceMode();
-  sessionSeq++;                              // tear down: any in-flight turn must not mutate the next session
-  rpActive=false; rpHistory=[]; rpScores=[];
-  rpThread.innerHTML='<div class="empty">Pick a scenario and press Start Voice Roleplay. You play the rep; the AI plays the surgeon and a coach scores each reply.</div>';
-  rpFeedback.innerHTML='<div class="empty" style="font-size:13px">Scorecard (technique, product knowledge, objection handling, confidence, completeness) appears after each reply.</div>';
-  document.getElementById('rp-running').textContent='Your average score appears here after your first reply.';
-  rpInput.disabled=true; rpSend.disabled=true; rpInput.value=''; rpInput.placeholder='Start the session first…';
-  updateMicUI(); setSessionUI(false);
-}
-const textBtn=document.getElementById('rp-textbtn'); if(textBtn) textBtn.onclick=()=>{ if(rpScenarios.length) startSession(); };
-const restartBtn=document.getElementById('rp-restart'); if(restartBtn) restartBtn.onclick=restartScenario;
-
-const SCORE_LABELS={technique:'Technique',product_knowledge:'Product knowledge',objection_handling:'Objection handling',confidence:'Confidence',completeness:'Completeness'};
-function scoreColor(v){ return v>=4?'var(--good)':v>=3?'var(--mid)':'var(--bad)'; }
-function renderScorecard(card){
-  const bars=Object.keys(SCORE_LABELS).map(k=>{const v=card.scores[k]||0;
-    return `<div class="bar"><div class="lab"><span>${SCORE_LABELS[k]}</span><span>${v}/5</span></div>
-      <div class="track"><div class="fill" style="width:${v/5*100}%;background:${scoreColor(v)}"></div></div></div>`;}).join('');
-  const tips=(card.tips||[]).map(t=>`<li>${t.replace(/</g,'&lt;')}</li>`).join('');
-  rpFeedback.innerHTML=`<div class="scorecard">
-      <div class="lab" style="display:flex;justify-content:space-between;align-items:baseline">
-        <span class="overall" style="color:${scoreColor(card.overall)}">${card.overall}</span><span class="loc">/ 5 overall</span></div>
-      ${bars}<div class="fb">${(card.feedback||'').replace(/</g,'&lt;')}</div>
-      ${tips?`<ul class="tips">${tips}</ul>`:''}
-      <div class="method">scored by: ${card.method}</div></div>`;
-  rpScores.push(card.overall);
-  const avg=(rpScores.reduce((a,b)=>a+b,0)/rpScores.length).toFixed(1);
-  document.getElementById('rp-running').innerHTML=`<b style="color:${scoreColor(avg)};font-size:18px">${avg}/5</b> average over ${rpScores.length} repl${rpScores.length>1?'ies':'y'}`;
-}
-
-async function streamPost(url, body, onEvent){
-  const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-  const reader=res.body.getReader(), dec=new TextDecoder(); let buf='';
-  while(true){
-    const {done,value}=await reader.read(); if(done) break;
-    buf+=dec.decode(value,{stream:true}); let i;
-    while((i=buf.indexOf('\n\n'))>=0){
-      const raw=buf.slice(0,i); buf=buf.slice(i+2);
-      let ev='message', data='';
-      for(const line of raw.split('\n')){
-        if(line.startsWith('event:')) ev=line.slice(6).trim();
-        else if(line.startsWith('data:')) data+=line.slice(5).trim();
-      }
-      if(data){ try{ onEvent(ev, JSON.parse(data)); }catch(e){} }
-    }
-  }
-}
-async function sendRep(onSurgeonDone){
-  const msg=rpInput.value.trim(); if(!msg) return '';
-  const voiceTurn=voice.active;          // remember if this turn ran under voice mode (even if it ends mid-turn)
-  const mySeq=sessionSeq;                // pin to this session; a restart/new-scenario mid-turn makes us stale
-  rpSend.disabled=true; rpInput.disabled=true;
-  bubble('rep', msg);
-  const priorHistory=rpHistory.slice();
-  rpHistory.push({role:'rep', content:msg});
-  rpInput.value='';
-  const sb=bubble('surgeon','…'); let surgeon='', signaled=false;
-  rpFeedback.innerHTML='<div class="empty" style="font-size:13px">Scoring your reply…</div>';
-  try{
-    await streamPost('/api/roleplay/turn',
-      {scenario_id:selScenario.value, role:selRole.value, difficulty:selDiff.value, history:priorHistory, message:msg},
-      (ev,data)=>{
-        if(mySeq!==sessionSeq) return;        // session restarted/replaced mid-stream → ignore late SSE events
-        if(ev==='surgeon'){ surgeon+=data; sb.textContent=surgeon; rpThread.scrollTop=rpThread.scrollHeight; }
-        else if(ev==='surgeon_done'){ if(onSurgeonDone && !signaled){ signaled=true; onSurgeonDone(surgeon); } }
-        else if(ev==='feedback'){ renderScorecard(data); }
-      });
-    if(mySeq!==sessionSeq) return surgeon;    // a newer session owns the state now — don't pollute its history
-    rpHistory.push({role:'surgeon', content:surgeon});
-  }catch(e){ if(mySeq===sessionSeq) sb.textContent='Error contacting server.'; }
-  if(mySeq!==sessionSeq) return surgeon;      // stale turn: leave the new session's inputs/voice untouched
-  rpSend.disabled=false; rpInput.disabled=false;
-  // Only auto-play in PURE text mode. If this turn ran under voice mode — even if the user ended
-  // voice mid-turn — the voice controller owns speech; starting a clip here was the source of the
-  // surgeon "lingering" 15-20s after End Voice Mode (sendRep resolves after shutdown, voice.active
-  // is already false, and this branch would speak the full reply).
-  if(!voiceTurn && !voice.active){ rpInput.focus(); maybeAutoplay(surgeon, sb._playBtn); }
-  return surgeon;
-}
-document.getElementById('rp-form').onsubmit=e=>{e.preventDefault();sendRep();};
-
-// ===================== CONTINUOUS VOICE MODE (Listening → Thinking → Speaking) =====================
-const voice={ active:false, state:'idle', stream:null, ac:null, src:null, analyser:null,
-              recorder:null, chunks:[], raf:null, hadSpeech:false, speechMs:0, silenceMs:0, startedAt:0 };
+// ===================== CONTINUOUS VOICE MODE =====================
+const voice={ active:false, state:'idle', stream:null, ac:null, src:null, analyser:null, recorder:null, chunks:[], raf:null, hadSpeech:false, speechMs:0, silenceMs:0, startedAt:0 };
 const VAD_THRESH=0.02, MIN_SPEECH_MS=300, SILENCE_MS=1100, MAX_UTTER_MS=15000;
 const voiceBtn=document.getElementById('rp-voicebtn'), voicePanel=document.getElementById('rp-voicepanel');
 const orbEl=document.getElementById('rp-orb'), vStateEl=document.getElementById('rp-vstate'), vCapEl=document.getElementById('rp-vcaption');
-
 function setVoiceState(s){
   voice.state=s;
   const map={listening:'Listening… (speak your reply)', thinking:'Thinking…', speaking:'Surgeon is speaking…', starting:'Starting…'};
@@ -703,32 +1172,21 @@ function setVoiceState(s){
 function setCaption(t){ if(vCapEl) vCapEl.textContent=t||''; }
 function showVoicePanel(on){
   voicePanel.hidden=!on; document.getElementById('rp-form').hidden=on;
-  const sbv=document.getElementById('rp-sb-voice'); if(sbv) sbv.hidden=on;   // hide bar's "Voice" while already in voice
-  voiceBtn.classList.toggle('on', on);
-  voiceBtn.textContent = on ? '🎙️ Voice mode on' : '🎙️ Start Voice Roleplay';
+  voiceBtn.textContent = on ? '🎙️ Voice mode on' : 'Start voice session';
 }
-function voiceUnavailable(){
-  if(sttProvider==='elevenlabs') return '';
-  if(micMode()==='browser') return '';
-  return 'Voice mode needs ELEVENLABS_API_KEY, or a Chrome/Edge browser for speech recognition.';
-}
+function voiceUnavailable(){ if(sttProvider==='elevenlabs') return ''; if(micMode()==='browser') return ''; return 'Voice mode needs ELEVENLABS_API_KEY, or a Chrome/Edge browser for speech recognition.'; }
 async function startVoiceMode(){
   if(voice.active || !rpScenarios.length) return;
   const warn=voiceUnavailable(); if(warn){ alert(warn); return; }
   const fresh=!rpActive;
-  voice.active=true; voiceGen++; showVoicePanel(true);   // active FIRST (suppress text auto-play); fresh generation
-  if(fresh) startSession();                              // ensure a session + opening line exist (won't double-speak)
+  voice.active=true; voiceGen++; showVoicePanel(true);
+  if(fresh) startSession();
   setVoiceState('speaking');
-  // Fresh session → speak the opening; resuming an in-progress one → re-voice the latest surgeon line, then listen.
-  const lastSurgeon=[...rpHistory].reverse().find(h=>h.role==='surgeon');
-  const line=(lastSurgeon||{}).content||'';
-  if(line) speak(line, null, ()=>{ if(voice.active) beginListen(); });
-  else beginListen();
+  const lastSurgeon=[...rpHistory].reverse().find(h=>h.role==='surgeon'); const line=(lastSurgeon||{}).content||'';
+  if(line) speak(line, null, ()=>{ if(voice.active) beginListen(); }); else beginListen();
 }
 function endVoiceMode(){
-  voice.active=false; voiceGen++;          // invalidate any in-flight turn + its callbacks
-  forceStopAllAudio();                     // kill audio + browser speech + watchdog timers + stale speaks
-  stopListen(); setVoiceState('idle');
+  voice.active=false; voiceGen++; forceStopAllAudio(); stopListen(); setVoiceState('idle');
   if(voice.stream){ voice.stream.getTracks().forEach(t=>t.stop()); voice.stream=null; }
   if(voice.ac){ try{voice.ac.close();}catch(e){} voice.ac=null; voice.analyser=null; voice.src=null; }
   showVoicePanel(false);
@@ -740,37 +1198,25 @@ function stopListen(){
   if(recognizing && browserRec){ try{browserRec.abort();}catch(e){} recognizing=false; }
 }
 function beginListen(){
-  if(!voice.active) return;
-  setVoiceState('listening');
-  if(sttProvider==='elevenlabs') listenWithRecorder();
-  else if(micMode()==='browser') listenWithRecognition();
-  else endVoiceMode();
+  if(!voice.active) return; setVoiceState('listening');
+  if(sttProvider==='elevenlabs') listenWithRecorder(); else if(micMode()==='browser') listenWithRecognition(); else endVoiceMode();
 }
 async function listenWithRecorder(){
   try{ if(!voice.stream) voice.stream=await navigator.mediaDevices.getUserMedia({audio:true}); }
   catch(e){ setCaption('Mic permission denied.'); endVoiceMode(); return; }
   const mime=['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg'].find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported(t))||'';
-  voice.recorder=new MediaRecorder(voice.stream, mime?{mimeType:mime}:undefined);
-  voice.chunks=[];
+  voice.recorder=new MediaRecorder(voice.stream, mime?{mimeType:mime}:undefined); voice.chunks=[];
   voice.recorder.ondataavailable=e=>{ if(e.data&&e.data.size) voice.chunks.push(e.data); };
   voice.recorder.onstop=()=>handleUtterance();
-  if(!voice.ac){
-    voice.ac=new (window.AudioContext||window.webkitAudioContext)();
-    voice.src=voice.ac.createMediaStreamSource(voice.stream);
-    voice.analyser=voice.ac.createAnalyser(); voice.analyser.fftSize=512; voice.src.connect(voice.analyser);
-  }
+  if(!voice.ac){ voice.ac=new (window.AudioContext||window.webkitAudioContext)(); voice.src=voice.ac.createMediaStreamSource(voice.stream); voice.analyser=voice.ac.createAnalyser(); voice.analyser.fftSize=512; voice.src.connect(voice.analyser); }
   if(voice.ac.state==='suspended'){ try{voice.ac.resume();}catch(e){} }
-  voice.hadSpeech=false; voice.speechMs=0; voice.silenceMs=0; voice.startedAt=performance.now();
-  voice.recorder.start();
+  voice.hadSpeech=false; voice.speechMs=0; voice.silenceMs=0; voice.startedAt=performance.now(); voice.recorder.start();
   const buf=new Uint8Array(voice.analyser.fftSize); let last=performance.now();
   const tick=()=>{
     if(!voice.active || !voice.recorder || voice.recorder.state!=='recording') return;
-    const now=performance.now(), dt=now-last; last=now;
-    voice.analyser.getByteTimeDomainData(buf);
-    let sum=0; for(let i=0;i<buf.length;i++){ const v=(buf[i]-128)/128; sum+=v*v; }
-    const rms=Math.sqrt(sum/buf.length);
-    if(rms>VAD_THRESH){ voice.hadSpeech=true; voice.silenceMs=0; voice.speechMs+=dt; }
-    else if(voice.hadSpeech){ voice.silenceMs+=dt; }
+    const now=performance.now(), dt=now-last; last=now; voice.analyser.getByteTimeDomainData(buf);
+    let sum=0; for(let i=0;i<buf.length;i++){ const v=(buf[i]-128)/128; sum+=v*v; } const rms=Math.sqrt(sum/buf.length);
+    if(rms>VAD_THRESH){ voice.hadSpeech=true; voice.silenceMs=0; voice.speechMs+=dt; } else if(voice.hadSpeech){ voice.silenceMs+=dt; }
     setCaption(voice.hadSpeech ? (voice.silenceMs>250?'…':'● recording') : 'Listening…');
     const ended=(voice.hadSpeech && voice.speechMs>MIN_SPEECH_MS && voice.silenceMs>SILENCE_MS) || (now-voice.startedAt>MAX_UTTER_MS);
     if(ended){ try{voice.recorder.stop();}catch(e){} return; }
@@ -780,13 +1226,11 @@ async function listenWithRecorder(){
 }
 async function handleUtterance(){
   if(!voice.active) return;
-  if(!voice.hadSpeech || !voice.chunks.length){ beginListen(); return; }   // nothing said → keep listening
+  if(!voice.hadSpeech || !voice.chunks.length){ beginListen(); return; }
   setVoiceState('thinking');
-  const blob=new Blob(voice.chunks,{type:((voice.recorder&&voice.recorder.mimeType)||'audio/webm').split(';')[0]});
-  let text='';
+  const blob=new Blob(voice.chunks,{type:((voice.recorder&&voice.recorder.mimeType)||'audio/webm').split(';')[0]}); let text='';
   try{ const r=await fetch('/api/stt',{method:'POST',headers:{'Content-Type':blob.type},body:blob}); if(r.ok) text=((await r.json()).text||''); }catch(e){}
-  text=text.trim();
-  if(!text){ if(voice.active) beginListen(); return; }
+  text=text.trim(); if(!text){ if(voice.active) beginListen(); return; }
   await sendAndSpeak(text);
 }
 function listenWithRecognition(){
@@ -794,39 +1238,22 @@ function listenWithRecognition(){
   try{ browserRec=new SR(); }catch(e){ endVoiceMode(); return; }
   browserRec.lang='en-US'; browserRec.interimResults=true; browserRec.continuous=false; browserRec.maxAlternatives=1;
   recognizing=true; let finalText='';
-  browserRec.onresult=e=>{
-    let interim='';
-    for(let i=e.resultIndex;i<e.results.length;i++){ const r=e.results[i]; if(r.isFinal) finalText+=r[0].transcript; else interim+=r[0].transcript; }
-    setCaption(interim||finalText);
-  };
+  browserRec.onresult=e=>{ let interim=''; for(let i=e.resultIndex;i<e.results.length;i++){ const r=e.results[i]; if(r.isFinal) finalText+=r[0].transcript; else interim+=r[0].transcript; } setCaption(interim||finalText); };
   browserRec.onerror=()=>{};
-  browserRec.onend=async()=>{
-    recognizing=false; if(!voice.active) return;
-    const t=(finalText||'').trim();
-    if(!t){ beginListen(); return; }
-    setVoiceState('thinking'); await sendAndSpeak(t);
-  };
+  browserRec.onend=async()=>{ recognizing=false; if(!voice.active) return; const t=(finalText||'').trim(); if(!t){ beginListen(); return; } setVoiceState('thinking'); await sendAndSpeak(t); };
   try{ browserRec.start(); }catch(e){ beginListen(); }
 }
 async function sendAndSpeak(text){
-  if(!voice.active) return;
-  const myGen=voiceGen;             // pin this turn to the current voice session
-  rpInput.value=text;
-  // Start speaking the instant the reply finishes streaming — in PARALLEL with the coach
-  // scoring, so the surgeon's voice is not delayed by the second LLM call.
-  await sendRep((surgeon)=>{
-    if(!voice.active || myGen!==voiceGen) return;   // ended (or restarted) since this turn began → stay silent
-    setVoiceState('speaking');
-    speak(surgeon, null, ()=>{ if(voice.active && myGen===voiceGen) beginListen(); });   // speak reply, then listen again
-  });
+  if(!voice.active) return; const myGen=voiceGen; rpInput.value=text;
+  await sendRep((surgeon)=>{ if(!voice.active || myGen!==voiceGen) return; setVoiceState('speaking'); speak(surgeon, null, ()=>{ if(voice.active && myGen===voiceGen) beginListen(); }); });
 }
-function showVoiceError(msg){
-  if(voice && voice.active){ if(vStateEl) vStateEl.textContent='Voice unavailable'; setCaption(msg); }
-  else { console.warn('[TrainMed voice]', msg); }
-}
+function showVoiceError(msg){ if(voice && voice.active){ if(vStateEl) vStateEl.textContent='Voice unavailable'; setCaption(msg); } else { console.warn('[TrainMed voice]', msg); } }
 if(voiceBtn) voiceBtn.onclick=startVoiceMode;
 const sbVoiceBtn=document.getElementById('rp-sb-voice'); if(sbVoiceBtn) sbVoiceBtn.onclick=startVoiceMode;
 const endVoiceBtn=document.getElementById('rp-endvoice'); if(endVoiceBtn) endVoiceBtn.onclick=endVoiceMode;
+
+// ===================== INIT =====================
+initCompanies();
 </script>
 </body>
 </html>

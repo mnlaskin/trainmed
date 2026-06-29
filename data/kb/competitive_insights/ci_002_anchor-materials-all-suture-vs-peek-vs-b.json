@@ -1,0 +1,38 @@
+{
+  "chunk_id": "ci_002_anchor-materials-all-suture-vs-peek-vs-b",
+  "collection": "competitive",
+  "company": "_competitive",
+  "companies": [
+    "Arthrex",
+    "Stryker",
+    "Smith & Nephew"
+  ],
+  "source_id": "ci_002_anchor-materials-all-suture-vs-peek-vs-b",
+  "source_type": "competitive_insight",
+  "source_title": "Anchor materials: all-suture vs PEEK vs biocomposite",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10110812/",
+  "category": "competitive_insight",
+  "product_line": "Anchor material / biomechanics",
+  "topic": "Anchor materials: all-suture vs PEEK vs biocomposite",
+  "summary": "The three dominant anchor material classes are all-suture (soft) anchors, PEEK (permanent polymer), and biocomposite (resorbable, e.g., PLLA + calcium-based fillers). A network meta-analysis found PEEK and all-suture anchors had the highest ultimate failure loads, metal intermediate, and biocomposite the lowest, with no meaningful stiffness differences; failure modes differ by type (all-suture more prone to pull-out, biocomposite to eyelet breakage, metal to suture cutting). Results are sensitive to bone mineral density. All three companies offer anchors in all three material classes, so material is often a surgeon-preference and bone-quality decision rather than a clear winner.",
+  "arthrex_position": "Broad material menu: BioComposite (and PLLA) and nonabsorbable PEEK SwiveLock/SutureTak/PushLock anchor bodies, plus all-suture FiberTak soft anchors (e.g., 2.6 FiberTak RC). Arthrex emphasizes BioComposite for the SpeedBridge medial/lateral rows and FiberTak for low-bone-removal soft-anchor fixation.",
+  "stryker_position": "Stryker leans into PEEK for its knotless anchors (ReelX STT all-PEEK body, Omega PEEK eyelet) and also offers biocomposite (Citrelock/CrossFT biocomposite) options. The PEEK eyelet is marketed to reduce suture abrasion.",
+  "smithnephew_position": "Smith & Nephew differentiates on its REGENESORB biocomposite (designed to be replaced by bone within ~24 months) and the open-architecture HEALICOIL coil that lets marrow/stem cells reach the repair; it also offers HEALICOIL KNOTLESS PEEK and all-suture (Q-FIX) options.",
+  "rep_talk_track": "A Stryker rep can fairly cite that PEEK anchors top the biomechanical failure-load rankings and resist suture abrasion. An S&N rep counters that REGENESORB plus open architecture is about long-term bone ingrowth and leaving less permanent foreign material, trading a bit of peak failure load for biology. An Arthrex rep says 'we let you pick - BioComposite, PEEK, PLLA, or all-suture FiberTak - per bone quality.' The honest caveat: biocomposite tends to rank lowest on raw failure load, all-suture removes the least bone but pulls out more often, and the differences are bone-density-dependent. There is no RCT showing one material yields better healed-cuff clinical outcomes.",
+  "evidence": [
+    "Network meta-analysis (Yang et al., 2023): SUCRA ultimate failure load PEEK 81.9% > all-suture 76.5% > metal 38.7% > biocomposite 3.0%; no significant stiffness differences; all-suture more anchor pull-out, biocomposite more eyelet breakage; rankings shift with bone mineral density.",
+    "RCT (Arthroscopy): open-construct PEEK anchor showed better 6-month bone ingrowth than a non-vented biocomposite anchor.",
+    "Arthrex product pages confirm SwiveLock available in BioComposite, PLLA, PEEK; FiberTak is the all-suture line. Stryker confirms ReelX is PEEK. S&N confirms HEALICOIL uses REGENESORB biocomposite."
+  ],
+  "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC10110812/",
+    "https://pubmed.ncbi.nlm.nih.gov/31864818/",
+    "https://www.arthrex.com/shoulder/swivelock-c",
+    "https://www.arthrex.com/shoulder/fibertak-rc-soft-anchors-26",
+    "https://www.prnewswire.com/news-releases/smithnephew-launches-healicoil-knotless-suture-anchor-redefines-healing-potential-for-rotator-cuff-repair-301126181.html"
+  ],
+  "confidence": "high",
+  "notes": "",
+  "word_count": 403,
+  "text": "Anchor materials: all-suture vs PEEK vs biocomposite\n\nThe three dominant anchor material classes are all-suture (soft) anchors, PEEK (permanent polymer), and biocomposite (resorbable, e.g., PLLA + calcium-based fillers). A network meta-analysis found PEEK and all-suture anchors had the highest ultimate failure loads, metal intermediate, and biocomposite the lowest, with no meaningful stiffness differences; failure modes differ by type (all-suture more prone to pull-out, biocomposite to eyelet breakage, metal to suture cutting). Results are sensitive to bone mineral density. All three companies offer anchors in all three material classes, so material is often a surgeon-preference and bone-quality decision rather than a clear winner.\n\nArthrex: Broad material menu: BioComposite (and PLLA) and nonabsorbable PEEK SwiveLock/SutureTak/PushLock anchor bodies, plus all-suture FiberTak soft anchors (e.g., 2.6 FiberTak RC). Arthrex emphasizes BioComposite for the SpeedBridge medial/lateral rows and FiberTak for low-bone-removal soft-anchor fixation.\nStryker: Stryker leans into PEEK for its knotless anchors (ReelX STT all-PEEK body, Omega PEEK eyelet) and also offers biocomposite (Citrelock/CrossFT biocomposite) options. The PEEK eyelet is marketed to reduce suture abrasion.\nSmith & Nephew: Smith & Nephew differentiates on its REGENESORB biocomposite (designed to be replaced by bone within ~24 months) and the open-architecture HEALICOIL coil that lets marrow/stem cells reach the repair; it also offers HEALICOIL KNOTLESS PEEK and all-suture (Q-FIX) options.\n\nRep positioning: A Stryker rep can fairly cite that PEEK anchors top the biomechanical failure-load rankings and resist suture abrasion. An S&N rep counters that REGENESORB plus open architecture is about long-term bone ingrowth and leaving less permanent foreign material, trading a bit of peak failure load for biology. An Arthrex rep says 'we let you pick - BioComposite, PEEK, PLLA, or all-suture FiberTak - per bone quality.' The honest caveat: biocomposite tends to rank lowest on raw failure load, all-suture removes the least bone but pulls out more often, and the differences are bone-density-dependent. There is no RCT showing one material yields better healed-cuff clinical outcomes.\n\nEvidence: (1) Network meta-analysis (Yang et al., 2023): SUCRA ultimate failure load PEEK 81.9% > all-suture 76.5% > metal 38.7% > biocomposite 3.0%; no significant stiffness differences; all-suture more anchor pull-out, biocomposite more eyelet breakage; rankings shift with bone mineral density. (2) RCT (Arthroscopy): open-construct PEEK anchor showed better 6-month bone ingrowth than a non-vented biocomposite anchor. (3) Arthrex product pages confirm SwiveLock available in BioComposite, PLLA, PEEK; FiberTak is the all-suture line. Stryker confirms ReelX is PEEK. S&N confirms HEALICOIL uses REGENESORB biocomposite."
+}

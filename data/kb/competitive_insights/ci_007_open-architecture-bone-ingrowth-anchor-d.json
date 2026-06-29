@@ -1,0 +1,36 @@
+{
+  "chunk_id": "ci_007_open-architecture-bone-ingrowth-anchor-d",
+  "collection": "competitive",
+  "company": "_competitive",
+  "companies": [
+    "Smith & Nephew",
+    "Arthrex",
+    "Stryker"
+  ],
+  "source_id": "ci_007_open-architecture-bone-ingrowth-anchor-d",
+  "source_type": "competitive_insight",
+  "source_title": "Open-architecture / bone-ingrowth anchor design claims",
+  "source_url": "https://pubmed.ncbi.nlm.nih.gov/31864818/",
+  "category": "competitive_insight",
+  "product_line": "Anchor design / marketing-vs-data",
+  "topic": "Open-architecture / bone-ingrowth anchor design claims",
+  "summary": "A recurring marketing axis is anchor 'openness' - how much the anchor design lets bone marrow, blood, and stem cells reach the tendon-bone interface to promote ingrowth, versus how much permanent foreign material is left behind. Smith & Nephew makes 'most open architecture among leading competitors' a central claim for HEALICOIL. There is a clinical RCT showing an open-construct PEEK anchor had better 6-month bone ingrowth than a non-vented biocomposite anchor, which supports the general principle of openness/venting. However, the specific 'most open vs competitors' superiority is a marketing comparison, not a head-to-head clinical-outcome study, so it should be flagged as lower-confidence when used competitively.",
+  "arthrex_position": "Arthrex offers vented BioComposite SwiveLock anchors (venting allows marrow elements through) and all-suture FiberTak anchors that remove minimal bone; it competes on the same ingrowth principle without using S&N's 'open architecture' branding.",
+  "stryker_position": "Stryker's Omega and ReelX use PEEK bodies; the company emphasizes self-punching efficiency and PEEK eyelet abrasion resistance more than an open-architecture/ingrowth narrative.",
+  "smithnephew_position": "Open architecture is a core S&N HEALICOIL claim - the coil design plus REGENESORB is marketed to let marrow/stem cells access the repair and to be replaced by bone within ~24 months, positioned explicitly as more open than competitors.",
+  "rep_talk_track": "An S&N rep will lead with 'most open architecture, less permanent foreign material, designed for bone ingrowth.' That principle is supported in general terms (vented/open anchors showed better ingrowth than non-vented in one RCT), so the rep can honestly say the concept is evidence-supported. The honest line they should NOT cross is claiming proven clinical superiority over a specific competitor anchor - 'most open among competitors' is a design comparison, not an outcomes study. Arthrex and Stryker reps can fairly respond that vented BioComposite, all-suture FiberTak, and PEEK options achieve similar marrow-access goals, and that no head-to-head clinical trial establishes one anchor's architecture as producing better healed-cuff rates.",
+  "evidence": [
+    "RCT: open-construct PEEK anchor showed better bone ingrowth than non-vented biocomposite anchor at 6 months (supports openness principle, not a specific brand claim).",
+    "S&N marketing: HEALICOIL 'most open architecture design among leading competitors,' REGENESORB absorbed/replaced by bone within ~24 months.",
+    "Arthrex offers vented BioComposite SwiveLock and minimal-bone-removal FiberTak all-suture anchors."
+  ],
+  "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/31864818/",
+    "https://www.prnewswire.com/news-releases/smithnephew-launches-healicoil-knotless-suture-anchor-redefines-healing-potential-for-rotator-cuff-repair-301126181.html",
+    "https://www.arthrex.com/shoulder/swivelock-c"
+  ],
+  "confidence": "medium",
+  "notes": "",
+  "word_count": 373,
+  "text": "Open-architecture / bone-ingrowth anchor design claims\n\nA recurring marketing axis is anchor 'openness' - how much the anchor design lets bone marrow, blood, and stem cells reach the tendon-bone interface to promote ingrowth, versus how much permanent foreign material is left behind. Smith & Nephew makes 'most open architecture among leading competitors' a central claim for HEALICOIL. There is a clinical RCT showing an open-construct PEEK anchor had better 6-month bone ingrowth than a non-vented biocomposite anchor, which supports the general principle of openness/venting. However, the specific 'most open vs competitors' superiority is a marketing comparison, not a head-to-head clinical-outcome study, so it should be flagged as lower-confidence when used competitively.\n\nArthrex: Arthrex offers vented BioComposite SwiveLock anchors (venting allows marrow elements through) and all-suture FiberTak anchors that remove minimal bone; it competes on the same ingrowth principle without using S&N's 'open architecture' branding.\nStryker: Stryker's Omega and ReelX use PEEK bodies; the company emphasizes self-punching efficiency and PEEK eyelet abrasion resistance more than an open-architecture/ingrowth narrative.\nSmith & Nephew: Open architecture is a core S&N HEALICOIL claim - the coil design plus REGENESORB is marketed to let marrow/stem cells access the repair and to be replaced by bone within ~24 months, positioned explicitly as more open than competitors.\n\nRep positioning: An S&N rep will lead with 'most open architecture, less permanent foreign material, designed for bone ingrowth.' That principle is supported in general terms (vented/open anchors showed better ingrowth than non-vented in one RCT), so the rep can honestly say the concept is evidence-supported. The honest line they should NOT cross is claiming proven clinical superiority over a specific competitor anchor - 'most open among competitors' is a design comparison, not an outcomes study. Arthrex and Stryker reps can fairly respond that vented BioComposite, all-suture FiberTak, and PEEK options achieve similar marrow-access goals, and that no head-to-head clinical trial establishes one anchor's architecture as producing better healed-cuff rates.\n\nEvidence: (1) RCT: open-construct PEEK anchor showed better bone ingrowth than non-vented biocomposite anchor at 6 months (supports openness principle, not a specific brand claim). (2) S&N marketing: HEALICOIL 'most open architecture design among leading competitors,' REGENESORB absorbed/replaced by bone within ~24 months. (3) Arthrex offers vented BioComposite SwiveLock and minimal-bone-removal FiberTak all-suture anchors."
+}

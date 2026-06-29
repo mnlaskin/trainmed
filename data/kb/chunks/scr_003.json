@@ -1,5 +1,6 @@
 {
   "chunk_id": "scr_003",
+  "company": "Arthrex",
   "source_id": "scr",
   "source_type": "pdf",
   "source_title": "SCR With Superimposition of Acellular Dermal Allograft",
@@ -9,6 +10,17 @@
   "page_count": 5,
   "language": null,
   "procedure_family": "rotator_cuff",
+  "product_line": "Shoulder",
+  "product_family": "SCR",
+  "product_name": "Superior Capsular Reconstruction",
+  "category": "technique_guide",
+  "technique": [
+    "SCR",
+    "instability"
+  ],
+  "advantages": [],
+  "disadvantages": [],
+  "clinical_references": [],
   "chunk_index": 3,
   "chunk_count": 6,
   "word_count": 800,
