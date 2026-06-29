@@ -190,6 +190,18 @@
   .scen-check svg { width:11px; height:11px; display:none; }
   .scen-label { font-size:14.5px; font-weight:700; color:var(--text); letter-spacing:-.2px; }
   .scen-goal { font-size:12.5px; color:var(--text-2); line-height:1.5; }
+  /* scenario dropdown (step 1) */
+  .scen-pick { max-width:580px; }
+  .select-wrap { position:relative; }
+  .select-wrap::after { content:''; position:absolute; right:17px; top:46%; width:9px; height:9px; transform:translateY(-50%) rotate(45deg);
+                        border-right:2.4px solid var(--muted); border-bottom:2.4px solid var(--muted); pointer-events:none; }
+  .select-lg { -webkit-appearance:none; appearance:none; width:100%; padding:14px 42px 14px 16px; font-size:15px; font-weight:600;
+               font-family:inherit; color:var(--text); background:var(--surface); border:1.5px solid var(--line-2); border-radius:13px;
+               box-shadow:var(--shadow-sm); cursor:pointer; transition:all .14s ease; }
+  .select-lg:hover { border-color:var(--blue); }
+  .select-lg:focus { outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(31,116,208,.14); }
+  .scen-preview { display:flex; align-items:center; gap:11px; margin-top:13px; }
+  .scen-goal-text { font-size:13.5px; color:var(--text-2); line-height:1.5; min-width:0; }
   .diff-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
   .diff { border:1.5px solid var(--line-2); border-radius:13px; padding:15px 16px; background:var(--surface); text-align:left;
           transition:all .14s ease; box-shadow:var(--shadow-sm); }
@@ -490,7 +502,13 @@
           <p class="lead">Pick a scenario and a difficulty, meet your prospect, then start a live voice session. The AI plays the surgeon; a coach scores every reply.</p>
 
           <div class="step-h"><span class="step-n">1</span><span class="step-t">Choose a scenario</span></div>
-          <div class="scen-grid" id="rp-scenario-cards"></div>
+          <div class="scen-pick">
+            <div class="select-wrap"><select id="rp-scenario" class="select-lg"></select></div>
+            <div class="scen-preview" id="rp-scen-preview">
+              <span class="scen-tag" id="rp-scen-cat"></span>
+              <span class="scen-goal-text" id="rp-scen-goal"></span>
+            </div>
+          </div>
 
           <div class="step-h"><span class="step-n">2</span><span class="step-t">Set the difficulty</span>
             <span class="step-hint">How tough the surgeon will be</span></div>
@@ -510,7 +528,6 @@
           </div>
 
           <!-- hidden source-of-truth controls -->
-          <select id="rp-scenario" hidden></select>
           <select id="rp-role" hidden></select>
           <select id="rp-diff" hidden></select>
         </div></div>
@@ -837,17 +854,11 @@ const selScenario=document.getElementById('rp-scenario'), selRole=document.getEl
 function currentScenario(){ return rpScenarios.find(s=>s.id===selScenario.value)||rpScenarios[0]; }
 function initials(name){ const p=String(name||'').replace(/^Dr\.?\s*/i,'').trim().split(/\s+/); return ((p[0]||'')[0]||'')+((p[1]||'')[0]||'') || 'DR'; }
 
-function renderScenarioCards(){
-  const wrap=document.getElementById('rp-scenario-cards'); wrap.innerHTML='';
-  rpScenarios.forEach(s=>{
-    const cat=SCEN_CAT[s.id]||'Scenario'; const sel=s.id===selScenario.value;
-    const card=document.createElement('button'); card.type='button'; card.className='scen'+(sel?' sel':'');
-    card.innerHTML=`<div class="scen-top"><span class="scen-tag${s.competitive?' competitive':''}">${cat}</span>`+
-      `<span class="scen-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>`+
-      `<div class="scen-label">${esc(s.label)}</div><div class="scen-goal">${esc(s.goal||'')}</div>`;
-    card.onclick=()=>selectScenario(s.id);
-    wrap.appendChild(card);
-  });
+function renderScenarioPreview(){
+  const s=currentScenario(); if(!s) return;
+  const cat=document.getElementById('rp-scen-cat'), goal=document.getElementById('rp-scen-goal');
+  if(cat){ cat.textContent=SCEN_CAT[s.id]||'Scenario'; cat.className='scen-tag'+(s.competitive?' competitive':''); }
+  if(goal) goal.textContent=s.goal||'';
 }
 function renderDiffCards(){
   const wrap=document.getElementById('rp-diff-cards'); wrap.innerHTML='';
@@ -878,7 +889,7 @@ function renderProspect(){
     `<div class="pros-grid">${fields.map(f=>`<div class="pros-f"><div class="k">${f[0]}</div><div class="v">${esc(f[1])}</div></div>`).join('')}</div>`+
     (s.opening?`<div class="pros-quote">“${esc(s.opening)}”</div>`:'')+`</div>`;
 }
-function selectScenario(id){ if(id) selScenario.value=id; renderScenarioCards(); renderProspect(); }
+function selectScenario(id){ if(id) selScenario.value=id; renderScenarioPreview(); renderProspect(); }
 function loadScenarios(){
   fetch('/api/roleplay/scenarios?company='+encodeURIComponent(COMPANY)).then(r=>r.json()).then(d=>{
     rpScenarios=d.scenarios||[]; rpDiffs=d.difficulties||[];
@@ -888,7 +899,7 @@ function loadScenarios(){
     if(rpScenarios.length) selScenario.value=rpScenarios[0].id;
     selDiff.value = (rpDiffs.find(x=>x.id==='medium')||rpDiffs[1]||rpDiffs[0]||{}).id;
     selRole.value = ((d.roles||[])[0]||{}).id || 'sales_rep';
-    renderScenarioCards(); renderDiffCards(); renderRolePills(d.roles||[]); renderProspect();
+    renderScenarioPreview(); renderDiffCards(); renderRolePills(d.roles||[]); renderProspect();
     rpLoaded=true;
   });
   loadTtsStatus(); loadSttStatus();
