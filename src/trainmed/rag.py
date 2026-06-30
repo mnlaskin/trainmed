@@ -458,7 +458,8 @@ def system_prompt(company: str = co.DEFAULT_COMPANY) -> str:
         "GROUNDING — zero hallucination: exact figures (drill/punch/reamer diameters, anchor sizes, "
         "suture/tape specs) and EVERY clinical claim appear ONLY if they are in the excerpts, each cited "
         "[n]. If a number isn't in the excerpts, tell the rep to confirm it in the technique guide — never "
-        "invent one.\n\n"
+        "invent one. When a STRUCTURED PRODUCT SPECS block precedes the excerpts, it is validated ground "
+        "truth — quote those exact figures and cite the matching source [n].\n\n"
         f"PRODUCT NAMING: **Bold** every implant, instrument, and spec, using exact {name} product names "
         f"and sizes (e.g. {ex}).\n\n"
         "CHOOSE THE FORMAT BY THE QUESTION:\n\n"
@@ -520,15 +521,16 @@ def _context_block(retrieved: list[dict]) -> str:
     return "\n\n".join(parts)
 
 
-def _user_prompt(question: str, retrieved: list[dict]) -> str:
-    return f"Source excerpts:\n{_context_block(retrieved)}\n\nQuestion: {question}"
+def _user_prompt(question: str, retrieved: list[dict], specs_block: str = "") -> str:
+    head = (specs_block + "\n\n") if specs_block else ""
+    return f"{head}Source excerpts:\n{_context_block(retrieved)}\n\nQuestion: {question}"
 
 
 def generate_answer(
     question: str, retrieved: list[dict], backend: str, model: str | None = None,
-    company: str = co.DEFAULT_COMPANY,
+    company: str = co.DEFAULT_COMPANY, specs_block: str = "",
 ) -> str:
-    user = _user_prompt(question, retrieved)
+    user = _user_prompt(question, retrieved, specs_block)
     sys_prompt = system_prompt(company)
     if backend == "anthropic":
         import anthropic
@@ -559,10 +561,10 @@ def generate_answer(
 
 def stream_answer(
     question: str, retrieved: list[dict], backend: str, model: str | None = None,
-    company: str = co.DEFAULT_COMPANY,
+    company: str = co.DEFAULT_COMPANY, specs_block: str = "",
 ):
     """Yield answer text deltas. Mirrors generate_answer but streams (for the web UI)."""
-    user = _user_prompt(question, retrieved)
+    user = _user_prompt(question, retrieved, specs_block)
     sys_prompt = system_prompt(company)
     if backend == "anthropic":
         import anthropic

@@ -1,5 +1,5 @@
 ---
-title: Shoulder Instability surgical procedure guide (Iconix 1 + NanoTack TT)
+title: Shoulder Instability Procedural Guide Brochure
 doc_id: instability-20procedural-20guide-20brochure
 company: Stryker
 source_url: https://www.stryker.com/content/dam/stryker/sports-medicine/procedures/instability---shoulder/brochures/Instability%20Procedural%20Guide%20Brochure.pdf
@@ -9,7 +9,7 @@ page_count: 5
 source: pdf
 ---
 
-# Shoulder Instability surgical procedure guide (Iconix 1 + NanoTack TT)
+# Shoulder Instability Procedural Guide Brochure
 
 Instability
 Surgical procedure

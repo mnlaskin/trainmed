@@ -1,0 +1,5 @@
+# Arthrex shoulder gap-fill (2026-06-29) — new official technique-guide PDFs discovered
+# from arthrex.com product pages (resources/LT1-* URLs serve the guide PDF directly).
+# Labral/instability shoulder constructs not previously ingested. Verified new + %PDF-gated.
+https://www.arthrex.com/resources/LT1-00021-EN/fibertak-soft-anchor-for-glenoid-labrum-repair  # FiberTak Soft Anchor — Glenoid Labrum Repair (Surgical Technique)
+https://www.arthrex.com/resources/LT1-0507-EN/suturetak-bankart-and-slap-repair  # SutureTak — Bankart & SLAP Repair (Surgical Technique)

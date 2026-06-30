@@ -44,9 +44,9 @@ COMPANIES: dict[str, dict] = {
         ),
         "product_terms": {
             "speedbridge", "suturebridge", "speedfix", "fibertak", "swivelock", "fibertape",
-            "fiberwire", "corkscrew", "pushlock", "suturetak", "biocomposite", "knotless",
+            "fiberwire", "suturetape", "corkscrew", "pushlock", "suturetak", "biocomposite", "knotless",
             "double-row", "doublerow", "footprint", "anchor", "all-suture", "allsuture",
-            "arthroflex", "cuffmend", "tensionable", "ripstop", "scr",
+            "arthroflex", "cuffmend", "tensionable", "ripstop", "scr", "latarjet", "tenodesis",
         },
     },
     STRYKER: {
@@ -60,6 +60,8 @@ COMPANIES: dict[str, dict] = {
             "knotilus", "nanotack", "inspace", "knotless", "double-row", "doublerow",
             "all-suture", "allsuture", "anchor", "footprint", "scr", "tensionable",
             "instability", "bankart", "transosseous",
+            "cinchlock", "cobra", "intraline", "zip", "slingshot", "champion",
+            "xbraid", "xbraidtt", "forcefiber", "force-fiber",
         },
     },
     SMITH_NEPHEW: {
@@ -70,7 +72,8 @@ COMPANIES: dict[str, dict] = {
         ),
         "product_terms": {
             "healicoil", "qfix", "q-fix", "footprint", "regenesorb", "regeneten", "multifix",
-            "bioraptor", "ultrabraid", "ultratape", "knotless", "double-row", "doublerow",
+            "bioraptor", "microraptor", "twinfix", "suturefix", "ultrabraid", "ultratape",
+            "minitape", "latarjet", "knotless", "double-row", "doublerow",
             "all-suture", "allsuture", "anchor", "bioinductive", "scr", "tensionable",
         },
     },
@@ -131,10 +134,10 @@ _TAXONOMY_RAW: dict[str, list[tuple[str, str, str, str, list[str]]]] = {
         (r"suture\s*ta(?:k|ck)",  "SutureTak",    "SutureTak",    "Shoulder",     []),
         (r"cork\s*screw",         "Corkscrew",    "Corkscrew",    "Rotator Cuff", []),
         (r"fiber\s*tape",         "FiberTape",    "FiberTape",    "Rotator Cuff", []),
-        (r"arthro\s*flex",        "ArthroFLEX",   "ArthroFLEX",   "Rotator Cuff", ["augmentation"]),
+        (r"arthro\s*flex|dermal allograft|acellular dermal", "ArthroFLEX", "ArthroFLEX Dermal Allograft", "Rotator Cuff", ["augmentation"]),
         (r"cuff\s*mend",          "CuffMend",     "CuffMend",     "Rotator Cuff", ["augmentation"]),
         (r"superior capsular|capsular reconstruction|\bscr\b", "SCR", "Superior Capsular Reconstruction", "Shoulder", ["SCR"]),
-        (r"bankart|remplissage|labral|labrum|instability",     "Instability", "Bankart Repair", "Shoulder", ["instability"]),
+        (r"bankart|remplissage|labral|labrum|instability|latarjet|glenoid bone loss|bone block|congruent arc", "Instability", "Bankart Repair", "Shoulder", ["instability"]),
         (r"tenodesis|biceps",     "Biceps Tenodesis", "Biceps Tenodesis", "Shoulder", []),
     ],
     STRYKER: [
@@ -150,9 +153,18 @@ _TAXONOMY_RAW: dict[str, list[tuple[str, str, str, str, list[str]]]] = {
         (r"nano\s*tack", "NanoTack", "NanoTack", "Shoulder", ["instability", "all_suture"]),
         (r"citre(?:lock|nak)", "Citrelock", "Citrelock", "Shoulder", []),
         (r"twin\s*fix", "TwinFix",   "TwinFix",   "Rotator Cuff", []),
+        # 2026-06-29 gap-fill: new official Stryker shoulder families.
+        (r"cinch\s*lock", "Cinchlock", "Cinchlock Knotless Anchor", "Rotator Cuff", ["knotless", "all_suture"]),
+        (r"\bcobra\b", "Cobra", "Cobra Rotator Cuff Repair", "Rotator Cuff", []),
+        (r"peek\s*zip|zip\s*anchor", "Zip", "PEEK Zip Anchor", "Rotator Cuff", ["knotless"]),
+        (r"intra\s*line", "IntraLine", "PEEK IntraLine Anchor", "Rotator Cuff", []),
+        (r"champion\s*slingshot|slingshot", "Champion Slingshot", "Champion Slingshot Capsule Restoration", "Shoulder", ["instability"]),
+        (r"x\s*braid|force\s*fiber", "XBraidTT", "XBraidTT / Force Fiber Suture Tape", "Rotator Cuff", []),
         (r"superior capsular|capsular reconstruction|\bscr\b", "SCR", "Superior Capsular Reconstruction", "Shoulder", ["SCR"]),
     ],
     SMITH_NEPHEW: [
+        # Instability first (so an instability-titled guide stays Instability even if it names anchors).
+        (r"bankart|latarjet|instabilit|labral|labrum", "Instability", "Shoulder Instability Repair", "Shoulder", ["instability"]),
         (r"heali\s*coil", "HEALICOIL", "HEALICOIL", "Rotator Cuff", ["double_row", "knotless"]),
         (r"q[-\s]*fix",   "Q-FIX",     "Q-FIX",     "Rotator Cuff", ["all_suture", "knotless"]),
         (r"multi\s*fix", "MULTIFIX", "MULTIFIX S ULTRA", "Rotator Cuff", ["knotless"]),
@@ -160,6 +172,9 @@ _TAXONOMY_RAW: dict[str, list[tuple[str, str, str, str, list[str]]]] = {
         (r"regene\s*ten", "REGENETEN", "REGENETEN Bioinductive Implant", "Rotator Cuff", ["bioinductive", "augmentation"]),
         (r"regenesorb",   "REGENESORB", "REGENESORB", "Rotator Cuff", []),
         (r"bio\s*raptor", "BIORAPTOR", "BIORAPTOR", "Shoulder", []),
+        (r"micro\s*raptor", "MICRORAPTOR", "MICRORAPTOR Knotless Anchor", "Rotator Cuff", ["knotless"]),
+        (r"twin\s*fix", "TWINFIX Ultra", "TWINFIX Ultra Suture Anchor", "Rotator Cuff", []),
+        (r"suture\s*fix", "SUTUREFIX Ultra", "SUTUREFIX Ultra Anchor", "Shoulder", ["instability"]),
         (r"ultra\s*(?:braid|tape)", "ULTRABRAID", "ULTRABRAID", "Rotator Cuff", []),
         (r"superior capsular|capsular reconstruction|\bscr\b", "SCR", "Superior Capsular Reconstruction", "Shoulder", ["SCR"]),
     ],

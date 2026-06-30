@@ -1,0 +1,134 @@
+---
+title: FiberTak DR Bridge Knotless Rotator Cuff Repair Using FiberTak DR and SwiveLock C Anchors
+doc_id: fibertak-dr-bridge-knotless-rotator-cuff-repair-using-fibertak-dr-and-swivelock-
+company: Arthrex
+source_url: https://www.arthrex.com/resources/LT1-00055-EN/fibertak-dr-bridge-knotless-rotator-cuff-repair-using-fibertak-dr-and-swivelock-c-anchors
+source_type: pdf
+procedure_family: rotator_cuff
+page_count: 4
+source: pdf
+---
+
+# FiberTak DR Bridge Knotless Rotator Cuff Repair Using FiberTak DR and SwiveLock C Anchors
+
+Knotless Rotator Cuff Repair
+FiberTak™ DR Bridge Knotless Rotator Cuff Repair 
+Using FiberTak DR and SwiveLock® C Anchors
+Surgical Technique
+
+1
+3
+2
+4
+2
+The FiberTak DR (or “Double Row”) suture anchor is 
+specifically designed for surgeons that prefer an “all-suture” 
+anchor for the medial row of a double-row, bridging, rotator 
+cuff repair. They are combined with knotless SwiveLock C 
+anchors for the lateral row. The unique FiberTak DR anchor 
+has a LabralTape™ suture that is fixed to the sheath so that 
+it cannot slide, making it easy to tension the lateral row 
+of a totally knotless construct. It also includes a sliding #2 
+FiberWire® TigerTail® suture that can either be incorporated 
+into the repair, or discarded, providing ultimate flexibility. 
+FiberTak™ DR Bridge Knotless Rotator Cuff Repair 
+Using FiberTak DR and SwiveLock® C Anchors
+Position the angled FiberTak Spear at the articular 
+margin and prepare a 2.6 mm bone socket using either 
+the FiberTak DR Punch or Drill. Carefully keep the 
+Spear in position. 
+Pass the tail of a FiberLink™ suture, for use as a suture 
+shuttle, through the rotator cuff with a FastPass 
+Scorpion™ SL suture passer. Move the FiberLink tail 
+to an accessory portal.
+Insert the anchor through the Spear with gentle 
+impaction until the inserter handle bottoms out on the 
+Spear. Take care to avoid impacting the Spear into the 
+bone, which could compromise the cortex and lead to 
+poor fixation. Pull the orange suture release tab and 
+remove the inserter and Spear. Lightly pull on the sutures 
+to set the anchor. The sliding #2 TigerTail suture can be 
+saved for incorporation or discarded at this time.
+Retrieve both LabralTape suture tails from the FiberTak 
+DR anchor, using a FiberTape® Retriever. Load both 
+tails of the LabralTape through the FiberLink loop. Pull 
+on the FiberLink tail, through the accessory portal, to 
+shuttle the LabralTape sutures through a single hole in 
+the rotator cuff.
+1.5 mm LabralTape
+(Fixed)
+#2 TigerTail 
+(Sliding)
+Sheath
+
+5 6
+7 8
+9a 9b
+10
+Surgical Technique
+3
+Repeat steps 1-4 for the central and posterior FiberTak™ 
+DR anchors. Three color combinations are available for 
+easy suture management.
+The FiberLink can be used to knotlessly manage a dog 
+ear. Pass the FiberLink™ suture tail through the dog ear 
+with the Scorpion™ SL suture passer. Pass the FiberLink 
+tail through the FiberLink loop to create a cinch stitch.
+Retrieve one LabralTape™ suture tail from each medial 
+anchor and one FiberLink dog ear stitch laterally. Preload 
+them through the SwiveLock® anchor eyelet and clamp 
+the sutures with a hemostat. Prepare a bone socket using 
+a punch. Anchor position is normally 5-10 mm lateral to 
+the edge of the tuberosity.
+Bring the SwiveLock eyelet to the outer edge of the 
+bone socket and remove slack from each LabralTape and 
+FiberLink limb individually. 
+Completely advance the driver into the bone socket until 
+the anchor body contacts bone. Evaluate tissue tension. 
+If it is determined that the tension is not adequate, 
+the driver can be backed out and tension readjusted. 
+Do not attempt to apply tension with the eyelet in the 
+bone socket. Make sure the tip of the anchor body is 
+in contact with bone. Hold the thumb pad steady and 
+rotate the driver in a clockwise direction to insert the 
+anchor body until it is flush with the bone.
+Cut the LabralTape suture tails with a FiberTape® 
+Cutter. Repeat steps 6-9 for the second lateral anchor, 
+completing the FiberTak DR Bridge repair.
+
+ 
+This description of technique is provided as an educational tool and clinical aid to assist properly licensed medical 
+professionals in the usage of specific Arthrex® products. As part of this professional usage, the medical professional must 
+use their professional judgment in making any final determinations in product usage and technique. In doing so, 
+the medical professional should rely on their own training and experience and should conduct a thorough review of 
+pertinent medical literature and the product’s Directions For Use. 
+View U.S. Patent information at www.arthrex.com/corporate/virtual-patent-marking
+©2017, Arthrex Inc. All rights reserved. LT1-00055-EN_A
+Ordering Information
+Implants/Disposables: 
+FiberTak DR with white LabralTape & blue/black #2 TigerTail sutures AR-3651
+FiberTak DR with white/black LabralTape & white/green/black #2 TigerTail sutures AR-3651T
+FiberTak DR with white/blue LabralTape & white/black #2 TigerTail sutures AR-3651TT
+BioComposite SwiveLock C, 4.75 mm x 19.1 mm, closed eyelet AR-2324BCC
+BioComposite SwiveLock C, 5.5 mm x 19.1 mm, closed eyelet AR-2323BCC
+BioComposite SwiveLock SP, 4.75 mm x 24.5 mm, self-punching AR-2324BCM
+BioComposite SwiveLock SP, 5.5 mm x 24.5 mm, self-punching AR-2323BCM
+BioComposite SwiveLock C, 4.75 mm x 22 mm, double-loaded
+ with two #2 TigerWire CL (1 white/blue, 1 white/black) AR-2324BCC-2
+BioComposite SwiveLock C, 4.75 mm x 22 mm, double-loaded
+ with two #2 TigerTail (1 white/black, 1 blue/black) AR-2324BCT-2
+BioComposite SwiveLock C, 5.5 mm x 22 mm, double-loaded
+ with two #2 TigerTail (1 white/black, 1 blue/black) AR-2323BCT-2
+(PEEK, PLLA and titanium SwiveLock anchor options also available)
+MultiFire Scorpion Needle AR-13995N
+Instruments: 
+Spear for FiberTak DR/RC AR-3655
+Punch for FiberTak DR/RC AR-3656
+Drill for FiberTak DR/RC AR-3657
+Blunt Obturator for Spear AR-3658B
+Sharp Obturator for Spear AR-3658T
+Punch, for 5.5 mm Corkscrew FT and 4.75 mm and 5.5 mm SwiveLock AR-1927PB
+Disposable Punch, for 5.5 mm Corkscrew FT and 4.75 mm and 5.5 mm SwiveLock AR-1927PBS
+FastPass Scorpion SL AR-13999MF
+FiberTape Cutter AR-13250
+FiberTape Retriever w/SR Handle AR-13974SR

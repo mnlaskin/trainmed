@@ -14,6 +14,76 @@ Two product surfaces, both company-scoped:
 
 ---
 
+## Current coverage (as of 2026-06-29, post spec gap-fill)
+
+| Company | Chunks | Source PDFs | Product families covered |
+| --- | --- | --- | --- |
+| **Arthrex** | **242** | 63 PDF + 15 video | SpeedBridge, Instability (Bankart/SLAP/remplissage/Latarjet/glenoid bone loss), FiberTak, ArthroFLEX, FiberTape/FiberWire/SutureTape, SCR, SutureBridge, Biceps Tenodesis, PushLock, Corkscrew, CuffMend, SutureTak, SpeedFix, SwiveLock |
+| **Stryker** | **80** | 43 PDF | InSpace, AlphaVent (hard-body + knotless), Cobra, Instability (Iconix/NanoTack 1.4 mm platform), Omega Knotless, XBraidTT/Force Fiber, Iconix, Cinchlock, Champion Slingshot, Knotilus+, PEEK IntraLine, PEEK Zip, ReelX STT |
+| **Smith & Nephew** | **103** | 37 PDF | REGENETEN, Q-FIX, Instability (SUTUREFIX/Latarjet/Bankart), HEALICOIL, FOOTPRINT Ultra, MULTIFIX, MICRORAPTOR, REGENESORB, TWINFIX Ultra |
+| Cross-company | 8 | — | `competitive_insights` (sentinel `_competitive`) |
+| **Total** | **425 + 8** | | |
+
+**Spec coverage filled:** anchor diameters/lengths/drill sizes & materials (PEEK / all-suture /
+BioComposite / HA), suture & tape widths and types (FiberTape 1.7 & 2 mm, SutureTape 1.3 mm,
+XBraid TT 1.4/1.8/2.2 mm, Force Fiber #2), fixation methods (knotless, self-punching,
+tensionable, double-row/TOE), design/biomechanical features, and clinical/evidence summaries.
+
+**Gap-fill method (reproducible, conservative):** official manufacturer PDFs only (no video
+streams). Stryker via deterministic `pdf_ingest.scrape_pdf_links` over stryker.com product
+pages; Arthrex via WebFetch of arthrex.com product pages → `/resources/LT1-*` & `/DOC1-*`
+technique-guide/evidence PDFs; Smith & Nephew via search of smith-nephew.com +
+`smith-nephew.stylelabs.cloud` CDN. Every candidate was `%PDF`-gated, deduped by URL and by
+extracted-text SHA, and scope-checked (knee/ACL/hip/foot/arthroplasty excluded). Seed lists:
+`data/urls/{arthrex,stryker,smithnephew}_shoulder_gap*.txt`.
+
+---
+
+## Structured spec registry (as of 2026-06-30)
+
+On top of the chunk corpus there is a **normalized per-product spec registry** at
+`data/kb/specs/<Company>.json` — one record per `product_family` with clean, queryable fields
+so the assistant answers point-blank spec questions ("what drill for a 4.75 mm SwiveLock?") from
+validated structured data instead of re-deriving them from prose.
+
+| Company | Products in registry |
+| --- | --- |
+| Arthrex | 14 |
+| Stryker | 13 |
+| Smith & Nephew | 9 |
+| **Total** | **36 products · 35 with specs · 224 validated numeric values** |
+
+**Record shape** (`src/trainmed/specs.py` loads it):
+
+```json
+{
+  "company": "Stryker", "product_family": "AlphaVent", "product_name": "AlphaVent",
+  "anchor_diameter_mm": [4.75, 5.5, 6.5], "anchor_length_mm": [16.0],
+  "drill_size_mm": [3.9, 4.75, 5.5], "suture_tape_width_mm": [1.0, 1.4, 1.8],
+  "material": ["biocomposite", "PEEK", "PLLA", "UHMWPE"],
+  "fixation_type": ["double-row", "knotless", "screw-in", "self-punching"],
+  "key_features": ["dual-thread technology", "soft triple eyelet", "..."],
+  "advantages": ["Higher strength than eyelets of leading competitors' anchors", "..."],
+  "disadvantages": [], "clinical_references": ["..."],
+  "sources": [{"title": "...", "url": "...#page=2", "chunk_id": "..."}], "n_chunks": 10
+}
+```
+
+**Extraction (zero-hallucination):** one focused sub-agent per product (parallel Workflow) reads
+ONLY that product's chunks via `scripts/dump_product.py` and extracts verbatim. Then a deterministic
+**validation gate** keeps a numeric value only if it appears as `"<n> mm"` in that product's source
+text, and a material/fixation term only if its words appear — every stored figure is provable from
+the cited source. (5 unverifiable numbers were rejected, e.g. Knotilus+ sizes absent from its lone
+chunk.)
+
+**Retrieval integration:** `specs.is_spec_query()` detects spec/size/comparison questions;
+`specs.match_specs(company, q)` pulls the matching products **(company-scoped — firewall preserved)**;
+the formatted block is prepended to the model context as authoritative ground truth, while normal
+retrieval still supplies prose + the `[n]` citations (fully backward compatible). Inspect via
+`GET /api/specs?company=<Company>`.
+
+---
+
 ## 1. The chunk schema
 
 Every chunk is one JSON file carrying the original fields **plus** the multi-company

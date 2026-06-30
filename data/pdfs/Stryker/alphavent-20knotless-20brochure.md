@@ -1,0 +1,124 @@
+---
+title: AlphaVent Knotless self-punching knotless anchor brochure
+doc_id: alphavent-20knotless-20brochure
+company: Stryker
+source_url: https://www.stryker.com/content/dam/stryker/sports-medicine/products/alphavent-knotless/resources/AlphaVent%20Knotless%20Brochure.pdf
+source_type: pdf
+procedure_family: rotator_cuff
+page_count: 2
+source: pdf
+---
+
+# AlphaVent Knotless self-punching knotless anchor brochure
+
+Streamlined design
+Features
+Coupled, self-punching 
+anchor system 
+Alleviates need for 
+pilot hole creation*
+Coupled eyelet and 
+anchor facilitate 
+streamlined tensioning
+*Pilot hole creation required 
+ for hard bone indications. 
+Dual-thread Technology
+Designed to support 
+anchor performance 
+through cortical thread 
+engagement1
+Provides tactile 
+feedback during cortical 
+thread engagement1 
+Complete venting and 
+cannulation
+Allows exchange of blood 
+and other autologous cells 
+at the implantation site 
+ 
+Your repair. Your way.
+Accommodates a variety 
+of suture configurations
+Anchor length enables 
+use in a single- and 
+double-row repair
+AlphaVent Knotless
+Self-punching, knotless anchor platform
+4.75mm 5.5mm 6.5mm
+Self-punching 
+inserter tip
+Retractable 
+inserter shaft
+Retention suture 
+quick-release tab
+Available in two materials:
+Biocomposite: 85% Poly(L-Lactide)(PLLA)
+15% Beta-tricalcium phosphate (β-TCP)
+PEEK: Poly-ether-ether ketone
+Osteoconductive material
+Leverages the osteoconductive 
+properties of β-TCP , paired 
+with the strength of PLLA1,2,3 
+and designed to promote bone 
+healing and bony ingrowth at 
+the implant site.2,4,5,6 
+Both versions (PEEK and biocomposite) have the same PEEK eyelet.
+
+Stryker 
+Sports Medicine 
+5670 Greenwood Plaza Blvd. 
+Ste. 200 
+Greenwood Village, CO 80111
+t: 866 596 2022 
+www.sportsmedicine.stryker.com
+Sports Medicine
+This document is intended solely for the use of healthcare professionals. A surgeon must always rely on his or her own professional clinical 
+judgment when deciding whether to use a particular product when treating a particular patient. We do not dispense medical advice and 
+recommend that surgeons be trained in the use of any particular product before using it in surgery.
+The information presented is intended to demonstrate Stryker’s products. A surgeon must always refer to the package insert, product label and/ 
+or instructions for use, including the instructions for cleaning and sterilization (if applicable), before using any of Stryker’s products. Products 
+may not be available in all markets because product availability is subject to the regulatory and/or medical practices in individual markets.
+Please contact your representative if you have questions about the availability of Stryker’s products in your area.
+Stryker or its affiliated entities own, use, or have applied for the following trademarks or service marks: AlphaVent, Omega and Stryker. All other 
+trademarks are trademarks of their respective owners or holders. The absence of a product, feature, or service name, or logo from this list does 
+not constitute a waiver of Stryker’s trademark or other intellectual property rights concerning that name or logo.
+SM-SHI-BROC-1784342 rev A 
+Copyright © 2025 Stryker
+AlphaVent Knotless offerings
+Implants
+3911856547 AlphaVent Knotless SP , 4.75mm Biocomposite anchor
+3911956547 AlphaVent Knotless SP , 4.75mm PEEK anchor
+3911856555 AlphaVent Knotless SP , 5.5mm Biocomposite anchor
+3911956555 AlphaVent Knotless SP , 5.5mm PEEK anchor
+3911856565 AlphaVent Knotless SP , 6.5mm Biocomposite anchor
+3911956565 AlphaVent Knotless SP , 6.5mm PEEK anchor
+Instrumentation
+3910947200 3.9mm Omega and 4.75mm AlphaVent awl
+3910947201 4.75mm AlphaVent and Omega awl 
+3910947202 4.75mm AlphaVent and Omega drill
+3910947207 4.75mm AlphaVent tap
+3910947208 4.75mm AlphaVent punch-tap
+3910947203 5.5mm AlphaVent and 4.75mm hard bone Omega drill 
+3910947209 5.5mm AlphaVent tap
+3910947212 Drill guide
+Hard bone instrumentation
+3.9mm Omega and 4.75mm AlphaVent awl
+Drill guide
+4.75mm AlphaVent and Omega awl
+4.75mm AlphaVent and Omega drill
+5.5mm AlphaVent and 4.75mm hard bone Omega drill 
+4.75mm AlphaVent punch-tap
+4.75mm AlphaVent tap
+5.5mm AlphaVent tap
+References:
+1. TR23695
+2. Sae Hoon Kim, MD, PhD, Do Yeon Kim,y MD, Ji Eun Kwon,z MD, Ji Soon Park,§ MD,and Joo Han Oh,y|| MD, PhD. Perianchor Cyst Formation 
+Around Biocomposite Biodegradable Suture Anchors After Rotator Cuff Repair. Seoul National University Bundang Hospital, Seoul, Korea. 2015. 
+The American Journal of Sports Medicine, Vol. 43, No. 12 DOI: 10.1177/0363546515608484
+3. Y Shikinami, M Okuno, Bioresorbable devices made of forged composites of hydroxyapatite (HA) particles and poly-L-lactide (PLLA): Part I. 
+Basic characteristics, Biomaterials, Volume 20, Issue 9, 1999, Pages 859-877, ISSN 0142-9612, https://doi.org/10.1016/S0142-9612(98)00241-5
+4.BCDSR11449
+5. Harri Pihlajamäki, Ole Böstman, Olli Tynninen, Outi Laitinen. Long-term tissue response to bioabsorbable poly-l-lactide and metallic screws: An 
+experimental study, Bone. Volume 39, Issue 4. 2006. Pages 932-937. ISSN 8756-3282. https://doi.org/10.1016/j.bone.2006.04.009.
+6. Visscher LE, Jeffery C, Gilmour T, Anderson L, Couzens G. The history of suture anchors in orthopaedic surgery. Clin Biomech (Bristol, Avon). 
+2019;61:70-78

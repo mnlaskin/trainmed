@@ -15,6 +15,7 @@
   "product_name": "Q-FIX",
   "category": "anchor",
   "technique": [
+    "instability",
     "all_suture",
     "knotless"
   ],

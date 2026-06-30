@@ -1,0 +1,661 @@
+[
+ {
+  "company": "SmithNephew",
+  "product_family": "FOOTPRINT Ultra",
+  "product_name": "FOOTPRINT Ultra PK Suture Anchor",
+  "anchor_diameter_mm": [
+   4.5,
+   5.5
+  ],
+  "anchor_length_mm": [],
+  "drill_size_mm": [
+   3.5,
+   3.8,
+   4.5
+  ],
+  "suture_tape_width_mm": [],
+  "material": [
+   "PEEK",
+   "PEEK-OPTIMA"
+  ],
+  "fixation_type": [
+   "double-row",
+   "self-punching"
+  ],
+  "key_features": [
+   "inner plug adjustability",
+   "offset barbed geometry threads",
+   "tap-in anchor design",
+   "hidden retention suture",
+   "integrated suture management docking tabs",
+   "torque limiter with positive stop",
+   "elongated ergonomic handle",
+   "suture threading loop"
+  ],
+  "advantages": [
+   "Uniquely designed, inner plug adjustability means more precise fixation and suture tensioning of final repair",
+   "Reduced suture slippage means less gap formation and rotator cuff displacement",
+   "Exclusive tap-in anchor design with offset barbed geometry threads means strong pullout and easy insertion",
+   "Unique barbed anchor design provides optimal pull-out strength for a tap-in anchor design",
+   "captures suture limbs from neighboring anchors, creating a suture pattern that provides compression of the rotator cuff tissue to the humeral head",
+   "adjustability of the suture tension across the surface of the cuff tissue, even after the traditional fixation is completed",
+   "internal anchor plug securing the suture can be reversed, allowing an increase or decrease in tension"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "Data on file at Smith & Nephew, ITR-3679, 2008",
+   "Data on file at Smith & Nephew, ITR-4202, 2010; ITR-3557, 2007; ITR-3784, 2008",
+   "Lo, Burkhart, Chan, and Kyriacos Athanasiou, \"Arthroscopic Knots: Determining the Optimal Balance of Loop Security and Knot Security,\" Arthroscopy 20, no. 5 (May-June 2004): 489-502",
+   "Akao, M., Aoki, H. and Kato, K., Mechanical properties of sintered hydroxyapatite for prosthetic applications. Journal of Material Science: 16, 809-812, (1981)"
+  ],
+  "sources": [
+   {
+    "title": "TWINFIX Ultra & FOOTPRINT Ultra Suture Anchor family sales sheet (double-row)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/a832b8c4bc2645cb8a3505b0b37bde1a?v=36693f30&download=true#page=1",
+    "chunk_id": "a832b8c4bc2645cb8a3505b0b37bde1a_000"
+   },
+   {
+    "title": "TWINFIX Ultra & FOOTPRINT Ultra Suture Anchor family sales sheet (double-row)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/a832b8c4bc2645cb8a3505b0b37bde1a?v=36693f30&download=true#page=3",
+    "chunk_id": "a832b8c4bc2645cb8a3505b0b37bde1a_001"
+   },
+   {
+    "title": "TWINFIX Ultra & FOOTPRINT Ultra Suture Anchor family sales sheet (double-row)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/a832b8c4bc2645cb8a3505b0b37bde1a?v=36693f30&download=true#page=5",
+    "chunk_id": "a832b8c4bc2645cb8a3505b0b37bde1a_002"
+   },
+   {
+    "title": "TWINFIX Ultra & FOOTPRINT Ultra Suture Anchor family sales sheet (double-row)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/a832b8c4bc2645cb8a3505b0b37bde1a?v=36693f30&download=true#page=7",
+    "chunk_id": "a832b8c4bc2645cb8a3505b0b37bde1a_003"
+   }
+  ],
+  "n_chunks": 7
+ },
+ {
+  "company": "SmithNephew",
+  "product_family": "HEALICOIL",
+  "product_name": "HEALICOIL Suture Anchor",
+  "anchor_diameter_mm": [
+   4.5,
+   4.75,
+   5.0,
+   5.5
+  ],
+  "anchor_length_mm": [],
+  "drill_size_mm": [
+   3.5,
+   3.8,
+   4.5,
+   4.75,
+   5.5
+  ],
+  "suture_tape_width_mm": [],
+  "material": [
+   "biocomposite",
+   "calcium sulfate",
+   "PEEK",
+   "PLGA",
+   "REGENESORB",
+   "ß-TCP"
+  ],
+  "fixation_type": [
+   "knotless",
+   "self-tapping"
+  ],
+  "key_features": [
+   "open architecture",
+   "coil-type",
+   "vented",
+   "internal locking plug mechanism",
+   "fully threaded dilator",
+   "spade tip drill"
+  ],
+  "advantages": [
+   "Open architecture anchor facilitates healing by allowing access of bone marrow and associated stem cells to the repair site",
+   "Open architecture design facilitated greater bone ingrowth than non-open architecture designed anchors",
+   "Mean rotator cuff thickness at six weeks (0.59 cm) was significantly greater compared to Healix Advance Suture Anchor (0.48 cm)",
+   "Three times more open than Arthrex BioComposite SwiveLock 4.75mm SP",
+   "Four times more open than Arthrex BioComposite SwiveLock 5.5mm SP",
+   "69% less suture displacement than Arthrex BioComposite SwiveLock 5.5mm Self-Punching (SP) after cyclic loading for 500 cycles",
+   "94% less suture displacement than Healix Advance 5.5mm SP Biocomposite Anchor after cyclic loading for 500 cycles",
+   "Less material volume compared to Arthrex BioComposite SwiveLock 4.75mm SP (20%), Arthrex BioComposite SwiveLock 5.5mm SP (40%) and Healix Advance 5.5mm SP BioComposite Anchor (62%)"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "Vonhoegen J, John D, Hägermann C. Osteoconductive resorption characteristics of a novel biocomposite suture anchor material in rotator cuff repair. J Orthop Surg Res. 2019;14:12.",
+   "Sano H, Tokunaga M, Noguchi M, et al. Comparison of fixation properties between coil-type and screw-type anchors for rotator cuff repair: A virtual pullout testing using 3-dimensional finite element method. J Orthop Sci. 2016;21(4):452-457.",
+   "Clark TR, Guerrero EM, Song A, O'Brien MJ, Savoie FH. Do Vented Suture Anchors Make a Difference in Rotator Cuff Healing. Ann Sports Med Res. 2016;3(3):1068.",
+   "Chahla J, Liu JN, Manderle B, et al. Bony ingrowth of coil-type open-architecture anchors compared with screw-type PEEK anchors for the medial row in rotator cuff repair: a randomized controlled trial. Arthroscopy. 2020;36(4):952-961.",
+   "Kim JH, Kim YS, Park I, Lee HJ, Han SY, Jung S, Shin SJ. A Comparison of Open-Construct PEEK Suture Anchor and Non-Vented Biocomposite Suture Anchor in Arthroscopic Rotator Cuff Repair: A Prospective Randomized Clinical Trial. Arthroscopy. 2020;36(2):389-396."
+  ],
+  "sources": [
+   {
+    "title": "HEALICOIL Knotless Suture Anchor reference guide - self-tapping (suture-threader workflow)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/04cf992157f14d359f2029f5758f36b2?v=faa4d97a&download=true",
+    "chunk_id": "04cf992157f14d359f2029f5758f36b2_000"
+   },
+   {
+    "title": "HEALICOIL REGENESORB biocomposite suture anchor - Evidence in Focus",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/0de98e893251425190aca88cd168734b?v=06a45002&download=true",
+    "chunk_id": "0de98e893251425190aca88cd168734b_000"
+   },
+   {
+    "title": "HEALICOIL Suture Anchor — Redefining Biological Healing (Open Architecture)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/2cab6fe69689432c9f3fde4ad384f31c?v=9a14f2cf&download=true#page=1",
+    "chunk_id": "2cab6fe69689432c9f3fde4ad384f31c_000"
+   },
+   {
+    "title": "HEALICOIL Suture Anchor — Redefining Biological Healing (Open Architecture)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/2cab6fe69689432c9f3fde4ad384f31c?v=9a14f2cf&download=true#page=3",
+    "chunk_id": "2cab6fe69689432c9f3fde4ad384f31c_001"
+   }
+  ],
+  "n_chunks": 14
+ },
+ {
+  "company": "SmithNephew",
+  "product_family": "Instability",
+  "product_name": "Instability Excellence Shoulder Repair Portfolio",
+  "anchor_diameter_mm": [
+   1.7,
+   1.8,
+   2.0,
+   2.3,
+   2.8
+  ],
+  "anchor_length_mm": [],
+  "drill_size_mm": [
+   2.2,
+   2.6,
+   2.7,
+   2.8
+  ],
+  "suture_tape_width_mm": [],
+  "material": [
+   "all-suture",
+   "biocomposite",
+   "calcium sulfate",
+   "PEEK",
+   "PLGA",
+   "REGENESORB",
+   "ß-tricalcium phosphate"
+  ],
+  "fixation_type": [
+   "knotless",
+   "knotted",
+   "suture-button"
+  ],
+  "key_features": [
+   "active deployment mechanism",
+   "360 degree radial expansion",
+   "radially expanding implant design",
+   "rectangular anchor tapering towards distal tip",
+   "full-length inserter",
+   "rigid implant design",
+   "off-axis insertion",
+   "curved drill guide"
+  ],
+  "advantages": [
+   "Q-FIX active deployment mechanism tensions sutures to at least 140N",
+   "Q-FIX 1.8mm Anchor shown to provide greater maximal load than other commercially available labral repair anchors in 30 pcf block",
+   "Q-FIX 1.8mm Anchor shown to provide the lowest displacement during cyclic loading among competitor all-suture anchors",
+   "Q-FIX Anchors demonstrated 98.4% success rate (1.6% pull-out incidence) in acetabular labral repair",
+   "MICRORAPTOR KNOTLESS Anchor provides significantly (p<0.001) greater fixation than other commercially available knotless anchors",
+   "MICRORAPTOR KNOTLESS 71% higher anchor fixation strength than Arthrex Short PushLock BioComposite",
+   "MICRORAPTOR KNOTLESS 47% higher anchor fixation strength than Arthrex PushLock BioComposite",
+   "MICRORAPTOR KNOTLESS 21% higher anchor fixation strength than Stryker CinchLock SS knotless anchor"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "Douglass NP, Behn AW, Safran MR. Cyclic and load to failure properties of all-suture anchors in synthetic acetabular and glenoid cancellous bone. Arthroscopy. 2017;33:977-985.",
+   "Ruder JA, Dickinson EY, Peindl RD, et al. Cyclic and load-to-failure properties of all-suture anchors in human cadaveric shoulder glenoid bone. Arthroscopy. 2019;35(7):1954-1959.",
+   "Byrd JWT, Jones KS, Loring CL, Sparks SL. Acetabular all-suture anchor for labral repair: incidence of intraoperative failure due to pullout. Arthroscopy. 2018;34(4):1213-1216.",
+   "Ergün S, Akgün U, Barber FA, Karahan M. The Clinical and biomechanical performance of all-suture anchors: a systematic review. Arthroscopy. 2020;2(3):e263-e273.",
+   "Erickson J, Chiarappa F, Haskel J, et al. Biomechanical comparison of a first- and a second-generation all-soft suture glenoid anchor. Orthop J Sports Med. 2017;5(7):2325967117717010.",
+   "Liu T, Yamamoto N, Shinagawa K, Hatta T, Itoi E. Curved-guide system is useful in achieving optimized trajectory for the most inferior suture anchor during arthroscopic Bankart repair. JSES. 2019;28(9):1692-1698.",
+   "White, BJ. Assessment of Smith and Nephew Q-FIX and curved SUTUREFIX Anchors in arthroscopic allograft labral reconstruction of the hip. Poster presented at: ISHA; December 11-14, 2021; Las Vegas, USA.",
+   "Hanypsiak BT, DeLong JM, Simmons L, Lowe W, Burkhart S. Knot strength varies widely among expert arthroscopists. Am J Sports Med. 2014;42(8):1978-1984.",
+   "Kim SH, Crater RB, Hargens AR. Movement-induced knot migration after anterior stabilization in the shoulder. Arthroscopy. 2013;29(3):485-490.",
+   "Matache BA, Hurley ET, Kanakamedala AC, et al. Knotted versus knotless anchors for labral repair in the shoulder: a systematic review. Arthroscopy. 2021;37(4):1314-1321."
+  ],
+  "sources": [
+   {
+    "title": "Instability Excellence Shoulder Repair Portfolio — Collection of Evidence (Feb 2024)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/0c3cb8141e234cdfa73aa6ef717cb8ad?v=fb1a49da&download=true#page=1",
+    "chunk_id": "0c3cb8141e234cdfa73aa6ef717cb8ad_000"
+   },
+   {
+    "title": "Instability Excellence Shoulder Repair Portfolio — Collection of Evidence (Feb 2024)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/0c3cb8141e234cdfa73aa6ef717cb8ad?v=fb1a49da&download=true#page=3",
+    "chunk_id": "0c3cb8141e234cdfa73aa6ef717cb8ad_001"
+   },
+   {
+    "title": "Instability Excellence Shoulder Repair Portfolio — Collection of Evidence (Feb 2024)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/0c3cb8141e234cdfa73aa6ef717cb8ad?v=fb1a49da&download=true#page=6",
+    "chunk_id": "0c3cb8141e234cdfa73aa6ef717cb8ad_002"
+   },
+   {
+    "title": "Instability Excellence Shoulder Repair Portfolio — Collection of Evidence (Feb 2024)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/0c3cb8141e234cdfa73aa6ef717cb8ad?v=fb1a49da&download=true#page=8",
+    "chunk_id": "0c3cb8141e234cdfa73aa6ef717cb8ad_003"
+   }
+  ],
+  "n_chunks": 20
+ },
+ {
+  "company": "SmithNephew",
+  "product_family": "MICRORAPTOR",
+  "product_name": "MICRORAPTOR Knotless Suture Anchor",
+  "anchor_diameter_mm": [
+   2.4,
+   2.75
+  ],
+  "anchor_length_mm": [
+   11.5
+  ],
+  "drill_size_mm": [
+   2.2,
+   2.6
+  ],
+  "suture_tape_width_mm": [],
+  "material": [
+   "biocomposite",
+   "Calcium Sulfate",
+   "PEEK",
+   "PLGA",
+   "REGENESORB",
+   "ß-TCP"
+  ],
+  "fixation_type": [
+   "knotless"
+  ],
+  "key_features": [
+   "full-length inserter",
+   "rigid implant design",
+   "coreless suture tape (MINITAPE)",
+   "tapers into #2 sutures",
+   "low profile suture tape",
+   "deployable anchor (rotate knob to deploy)"
+  ],
+  "advantages": [
+   "Improved off-axis insertion performance compared to other commercially available biocomposite knotless anchors",
+   "71% higher anchor fixation strength than Arthrex Short PushLock BioComposite",
+   "47% higher anchor fixation strength than Arthrex PushLock BioComposite",
+   "21% higher anchor fixation strength than Stryker CinchLock SS knotless anchor",
+   "Less overall implant volume compared to Arthrex PushLock PEEK suture anchor and Stryker CinchLock SS Knotless Anchor",
+   "Shorter overall construct length post-anchor deployment compared to Arthrex PushLock Biocomposite Anchor, Short Arthrex PushLock BioComposite Anchor and Stryker CinchLock SS Knotless Anchor",
+   "Superior fixation strength compared to other commercially available knotless anchors",
+   "REGENESORB material remains mechanically stable for a minimum of six months before being absorbed and replaced by bone within 24 months"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "Vonhoegen J, John D, Hägermann C. Osteoconductive resorption characteristics of a novel biocomposite suture anchor material in rotator cuff repair. Orthop Traumatol Surg Res. 2019;14(1):12.",
+   "Milewski MD, et al. Bone replacement of fast-absorbing biocomposite anchors in arthroscopic shoulder labral repairs, AJSM. 2012",
+   "Park K, Skidmore S, Hadar J, et al. Injectable, long-acting PLGA formulations: Analyzing PLGA and understanding microparticle formation. J Control Release. 2019;304:125-134."
+  ],
+  "sources": [
+   {
+    "title": "MICRORAPTOR KNOTLESS Suture Anchor — Shoulder Reference Guide",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/4f64600ce3fe4b6584003a5dbf89482d?v=f887af83&download=true",
+    "chunk_id": "4f64600ce3fe4b6584003a5dbf89482d_000"
+   },
+   {
+    "title": "MICRORAPTOR KNOTLESS Suture Anchor — Product Brochure (Redefining peak performance)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/bf21dfa2797242d3b7e3247f53e7bea3?v=3b619341&download=true#page=1",
+    "chunk_id": "bf21dfa2797242d3b7e3247f53e7bea3_000"
+   },
+   {
+    "title": "MICRORAPTOR KNOTLESS Suture Anchor — Product Brochure (Redefining peak performance)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/bf21dfa2797242d3b7e3247f53e7bea3?v=3b619341&download=true#page=5",
+    "chunk_id": "bf21dfa2797242d3b7e3247f53e7bea3_001"
+   }
+  ],
+  "n_chunks": 3
+ },
+ {
+  "company": "SmithNephew",
+  "product_family": "MULTIFIX",
+  "product_name": "MULTIFIX S ULTRA Knotless Suture Anchor",
+  "anchor_diameter_mm": [
+   5.5,
+   6.5
+  ],
+  "anchor_length_mm": [],
+  "drill_size_mm": [
+   3.4
+  ],
+  "suture_tape_width_mm": [],
+  "material": [
+   "all-PEEK",
+   "PEEK"
+  ],
+  "fixation_type": [
+   "knotless",
+   "pound-in"
+  ],
+  "key_features": [
+   "pound-in tip",
+   "suture lock with the turn of a dial",
+   "two bone lock options",
+   "dual snare loops",
+   "accommodates 2-4 suture strands",
+   "deployment knob",
+   "laser mark on leading thread of screw body"
+  ],
+  "advantages": [
+   "multiple fixation options",
+   "streamlined technique",
+   "ideal in multi-suture constructs",
+   "hand tension sutures for tactile feedback",
+   "accommodates 2-4 suture strands to allow multiple construct configurations",
+   "allows surgeons to meet the needs of a diverse patient population"
+  ],
+  "disadvantages": [],
+  "clinical_references": [],
+  "sources": [
+   {
+    "title": "MULTIFIX S ULTRA Knotless - arthroscopic rotator cuff repair shoulder technique guide",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/2cb9242462254ce98e57fd1609625d43?v=82a482bb&download=true#page=1",
+    "chunk_id": "2cb9242462254ce98e57fd1609625d43_000"
+   },
+   {
+    "title": "MULTIFIX S ULTRA Knotless - arthroscopic rotator cuff repair shoulder technique guide",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/2cb9242462254ce98e57fd1609625d43?v=82a482bb&download=true#page=3",
+    "chunk_id": "2cb9242462254ce98e57fd1609625d43_001"
+   },
+   {
+    "title": "MULTIFIX S ULTRA Knotless - arthroscopic rotator cuff repair shoulder technique guide",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/2cb9242462254ce98e57fd1609625d43?v=82a482bb&download=true#page=6",
+    "chunk_id": "2cb9242462254ce98e57fd1609625d43_002"
+   },
+   {
+    "title": "MULTIFIX S ULTRA Knotless Suture Anchor - product brochure",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/fc09bbd9eba3485ca61fa94d8915cd1e?v=5764bb35&download=true",
+    "chunk_id": "fc09bbd9eba3485ca61fa94d8915cd1e_000"
+   }
+  ],
+  "n_chunks": 4
+ },
+ {
+  "company": "SmithNephew",
+  "product_family": "Q-FIX",
+  "product_name": "Q-FIX All-Suture Anchor",
+  "anchor_diameter_mm": [
+   1.8,
+   2.8
+  ],
+  "anchor_length_mm": [],
+  "drill_size_mm": [
+   1.8,
+   2.8
+  ],
+  "suture_tape_width_mm": [],
+  "material": [
+   "all-suture"
+  ],
+  "fixation_type": [
+   "knotless",
+   "knotted"
+  ],
+  "key_features": [
+   "360º subcortical radial expansion",
+   "radial expanding deployment",
+   "active deployment against the inserter shaft",
+   "suture lock feature",
+   "pre-loaded with MINITAPE suture tape",
+   "low-profile coreless MINITAPE suture tape",
+   "single loaded (1.8mm)",
+   "double loaded (2.8mm)"
+  ],
+  "advantages": [
+   "Active deployment against the inserter shaft consistently sets the anchor to at least 140N, contributing to high pull-out performance and low displacement during cyclic loading",
+   "Provides market leading biomechanical performance as compared to competitive all-suture anchors in cyclic and fixation/pull-out benchtop testing",
+   "360º subcortical radial expansion leading to best-in-class anchor fixation as compared to competitive devices in fixation/pull-out benchtop testing",
+   "Q-FIX KNOTLESS suture lock feature allows for best-in-class soft tissue security as compared to the competitive device in cyclic benchtop testing",
+   "Q-FIX KNOTLESS and Q-FIX All-Suture Anchor 1.8 have equivalent suture displacement when subjected to cyclic loading",
+   "Q-FIX 1.8mm demonstrates very low incidence of pullout (1.6%; 98.4% success rate) in acetabular labral repair",
+   "MINITAPE Suture Tape low profile and coreless design offers a lower and more evenly distributed level of pressure"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "Shon MS, Koh KH, Lim TK, Lee SW, Park YE, Yoo JC. Arthroscopic Suture Anchor Tenodesis: Loop-Suture Technique. Arthroscopy Techniques. 2013;2(2):e105-e110",
+   "Chiang FL, Hong CK, Chang CH, Lin CL, Jou IM, Su WR et al. Biomechanical Comparison of All-Suture Anchor Fixation and Interference Screw Technique for Subpectoral Biceps Tenodesis. Arthroscopy. 2016;32:1247-1252",
+   "Baleani M, Francesconi D, Zani L, Giannini S, Snyder SJ. Suprapectoral biceps tenodesis: A biomechanical comparison of a new “soft anchor” tenodesis technique versus interference screw biceps tendon fixation. Clinical Biomechanics. 2015;30(2):188-194",
+   "Patzer T., Rundic J.M., Bobrowitsch E., Olender G.D., Hurschler C., Schofer M.D. Biomechanical comparison of arthroscopically performable techniques for suprapectoral biceps tenodesis. Arthroscopy. 2011;27:1036-1047",
+   "Mazzocca AD, Cote MP, Arciero CL, Romeo AA, Arciero RA. Clinical outcomes after subpectoral biceps tenodesis with an interference screw. Am. J. Sports Med. 2008;36:1922-1929",
+   "Sears BW, Spencer EE, Getz CL. Humeral fracture following subpectoral biceps tenodesis in 2 active, healthy patients. J. Shoulder Elb. Surg. 2011;20:e7-e11",
+   "Koch BS, Burks RT. Failure of biceps tenodesis with interference screw fixation. Arthroscopy: The Journal of Arthroscopic & Related Surgery. 2012;28(5):735-740",
+   "Lopez-Vidriero E., Costic R.S., Fu F.H., Rodosky M.W. Biomechanical evaluation of 2 arthroscopic biceps tenodeses: Double-anchor versus percutaneous intra-articular transtendon (PITT) techniques. Am J Sports Med. 2010;38:146-152",
+   "Barber FA, Herbert MA. All-Suture Anchors: Biomechanical Analysis of Pullout Strength, Displacement, and Failure Mode. Arthroscopy. 2017;33(6):1113-1121",
+   "Douglass NP, Behn AW, Safran MR. Cyclic and Load to Failure Properties of All-Suture Anchors in Synthetic Acetabular and Glenoid Cancellous Bone. Arthroscopy. 2017;33(5):977-985 e975"
+  ],
+  "sources": [
+   {
+    "title": "Q-FIX All-Suture Anchor - arthroscopic technique for biceps tenodesis (surgical technique)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/007a9df8ae5a4cdebe6919e00fea930a?v=038e39de&download=true#page=1",
+    "chunk_id": "007a9df8ae5a4cdebe6919e00fea930a_000"
+   },
+   {
+    "title": "Q-FIX All-Suture Anchor - arthroscopic technique for biceps tenodesis (surgical technique)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/007a9df8ae5a4cdebe6919e00fea930a?v=038e39de&download=true#page=3",
+    "chunk_id": "007a9df8ae5a4cdebe6919e00fea930a_001"
+   },
+   {
+    "title": "Q-FIX All-Suture Anchor - arthroscopic technique for biceps tenodesis (surgical technique)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/007a9df8ae5a4cdebe6919e00fea930a?v=038e39de&download=true#page=6",
+    "chunk_id": "007a9df8ae5a4cdebe6919e00fea930a_002"
+   },
+   {
+    "title": "Q-FIX All-Suture Anchor - arthroscopic technique for biceps tenodesis (surgical technique)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/007a9df8ae5a4cdebe6919e00fea930a?v=038e39de&download=true#page=9",
+    "chunk_id": "007a9df8ae5a4cdebe6919e00fea930a_003"
+   }
+  ],
+  "n_chunks": 20
+ },
+ {
+  "company": "SmithNephew",
+  "product_family": "REGENESORB",
+  "product_name": "REGENESORB",
+  "anchor_diameter_mm": [
+   4.75,
+   5.0,
+   5.5
+  ],
+  "anchor_length_mm": [],
+  "drill_size_mm": [
+   3.8,
+   4.75,
+   5.5
+  ],
+  "suture_tape_width_mm": [],
+  "material": [
+   "biocomposite",
+   "calcium sulfate",
+   "PLGA",
+   "ß-TCP"
+  ],
+  "fixation_type": [
+   "knotless",
+   "reverse-thread",
+   "screw-in",
+   "self-tapping"
+  ],
+  "key_features": [
+   "vented anchor",
+   "open architecture (HEALICOIL)",
+   "three-component biocomposite (PLGA, ß-TCP, calcium sulfate)",
+   "two osteoconductive components (ß-TCP and calcium sulfate)",
+   "pre-loaded with ULTRATAPE",
+   "pre-loaded with ULTRABRAID suture",
+   "threaded dilator",
+   "spade drill"
+  ],
+  "advantages": [
+   "Mechanically stable for a minimum of six months before being absorbed and replaced by bone within 24 months",
+   "Two osteoconductive components (ß-TCP and calcium sulfate) acting during different stages of bone healing — no other biocomposite material can claim this",
+   "Changes to bone earlier compared to competitive biocomposite materials",
+   "Faster, more complete absorption than Arthrex's biocomposite material — 70% absorption of HEALICOIL REGENESORB at 18 months vs 57% for the PLLA/ß-TCP-based Arthrex BioComposite Corkscrew FT (p<0.001)",
+   "Open architecture allows bone marrow stem cells to reach the bone-tendon interface to promote healing",
+   "Bone grows across the coils of the vented anchor"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "Vonhoegen J, John D, Hägermann C. Osteoconductive resorption characteristics of a novel biocomposite suture anchor material in rotator cuff repair. Orthop Traumatol Surg Res. 2019;14(1):12.",
+   "Milewski MD, et al. Bone replacement of fast-absorbing biocomposite anchors in arthroscopic shoulder labral repairs, AJSM. 2012",
+   "Arthrex Inc. BioComposite SutureTak, BioComposite Corkscrew FT and BioComposite PushLock: An In Vitro Degradation Study, 2009.",
+   "Data on file at Smith & Nephew, study NCS248 (18-month interim report), 2014.",
+   "Smith and Nephew 2010. Micro-CT and histological evaluation of specimens from resorbable screw study (RS-II / OM1-08) 24-month post-implantation. Internal Report. WRP-TE045-700-08.",
+   "Park K, Skidmore S, Hadar J, et al. Injectable, long-acting PLGA formulations: Analyzing PLGA and understanding microparticle formation. J Control Release. 2019;304:125-134."
+  ],
+  "sources": [
+   {
+    "title": "REGENESORB Absorbable Biocomposite Material brochure",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/e8fbad44ad914521acbae54dca6edd23?v=120894bf&download=true#page=1",
+    "chunk_id": "e8fbad44ad914521acbae54dca6edd23_000"
+   },
+   {
+    "title": "REGENESORB Absorbable Biocomposite Material brochure",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/e8fbad44ad914521acbae54dca6edd23?v=120894bf&download=true#page=3",
+    "chunk_id": "e8fbad44ad914521acbae54dca6edd23_001"
+   },
+   {
+    "title": "REGENESORB Absorbable Biocomposite Material brochure",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/e8fbad44ad914521acbae54dca6edd23?v=120894bf&download=true#page=6",
+    "chunk_id": "e8fbad44ad914521acbae54dca6edd23_002"
+   }
+  ],
+  "n_chunks": 3
+ },
+ {
+  "company": "SmithNephew",
+  "product_family": "REGENETEN",
+  "product_name": "REGENETEN Bioinductive Implant",
+  "anchor_diameter_mm": [],
+  "anchor_length_mm": [],
+  "drill_size_mm": [],
+  "suture_tape_width_mm": [],
+  "material": [
+   "bioabsorbable collagen",
+   "bovine collagen",
+   "highly purified bovine Achilles tendon",
+   "resorbable bovine collagen"
+  ],
+  "fixation_type": [],
+  "key_features": [
+   "highly porous implant design",
+   "proprietary implant design",
+   "bioinductive",
+   "bioabsorbable/resorbable",
+   "derived from highly purified bovine Achilles tendon",
+   "collagen scaffold",
+   "arthroscopic delivery"
+  ],
+  "advantages": [
+   "Stimulates the body's natural healing response to support new tendon growth and disrupt disease progression",
+   "Gradually absorbs within 6 months and leaves a layer of new tendon-like tissue to biologically augment the existing tendon",
+   "Induction of new tendon-like tissue in all patients (N=33)",
+   "Mean increase of tendon thickness of 2.2 mm (P < 0.0001) at 3 months",
+   "No foreign body/inflammatory reaction",
+   "No implant-related complications",
+   "High patient satisfaction (94%) after 1 year",
+   "Rapid recovery: average 23 days of sling time"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "Schlegel TF, Abrams JS, Bushnell BD, Brock JL, Ho CP. Radiologic and clinical evaluation of a bioabsorbable collagen implant to treat partial-thickness tears: a prospective multicenter study. J Shoulder Elbow Surg. 2018;27(2):242-251.",
+   "Bokor DJ, Sonnabend D, Deady L, et al. Evidence of healing of partial-thickness rotator cuff tears following arthroscopic augmentation with a collagen implant: a 2-year MRI follow-up. Muscles Ligaments Tendons J. 2016;6(1):16-25.",
+   "Bokor DJ, Sonnabend DH, Deady L, et al. Healing of partial-thickness rotator cuff tears following arthroscopic augmentation with a highly-porous collagen implant: a 5-year clinical and MRI follow-up. Muscles Ligaments Tendons J. 2019;9(3):338-347.",
+   "Bokor DJ, Sonnabend D, Deady L, et al. Preliminary investigation of a biological augmentation of rotator cuff repairs using a collagen implant: a 2-year MRI follow-up. Muscles Ligaments Tendons J. 2015;5(3):144-150.",
+   "Schlegel TF, Abrams JS, Angelo RL, Getelman MH, Ho CP, Bushnell BD. Isolated bioinductive repair of partial-thickness rotator cuff tears using a resorbable bovine collagen implant: two-year radiologic and clinical outcomes from a prospective multicenter study. J Shoulder Elbow Surg. 2021;30(8):1938-1948.",
+   "Ruiz Ibán MA, Navlet MG, Moros SL, et al. Augmentation with a bovine bioinductive collagen implant of a posterosuperior cuff repair shows lower retear rates but similar outcomes compared to no augmentation: 2-year results of a randomized controlled trial. Arthroscopy. 2025.",
+   "Ruiz Ibán MA, Navlet MG, Marco SM, et al. Augmentation of a transosseous equivalent repair in posterosuperior non-acute rotator cuff tears with a bioinductive collagen implant decreases the re-tear rate at one year. A randomised controlled trial. Arthroscopy. 2024;40(6):1760-1773.",
+   "Camacho Chacón JA, et al. An isolated bioinductive repair vs sutured repair for full-thickness rotator cuff tears: 2-year results of a double blinded, randomized controlled trial. J Shoulder Elbow Surg. 2024;33(9):1894-1904.",
+   "Camacho Chacón JA, Cuenca-Espierrez J, Roda-Rojo V, et al. Bioinductive collagen implants facilitate tendon regeneration in rotator cuff tears. J Exp Orthop. 2022;9(1):53.",
+   "Bushnell BD, Bishai SK, Krupp RJ, et al. Treatment of partial-thickness rotator cuff tear repairs with a resorbable bioinductive bovine collagen implant: 1-year results from a prospective multi-center registry. Orthop J Sports Med. 2021;9(8):23259671211027850."
+  ],
+  "sources": [
+   {
+    "title": "REGENETEN Bioinductive Implant - Redefining healing potential (Advanced Healing Solutions)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/13508-anz-V4-REGENETEN-Brochure-0821?v=9d9c8351&download=true#page=1",
+    "chunk_id": "13508-anz-v4-regeneten-brochure-0821_000"
+   },
+   {
+    "title": "REGENETEN Bioinductive Implant - Redefining healing potential (Advanced Healing Solutions)",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/13508-anz-V4-REGENETEN-Brochure-0821?v=9d9c8351&download=true#page=3",
+    "chunk_id": "13508-anz-v4-regeneten-brochure-0821_001"
+   },
+   {
+    "title": "REGENETEN - partial-thickness tear size reduction & progression",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/1f84a27a611a4cb7843b5d6e7514142c?v=61571124&download=true",
+    "chunk_id": "1f84a27a611a4cb7843b5d6e7514142c_000"
+   },
+   {
+    "title": "REGENETEN 2-year RCT - re-tear reduction in full-thickness rotator cuff tears",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/405bbc49fee44a20be2082ca822a8861?v=8ae0974a&download=true",
+    "chunk_id": "405bbc49fee44a20be2082ca822a8861_000"
+   }
+  ],
+  "n_chunks": 30
+ },
+ {
+  "company": "SmithNephew",
+  "product_family": "TWINFIX Ultra",
+  "product_name": "TWINFIX Ultra Suture Anchor",
+  "anchor_diameter_mm": [
+   4.5,
+   5.5,
+   6.5
+  ],
+  "anchor_length_mm": [],
+  "drill_size_mm": [
+   4.5,
+   5.5
+  ],
+  "suture_tape_width_mm": [],
+  "material": [
+   "bio-composite",
+   "PLLA-HA",
+   "PLLA/HA"
+  ],
+  "fixation_type": [],
+  "key_features": [
+   "transitional thread design",
+   "distal cutting threads",
+   "proximal locking threads",
+   "internal driver support",
+   "internal anchor eyelet",
+   "preloaded suture",
+   "twist-and-release needle delivery system",
+   "double or triple ULTRABRAID suture configurations"
+  ],
+  "advantages": [
+   "distal cutting threads for easier insertion",
+   "proximal locking threads for stronger pullout strength even in poor bone quality",
+   "ULTRABRAID Suture provides stronger knot strength than competitive suture and a low-profile knot stack",
+   "best-in-class anchor pullout strength",
+   "HA neutralizes acidity allowing higher strength retention over time",
+   "PLLA-HA promotes bone replacement"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "Lo, Burkhart, Chan, and Kyriacos Athanasiou, Arthroscopic Knots: Determining the Optimal Balance of Loop Security and Knot Security, Arthroscopy 20, no.5 (May-June 2004): 489-502",
+   "S.D. Cook, D.A. Funk, T.P. Schmalzried. Orthopedic Biomaterials and Implant Fixation, instructional course lecture, AAOS 63rd meeting",
+   "C.M. Agrawal, K.A. Athanasiou; Technique to control PH in vicinity of biodegrading PLS-PGA implants, J. Biomed Materials Research, 39 (2) (1997): 105-114"
+  ],
+  "sources": [
+   {
+    "title": "TWINFIX Ultra HA Suture Anchor — Absorb the benefits of strong, versatile rotator cuff rep",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/6ea5fdc4a9334ee88b1a2af76dbdde3c?v=70297f39&download=true",
+    "chunk_id": "6ea5fdc4a9334ee88b1a2af76dbdde3c_000"
+   },
+   {
+    "title": "TWINFIX Ultra Preloaded Suture Anchors with Needles — Needle management with a twist",
+    "url": "https://smith-nephew.stylelabs.cloud/api/public/content/987ea8745d3b40e9b98c7aa1210a8c07?v=92491566&download=true",
+    "chunk_id": "987ea8745d3b40e9b98c7aa1210a8c07_000"
+   }
+  ],
+  "n_chunks": 2
+ }
+]

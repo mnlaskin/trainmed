@@ -1,0 +1,804 @@
+[
+ {
+  "company": "Stryker",
+  "product_family": "AlphaVent",
+  "product_name": "AlphaVent",
+  "anchor_diameter_mm": [
+   4.75,
+   5.5,
+   6.5
+  ],
+  "anchor_length_mm": [
+   16.0
+  ],
+  "drill_size_mm": [
+   3.9,
+   4.75,
+   5.5
+  ],
+  "suture_tape_width_mm": [
+   1.0,
+   1.4,
+   1.8
+  ],
+  "material": [
+   "biocomposite",
+   "PEEK",
+   "PLLA",
+   "UHMWPE"
+  ],
+  "fixation_type": [
+   "double-row",
+   "knotless",
+   "screw-in",
+   "self-punching"
+  ],
+  "key_features": [
+   "soft triple eyelet",
+   "dual-thread technology",
+   "unobstructed cannulation",
+   "complete venting",
+   "16mm length",
+   "tapered tip",
+   "fully slotted driver",
+   "all-PEEK anchor body"
+  ],
+  "advantages": [
+   "Higher strength than eyelets of leading competitors' anchors",
+   "16mm length allows for multiple points of fixation without screw convergence in double-row repairs",
+   "Provides tactile feedback during cortical thread engagement",
+   "Allows exchange of blood and other autologous cells at the healing site",
+   "Designed to promote bone healing and bony ingrowth at the implant site"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "Sae Hoon Kim, MD, PhD, et al. Perianchor Cyst Formation Around Biocomposite Biodegradable Suture Anchors After Rotator Cuff Repair. Seoul National University Bundang Hospital, Seoul, Korea. 2015. The American Journal of Sports Medicine, Vol. 43, No. 12 DOI: 10.1177/0363546515608484",
+   "Y Shikinami, M Okuno, Bioresorbable devices made of forged composites of hydroxyapatite (HA) particles and poly-L-lactide (PLLA): Part I. Basic characteristics, Biomaterials, Volume 20, Issue 9, 1999, Pages 859-877, ISSN 0142-9612",
+   "Harri Pihlajamaki, Ole Bostman, Olli Tynninen, Outi Laitinen. Long-term tissue response to bioabsorbable poly-l-lactide and metallic screws: An experimental study, Bone. Volume 39, Issue 4. 2006. Pages 932-937. ISSN 8756-3282",
+   "Visscher LE, Jeffery C, Gilmour T, Anderson L, Couzens G. The history of suture anchors in orthopaedic surgery. Clin Biomech (Bristol, Avon). 2019;61:70-78"
+  ],
+  "sources": [
+   {
+    "title": "AlphaVent PEEK suture anchor platform brochure (1000900464)",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/alphavent/1000900464.pdf",
+    "chunk_id": "1000900464_000"
+   },
+   {
+    "title": "AlphaVent Knotless self-punching knotless anchor brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/alphavent-knotless/resources/AlphaVent%20Knotless%20Brochure.pdf",
+    "chunk_id": "alphavent-20knotless-20brochure_000"
+   },
+   {
+    "title": "AlphaVent + Omega double-row rotator cuff solution",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/procedures/achilles-reconstruction/resources/AlphaVent_Omega_synergy_1000904196RevA.pdf#page=1",
+    "chunk_id": "alphavent-omega-synergy-1000904196reva_000"
+   },
+   {
+    "title": "AlphaVent + Omega double-row rotator cuff solution",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/procedures/achilles-reconstruction/resources/AlphaVent_Omega_synergy_1000904196RevA.pdf#page=4",
+    "chunk_id": "alphavent-omega-synergy-1000904196reva_001"
+   }
+  ],
+  "n_chunks": 10
+ },
+ {
+  "company": "Stryker",
+  "product_family": "Champion Slingshot",
+  "product_name": "Champion SlingShot",
+  "anchor_diameter_mm": [],
+  "anchor_length_mm": [],
+  "drill_size_mm": [],
+  "suture_tape_width_mm": [],
+  "material": [
+   "Nitinol"
+  ],
+  "fixation_type": [],
+  "key_features": [
+   "ergonomic thumb-slide mechanism",
+   "single-portal pass and retrieve",
+   "small Nitinol arms",
+   "razor sharp needle tip",
+   "45° Left tip option",
+   "45° Right tip option",
+   "70° Up tip option"
+  ],
+  "advantages": [
+   "allows the surgeon to both pass and retrieve suture using a single portal",
+   "helps to eliminate additional procedural steps and potentially reduce operating time",
+   "helps to simplify the suture passing and retrieval steps",
+   "small Nitinol arms allow for the ability to quickly retrieve the suture",
+   "razor sharp needle tip helps to minimize potential damage to the labral tissue",
+   "specifically designed to address various labral pathologies of the shoulder"
+  ],
+  "disadvantages": [],
+  "clinical_references": [],
+  "sources": [
+   {
+    "title": "Champion Slingshot Capsule Restoration — Brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/championslingshotcapsulerestorationsystem/resources/Champion%20Slingshot%20Brochure.pdf",
+    "chunk_id": "champion-20slingshot-20brochure_000"
+   }
+  ],
+  "n_chunks": 1
+ },
+ {
+  "company": "Stryker",
+  "product_family": "Cinchlock",
+  "product_name": "CinchLock (CinchLock Flex / CinchLock SS) Knotless Suture Anchor",
+  "anchor_diameter_mm": [],
+  "anchor_length_mm": [],
+  "drill_size_mm": [
+   2.4
+  ],
+  "suture_tape_width_mm": [],
+  "material": [
+   "PEEK"
+  ],
+  "fixation_type": [
+   "knotless"
+  ],
+  "key_features": [
+   "flexible anchor",
+   "curved instrumentation",
+   "20° curvature drill guide",
+   "One-Click Lock and Release deployment",
+   "independent suture cinching via tactile feedback",
+   "individual suture tensioning after insertion",
+   "large windows on inserter for arthroscopic viewing of laser lines",
+   "internal suture locking feature"
+  ],
+  "advantages": [
+   "market's first flexible knotless suture anchor",
+   "matched insertion and drill-hole trajectories for pin-point anchor placement",
+   "smaller and more compact solution due to 2.4mm pilot hole",
+   "internal suture locking offers fixation independent of bone quality",
+   "eliminates extra surgical steps / reduces surgical steps for speed and simplicity"
+  ],
+  "disadvantages": [],
+  "clinical_references": [],
+  "sources": [
+   {
+    "title": "Cinchlock FLEX Knotless Anchor — Brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/cinchlockknotlessanchorsystem/resources/CinchlockFlexBrochure.pdf",
+    "chunk_id": "cinchlockflexbrochure_000"
+   },
+   {
+    "title": "Cinchlock SS Knotless Anchor — Brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/cinchlockknotlessanchorsystem/resources/CinchlockSSBrochure.pdf",
+    "chunk_id": "cinchlockssbrochure_000"
+   },
+   {
+    "title": "Cinchlock SS Knotless Anchor — Surgical Technique",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/cinchlockknotlessanchorsystem/resources/CinchlockSSTechnique.pdf#page=1",
+    "chunk_id": "cinchlocksstechnique_000"
+   },
+   {
+    "title": "Cinchlock SS Knotless Anchor — Surgical Technique",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/cinchlockknotlessanchorsystem/resources/CinchlockSSTechnique.pdf#page=4",
+    "chunk_id": "cinchlocksstechnique_001"
+   }
+  ],
+  "n_chunks": 4
+ },
+ {
+  "company": "Stryker",
+  "product_family": "Cobra",
+  "product_name": "Cobra",
+  "anchor_diameter_mm": [],
+  "anchor_length_mm": [],
+  "drill_size_mm": [],
+  "suture_tape_width_mm": [
+   2.0
+  ],
+  "material": [
+   "stainless steel"
+  ],
+  "fixation_type": [],
+  "key_features": [
+   "reusable suture passer",
+   "rigid integrated stainless steel needle",
+   "self-capture option",
+   "hook and ratchet option",
+   "side-load suture/tape",
+   "laser mark needle deployment indicator",
+   "ratchet on/off (hook model only)",
+   "flush port (luer lock) for cleaning"
+  ],
+  "advantages": [
+   "does not require a disposable nitinol needle",
+   "designed to prevent needle skiving, misfires, and needle breakage",
+   "Cobra Black needles have at least twice the ductility and superior sharpness than the leading competitor",
+   "Cobra Black needles designed to enhance visibility and reduce glare, especially in blood and smaller surgery sites"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "Riverpoint Medical Publication PUB375-01, 2020 UHMWPE Informational Datasheet"
+  ],
+  "sources": [
+   {
+    "title": "Cobra — Design Features",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/cobra/resources/Cobra_DesignFeatures_1000902685RevB.pdf",
+    "chunk_id": "cobra-designfeatures-1000902685revb_000"
+   },
+   {
+    "title": "Cobra Rotator Cuff Repair — Procedure Guide",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/cobra/resources/RCR%20_Procedure_Guide_HR.pdf#page=1",
+    "chunk_id": "rcr-20-procedure-guide-hr_000"
+   },
+   {
+    "title": "Cobra Rotator Cuff Repair — Procedure Guide",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/cobra/resources/RCR%20_Procedure_Guide_HR.pdf#page=4",
+    "chunk_id": "rcr-20-procedure-guide-hr_001"
+   },
+   {
+    "title": "Cobra Rotator Cuff Repair — Procedure Guide",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/cobra/resources/RCR%20_Procedure_Guide_HR.pdf#page=7",
+    "chunk_id": "rcr-20-procedure-guide-hr_002"
+   }
+  ],
+  "n_chunks": 9
+ },
+ {
+  "company": "Stryker",
+  "product_family": "Iconix",
+  "product_name": "Iconix All-Suture Anchor",
+  "anchor_diameter_mm": [
+   1.4,
+   2.3
+  ],
+  "anchor_length_mm": [],
+  "drill_size_mm": [
+   1.4,
+   1.7,
+   2.3,
+   3.0
+  ],
+  "suture_tape_width_mm": [
+   1.2,
+   1.4,
+   1.8,
+   2.0,
+   2.3
+  ],
+  "material": [
+   "all-suture"
+  ],
+  "fixation_type": [
+   "knotless",
+   "self-punching"
+  ],
+  "key_features": [
+   "IntelliBraid Technology",
+   "targeted compression zones",
+   "bunching effect within implant sheath",
+   "self-centering (SC) drill technology",
+   "color-coded sutures",
+   "low-profile repair",
+   "HA+ coating",
+   "dual-modality HA + bioglass coating"
+  ],
+  "advantages": [
+   "smallest all-suture anchor on the market",
+   "smallest knotless all-suture anchor on the market",
+   "minimal bone removal",
+   "Iconix HA+ showed bone integration in all samples (n=4) at 8 weeks while the uncoated implant showed no integration (n=4)",
+   "SPEED offers an additional 4 suture configurations for a total of 14 different suture and tape configurations",
+   "SPEED eliminates the need to drill in rotator cuff surgery"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "Ielo I, Calabrese G, De Luca G, Conoci S. Recent Advances in Hydroxyapatite-Based Biocomposites for Bone Tissue Regeneration in Orthopedics. Int J Mol Sci. 2022 Aug 27;23(17):9721.",
+   "Mohseni, E.; Zalnezhad, E.; Bushroa, A.R. Comparative investigation on the adhesion of hydroxyapatite coating on Ti-6Al-4V implant: A review paper. Int. J. Adhes. Adhes. 2014, 48, 238-257.",
+   "Arcos D, Vallet-Regi M. Substituted hydroxyapatite coatings of bone implants. J Mater Chem B. 2020 Mar 4;8(9):1781-1800.",
+   "Kurioka K, Umeda M, Teranobu O, Komori T. Effect of various properties of hydroxyapatite ceramics on osteoconduction and stability. Kobe J Med Sci. 1999 Aug;45(3-4):149-63.",
+   "J.L. Xu, K.A. Khor, Plasma spraying for thermal barrier coatings: processes and applications, Thermal Barrier Coatings, Woodhead Publishing, 2011, Pages 99-114",
+   "J.R. Jones, D.S. Brauer, L.:G.D.C. Hupa Bioglass and Bioactive Glasses and Their Impact on Healthcare Int. J. Appl. Glass Sci., 7 (2016), pp. 423-434",
+   "A. Hoppe, N. S. Gueldal, and A. R. Boccaccini, A Review of the Biological Response to Ionic Dissolution Products From Bioactive Glasses and Glass-Ceramics, Biomaterials, 32 [11] 2757-2774 (2011).",
+   "Hench, L.L., Splinter, R.J., and Allen, W.C., Bonding Mechanisms at the Interface of Ceramic Prosthetic Materials. Journal of Biomedical Materials Research, 1971; 2(1): 117-141.",
+   "Chen Q, et al. Cellulose Nanocrystals--Bioactive Glass Hybrid Coating as Bone Substitutes by Electrophoretic Co-deposition. ACS Appl Mater Interfaces. 2015 Nov 11;7(44):24715-25.",
+   "Amavedi S, Whittington AR, Goldstein AS. Calcium phosphate ceramics in bone tissue engineering: a review of properties and their influence on cell behavior. Acta Biomater. 2013;9:8037-45"
+  ],
+  "sources": [
+   {
+    "title": "Iconix Knotless all-suture knotless anchor brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/iconix-knotless/resources/Iconix%20Knotless%20Brochure.pdf",
+    "chunk_id": "iconix-20knotless-20brochure_000"
+   },
+   {
+    "title": "Iconix All-Suture Anchor platform brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/iconixallsutureanchorsystem/resources/Iconix%20platform%20brochure.pdf",
+    "chunk_id": "iconix-20platform-20brochure_000"
+   },
+   {
+    "title": "Iconix HA+ coated all-suture anchor brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/iconix-ha-plus/Iconix-HA-plus_brochure-1000904608RevA.pdf#page=1",
+    "chunk_id": "iconix-ha-plus-brochure-1000904608reva_000"
+   },
+   {
+    "title": "Iconix HA+ coated all-suture anchor brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/iconix-ha-plus/Iconix-HA-plus_brochure-1000904608RevA.pdf#page=3",
+    "chunk_id": "iconix-ha-plus-brochure-1000904608reva_001"
+   }
+  ],
+  "n_chunks": 7
+ },
+ {
+  "company": "Stryker",
+  "product_family": "InSpace",
+  "product_name": "InSpace balloon implant",
+  "anchor_diameter_mm": [],
+  "anchor_length_mm": [],
+  "drill_size_mm": [],
+  "suture_tape_width_mm": [],
+  "material": [
+   "biodegradable polymer",
+   "PLCL",
+   "poly (L-lactide-co-ɛ-caprolactone)"
+  ],
+  "fixation_type": [],
+  "key_features": [
+   "biodegradable subacromial spacer",
+   "balloon implant inflated with sterile saline",
+   "minimally-invasive arthroscopic deployment",
+   "no sutures or fixation devices required",
+   "comes in 3 sizes (Small 0130, Medium 0131, Large 0132)",
+   "supplied sterile (sterilized by EtO)",
+   "single use",
+   "not made with natural rubber latex or phthalates"
+  ],
+  "advantages": [
+   "the only FDA-cleared balloon implant for the treatment of massive, irreparable rotator cuff tears (MIRCTs)",
+   "preserves musculoskeletal tissues and bone and does not require the use of anchors or permanent implant placement",
+   "significant advantage for operative time compared to Partial Repair (InSpace: 44 min, Partial Repair: 71 min)",
+   "deployment, from introduction to sealing and retraction, was on average 4 minutes",
+   "shorter procedural time than partial rotator cuff repair, tendon transfer, SCR and rTSA",
+   "demonstrated to improve shoulder motion and function",
+   "high rates of clinical success at 24 months (InSpace: 87.8%, Partial Repair: 88.1%)",
+   "no subject had a Serious Adverse Device Effect (SADE) through the entire 24 months"
+  ],
+  "disadvantages": [
+   "InSpace had a greater number of Adverse Events of the Index Shoulder (AEs) compared to Partial Repair (InSpace: 45; Partial Repair: 30)"
+  ],
+  "clinical_references": [
+   "Verma N, et al. InSpace Implant Compared with Partial Repair for the Treatment of Full-Thickness Massive Rotator Cuff Tears: A Multicenter, Single-Blinded, Randomized Controlled Trial. JBJS Volume 104-A, Number 14, July 20, 2022 (NCT02493660)",
+   "Senekovic V, Poberaj B, Kovacic L, Mikek M, Adar E, Markovitz E, Maman E, Dekel A. The biodegradable spacer as a novel treatment modality for massive rotator cuff tears: a prospective study with 5-year follow-up. Arch Orthop Trauma Surg. Jan 2017; 137(1): 95-103",
+   "Senekovic V, et al. Prospective clinical study of a novel biodegradable sub-acromial spacer in treatment of massive irreparable rotator cuff tears. Eur J Orthop Surg Traumatol. (2012)",
+   "Piekaar RSM, Bouman ICE, Van Kampen PM, Van Eijk F, Huijsmans PE. The subacromial balloon spacer for massive irreparable rotator cuff tears: approximately 3 years of prospective follow-up. Musculoskelet Surg 2020; 104(2): 207-214",
+   "Maman E, Safran O, Beyth S, Mozes G, Dekel A, Michael B, Chechik O, Adar E. The Open Orthopaedics Journal 2017; 11: 1577-1584 (biceps tenotomy and spacer implantation)",
+   "Singh S, Reeves J, Langohr GDG, Johnson JA, Athwal GS. The subacromial balloon spacer versus superior capsular reconstruction in the treatment of irreparable rotator cuff tears: a biomechanical assessment. Arthroscopy 2019; 35(2): 382-389",
+   "Lobao MH, Canham RB, Melvani RT, Abboud JA, Parks BG, Murthi AM. Biomechanics of biodegradable subacromial balloon spacer for irreparable superior rotator cuff tears: study of a cadaveric model. JBJS 2019; 101(11): e49",
+   "Singh S, Reeves J, Langohr GDG, Johnson JA, Athwal GS. The effect of the subacromial balloon spacer on humeral head translation in the treatment of massive, irreparable rotator cuff tears: a biomechanical assessment. JSES 2019; 28(10): 1841-1847",
+   "Moon AS, Patel HA, Ithurburn MP, Brabston EW, Ponce BA, Momaya AM. Subacromial spacer implantation for the treatment of massive irreparable rotator cuff tears: a systematic review. Arthroscopy 2018; 35(2): 607-614",
+   "Stewart RK, Kaplin L, Parada SA, Graves BR, Verma NN, Waterman BR. Outcomes of subacromial balloon spacer implantation for massive and irreparable rotator cuff tears: a systematic review. Orthop J Sports Med 2019; 7(10): 1-10"
+  ],
+  "sources": [
+   {
+    "title": "InSpace Balloon Implant — physician product brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/inspace/images/1000903813%20Rev.%20A_SI200931%20InSpace%20physician%20product%20bro%20v60_ELECTRONIC.pdf#page=1",
+    "chunk_id": "1000903813-20rev-20a-si200931-20inspace-20physician-20product-20bro-20v60-electr_000"
+   },
+   {
+    "title": "InSpace Balloon Implant — physician product brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/inspace/images/1000903813%20Rev.%20A_SI200931%20InSpace%20physician%20product%20bro%20v60_ELECTRONIC.pdf#page=2",
+    "chunk_id": "1000903813-20rev-20a-si200931-20inspace-20physician-20product-20bro-20v60-electr_001"
+   },
+   {
+    "title": "InSpace Balloon Implant — physician product brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/inspace/images/1000903813%20Rev.%20A_SI200931%20InSpace%20physician%20product%20bro%20v60_ELECTRONIC.pdf#page=3",
+    "chunk_id": "1000903813-20rev-20a-si200931-20inspace-20physician-20product-20bro-20v60-electr_002"
+   },
+   {
+    "title": "InSpace key clinical literature summary",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/inspace/images/InSpace%20key%20literature%20summary.pdf#page=1",
+    "chunk_id": "inspace-20key-20literature-20summary_000"
+   }
+  ],
+  "n_chunks": 22
+ },
+ {
+  "company": "Stryker",
+  "product_family": "Instability",
+  "product_name": "1.4mm Instability Repair Platform (Iconix 1 and NanoTack TT)",
+  "anchor_diameter_mm": [
+   1.4,
+   2.3,
+   3.0,
+   3.5
+  ],
+  "anchor_length_mm": [],
+  "drill_size_mm": [
+   1.4,
+   3.5
+  ],
+  "suture_tape_width_mm": [
+   1.2,
+   1.4
+  ],
+  "material": [
+   "all-suture",
+   "PEEK"
+  ],
+  "fixation_type": [
+   "knotless"
+  ],
+  "key_features": [
+   "IntelliBraid technology",
+   "subcortical expansion",
+   "two points of fixation",
+   "self-centering (SC) drill technology",
+   "shared instrumentation (straight, 12 and 25 degree guides and a shared drill)",
+   "straight, 12 and 25 degree guides",
+   "distal soft eyelet that expands the anchor",
+   "tape and suture options"
+  ],
+  "advantages": [
+   "Smallest PEEK suture anchor (based on a survey of currently available anchors)",
+   "At 1.4mm, the NanoTack TT is the smallest PEEK hard body anchor on the market",
+   "Volume of bone removal by Stryker's instability platform drill has been shown to be 72% less than that of a competitor 2.9mm drill",
+   "Preserving glenoid bone may reduce the risk of fracture",
+   "Iconix drill mitigates the creation of metal shavings during drilling",
+   "XBraid TT is a tie-able tape with comparable knot stacks to a #2 suture",
+   "Custom braid is designed to not fold under tension",
+   "Intraoperative versatility to select all-suture or PEEK hard body anchor based on bone assessment"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "DHD14024",
+   "Test Report: DHFD12758"
+  ],
+  "sources": [
+   {
+    "title": "1.4mm Instability Repair Platform Brochure (Iconix 1 + NanoTack TT)",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/procedures/instability",
+    "chunk_id": "1-4mm-20instability-20repair-20platform-20brochure_000"
+   },
+   {
+    "title": "Stryker Shoulder Instability Repair Platform — Brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/iconixallsutureanchorsystem/resources/Instability%20repair%20platform%20brochure.pdf",
+    "chunk_id": "instability-20repair-20platform-20brochure_000"
+   },
+   {
+    "title": "Knotilus Anchor - Instability Repair (Single Portal) Surgical Technique Guide",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/knotilusknotlessanchorsystem/resources/Knotilus%20Anchor%20Technique%20Guide.pdf#page=1",
+    "chunk_id": "knotilus-20anchor-20technique-20guide_000"
+   },
+   {
+    "title": "Knotilus Anchor - Instability Repair (Single Portal) Surgical Technique Guide",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/knotilusknotlessanchorsystem/resources/Knotilus%20Anchor%20Technique%20Guide.pdf#page=5",
+    "chunk_id": "knotilus-20anchor-20technique-20guide_001"
+   }
+  ],
+  "n_chunks": 8
+ },
+ {
+  "company": "Stryker",
+  "product_family": "IntraLine",
+  "product_name": "PEEK IntraLine Anchor",
+  "anchor_diameter_mm": [
+   5.5,
+   6.5
+  ],
+  "anchor_length_mm": [],
+  "drill_size_mm": [
+   5.5,
+   6.5
+  ],
+  "suture_tape_width_mm": [],
+  "material": [
+   "PEEK"
+  ],
+  "fixation_type": [],
+  "key_features": [
+   "fully-threaded",
+   "suture eyelet",
+   "central suture eyelet",
+   "fully cannulated shaft",
+   "slotted distal shaft tip",
+   "large handle for grip",
+   "wound suture for one-pull unwind",
+   "Force Fiber suture eyelet"
+  ],
+  "advantages": [
+   "suture eyelet runs through the center of the anchor providing flexibility for the working suture",
+   "excellent for arthroscopic and open cases",
+   "large handle for better grip and ergonomics",
+   "designed for a quick and simple delivery"
+  ],
+  "disadvantages": [],
+  "clinical_references": [],
+  "sources": [
+   {
+    "title": "PEEK IntraLine Anchor — Brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/peek-intraline/resources/PEEK%20IntraLine%20Anchor%20Brochure.pdf",
+    "chunk_id": "peek-20intraline-20anchor-20brochure_000"
+   }
+  ],
+  "n_chunks": 1
+ },
+ {
+  "company": "Stryker",
+  "product_family": "Knotilus+",
+  "product_name": "Knotilus+ PEEK knotless suture anchor",
+  "anchor_diameter_mm": [],
+  "anchor_length_mm": [
+   8.9,
+   11.3,
+   12.5,
+   15.5
+  ],
+  "drill_size_mm": [
+   11.3,
+   12.5,
+   15.5
+  ],
+  "suture_tape_width_mm": [],
+  "material": [
+   "PEEK"
+  ],
+  "fixation_type": [
+   "knotless"
+  ],
+  "key_features": [
+   "cortical barb-lock technology",
+   "tactile clicks on inserter knob signaling disengagement",
+   "disengages with four turns",
+   "procedure-specific implants and instrumentation",
+   "multiple stitch configurations (mattress, simple, luggage)",
+   "available in two lengths",
+   "crown tip, fork tip, fish mouth and offset tip guides",
+   "drills for medium and hard bone"
+  ],
+  "advantages": [
+   "designed to optimize compression fixation in bone supporting secure knotless repairs",
+   "designed to improve procedural efficiency following insertion of the implant",
+   "cross-specialty portfolio for shoulder, hip and foot and ankle"
+  ],
+  "disadvantages": [],
+  "clinical_references": [],
+  "sources": [
+   {
+    "title": "Knotilus+ PEEK knotless suture anchor brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/Knotilus-plus/knotilus-plus_brochure_1000904524revA.pdf",
+    "chunk_id": "knotilus-plus-brochure-1000904524reva_000"
+   }
+  ],
+  "n_chunks": 1
+ },
+ {
+  "company": "Stryker",
+  "product_family": "Omega Knotless",
+  "product_name": "Omega Knotless Anchor System",
+  "anchor_diameter_mm": [
+   3.9,
+   4.75,
+   6.5
+  ],
+  "anchor_length_mm": [],
+  "drill_size_mm": [
+   2.85,
+   3.4
+  ],
+  "suture_tape_width_mm": [
+   1.2,
+   2.0
+  ],
+  "material": [
+   "PEEK"
+  ],
+  "fixation_type": [
+   "double-row",
+   "knotless",
+   "screw-in",
+   "self-punching"
+  ],
+  "key_features": [
+   "decoupled eyelet and screw construct",
+   "all-PEEK eyelet",
+   "self-punching inserter",
+   "repositioning eyelet",
+   "eyelet barb",
+   "unobstructed complete cannulation",
+   "intraoperative size up to 6.5mm screw",
+   "Double-Double reloadable instrumentation"
+  ],
+  "advantages": [
+   "4.75mm Omega PEEK Knotless Anchor pull-out strength was 37% higher than the Arthrex SwiveLock PEEK Knotless Anchor in a soft bone analogue",
+   "3.9mm Omega PEEK Knotless Anchor pull-out strength was 72% higher than the 3.5mm Arthrex SwiveLock PEEK Knotless Anchor in a hard bone analogue",
+   "eliminates the need to drill via self-punching inserter",
+   "allows intraoperative change in screw size or sizing up without removal of the eyelet or rethreading of sutures",
+   "anchor cannulation may facilitate the exchange of blood and other autologous cells"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "Stryker DHFD13832 Rev A 2019",
+   "Stryker DHD13991 Rev A 2019",
+   "Stryker TR18161 Rev A 2018",
+   "Stryker DHFD13832/Evidence Matters Research Bulletin 1000903220 Rev B 2020"
+  ],
+  "sources": [
+   {
+    "title": "Omega Double-Double knotless double-row technique guide",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/omega/resources/Omega%20Double-Double%20Guide.pdf",
+    "chunk_id": "omega-20double-double-20guide_000"
+   },
+   {
+    "title": "Omega Knotless Anchor System brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/omega/resources/Omega%20product%20brochure-updated.pdf",
+    "chunk_id": "omega-20product-20brochure-updated_000"
+   },
+   {
+    "title": "Omega Rotator Cuff Repair brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/omega/resources/Rotator%20Cuff%20Brochure.pdf#page=1",
+    "chunk_id": "rotator-20cuff-20brochure_000"
+   },
+   {
+    "title": "Omega Rotator Cuff Repair brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/omega/resources/Rotator%20Cuff%20Brochure.pdf#page=4",
+    "chunk_id": "rotator-20cuff-20brochure_001"
+   }
+  ],
+  "n_chunks": 8
+ },
+ {
+  "company": "Stryker",
+  "product_family": "ReelX STT",
+  "product_name": "ReelX STT Knotless Anchor",
+  "anchor_diameter_mm": [
+   4.5,
+   5.5
+  ],
+  "anchor_length_mm": [],
+  "drill_size_mm": [
+   3.25,
+   4.0,
+   5.0,
+   6.5,
+   13.5
+  ],
+  "suture_tape_width_mm": [],
+  "material": [
+   "PEEK"
+  ],
+  "fixation_type": [
+   "knotless"
+  ],
+  "key_features": [
+   "incremental tensioning mechanism",
+   "expanding PEEK body",
+   "proximal PEEK eyelet",
+   "sharp metal tip",
+   "suture-threading pull tabs",
+   "60-degree locking point increments"
+  ],
+  "advantages": [
+   "PEEK anchor body expands up to one full millimeter in diameter under the cortical surface",
+   "expanding body designed to provide enhanced fixation",
+   "sharp metal tip allows anchor insertion with or without instrumentation",
+   "incremental tensioning allows patient specific tissue tensioning and greater control over the repair",
+   "proximal PEEK eyelet helps protect against tuberosity damage during tensioning",
+   "advances approximately 1.5mm of suture for every 60 degrees of rotation"
+  ],
+  "disadvantages": [],
+  "clinical_references": [],
+  "sources": [
+   {
+    "title": "ReelX STT Knotless Anchor brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/reelxsttknotlessanchorsystem/resources/ReelX%20STT%20Product%20Brochure.pdf",
+    "chunk_id": "reelx-20stt-20product-20brochure_000"
+   }
+  ],
+  "n_chunks": 1
+ },
+ {
+  "company": "Stryker",
+  "product_family": "XBraidTT",
+  "product_name": "XBraid TT",
+  "anchor_diameter_mm": [],
+  "anchor_length_mm": [],
+  "drill_size_mm": [],
+  "suture_tape_width_mm": [
+   1.0,
+   1.2,
+   1.4,
+   1.5,
+   1.8,
+   2.0,
+   2.2
+  ],
+  "material": [
+   "UHMWPE"
+  ],
+  "fixation_type": [],
+  "key_features": [
+   "smooth",
+   "low profile",
+   "tie-able tape",
+   "100% ultra-high molecular weight polyethylene",
+   "custom braid technology",
+   "designed to not fold under tension",
+   "lubricious / easily slides",
+   "blue co-braid"
+  ],
+  "advantages": [
+   "Ultimate tissue pull through load: 206N",
+   "XBraidTT will not pull through tissue as easily as #2 round suture (XBraidTT 206N vs #2 suture 141N)",
+   "Comparable knot stacks to standard #2 suture",
+   "Designed to increase tendon-to-bone contact in soft tissue repairs",
+   "Wide suture footprint allowing for uniform pressure along the surface area of the repair",
+   "Easily slides after anchor insertion and during knot tying"
+  ],
+  "disadvantages": [],
+  "clinical_references": [
+   "Barber FA et al: Sutures and Suture Anchors – Update 2006. Arthroscopy 22:1063, 2006.",
+   "Test Report: DHFD12758",
+   "Stryker DHFD12758",
+   "SSA-8484 Rev C DCR 180107"
+  ],
+  "sources": [
+   {
+    "title": "Force Fiber & XBraidTT Suture Tape — Brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/xbraidttsurgicalsuturetape/resources/Force%20Fiber%20and%20XBraidTT%20Brochure.pdf#page=1",
+    "chunk_id": "force-20fiber-20and-20xbraidtt-20brochure_000"
+   },
+   {
+    "title": "Force Fiber & XBraidTT Suture Tape — Brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/xbraidttsurgicalsuturetape/resources/Force%20Fiber%20and%20XBraidTT%20Brochure.pdf#page=3",
+    "chunk_id": "force-20fiber-20and-20xbraidtt-20brochure_001"
+   },
+   {
+    "title": "Force Fiber & XBraidTT Suture Tape — Brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/xbraidttsurgicalsuturetape/resources/Force%20Fiber%20and%20XBraidTT%20Brochure.pdf#page=5",
+    "chunk_id": "force-20fiber-20and-20xbraidtt-20brochure_002"
+   },
+   {
+    "title": "Suture Kit Step-by-Step Guide Brochure (XBraid TT)",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/xbraidttsurgicalsuturetape/resources/Suture%20Kit%20Step%20by%20Step%20guide%20Brochure.pdf",
+    "chunk_id": "suture-20kit-20step-20by-20step-20guide-20brochure_000"
+   }
+  ],
+  "n_chunks": 7
+ },
+ {
+  "company": "Stryker",
+  "product_family": "Zip",
+  "product_name": "PEEK Zip Anchor",
+  "anchor_diameter_mm": [
+   5.5,
+   6.5
+  ],
+  "anchor_length_mm": [],
+  "drill_size_mm": [],
+  "suture_tape_width_mm": [],
+  "material": [
+   "PEEK"
+  ],
+  "fixation_type": [],
+  "key_features": [
+   "fully cannulated",
+   "trocar-tip inserter",
+   "no tap needed",
+   "double-helix thread design",
+   "independent suture eyelets",
+   "separate suture eyelets",
+   "half-circle taper needles (with-needles option)",
+   "direct channel from bone marrow to rotator cuff via cannulation"
+  ],
+  "advantages": [
+   "trocar-tip inserter distributes insertion torque along the length of the implant",
+   "trocar-tip inserter withstands greater torque and allows repositioning if necessary",
+   "double-helix thread design provides excellent purchase",
+   "separate suture eyelets enable better/easier suture management",
+   "cannulation provides a direct channel from the bone marrow to the rotator cuff"
+  ],
+  "disadvantages": [],
+  "clinical_references": [],
+  "sources": [
+   {
+    "title": "PEEK Zip Anchor — Brochure",
+    "url": "https://www.stryker.com/content/dam/stryker/sports-medicine/products/peekzipanchor/resources/PEEK%20Zip%20Anchor%20Brochure.pdf",
+    "chunk_id": "peek-20zip-20anchor-20brochure_000"
+   }
+  ],
+  "n_chunks": 1
+ }
+]

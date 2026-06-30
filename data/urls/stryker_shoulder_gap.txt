@@ -1,0 +1,29 @@
+# Stryker shoulder / rotator-cuff gap-fill (2026-06-29) — curated from an official
+# stryker.com product-page scrape, SHA-256 deduped against the existing KB. Scope:
+# anchors, suture/tape, and RCR/instability constructs only. Excluded: corporate/legal,
+# capital equipment (pumps/RF/cameras/cutters/cannulas), and APAC regional duplicates.
+
+# --- Cinchlock knotless soft-anchor family (NEW) ---
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/cinchlockknotlessanchorsystem/resources/CinchlockSSBrochure.pdf  # Cinchlock SS Knotless Anchor — Brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/cinchlockknotlessanchorsystem/resources/CinchlockFlexBrochure.pdf  # Cinchlock FLEX Knotless Anchor — Brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/cinchlockknotlessanchorsystem/resources/CinchlockSSTechnique.pdf  # Cinchlock SS Knotless Anchor — Surgical Technique
+
+# --- Cobra rotator-cuff repair (NEW) ---
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/cobra/resources/RCR%20_Procedure_Guide_HR.pdf  # Cobra Rotator Cuff Repair — Procedure Guide
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/cobra/resources/Cobra_DesignFeatures_1000902685RevB.pdf  # Cobra — Design Features
+
+# --- IntraLine / Zip PEEK & composite anchors (NEW) ---
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/peek-intraline/resources/PEEK%20IntraLine%20Anchor%20Brochure.pdf  # PEEK IntraLine Anchor — Brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/peekzipanchor/resources/PEEK%20Zip%20Anchor%20Brochure.pdf  # PEEK Zip Anchor — Brochure
+
+# --- Champion Slingshot capsule restoration (instability) (NEW) ---
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/championslingshotcapsulerestorationsystem/resources/Champion%20Slingshot%20Brochure.pdf  # Champion Slingshot Capsule Restoration — Brochure
+
+# --- XBraidTT / Force Fiber suture & tape specs (NEW) ---
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/xbraidttsurgicalsuturetape/resources/Force%20Fiber%20and%20XBraidTT%20Brochure.pdf  # Force Fiber & XBraidTT Suture Tape — Brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/xbraidttsurgicalsuturetape/resources/UFO_SuturePortfolioBrochure_1000903307revF.pdf  # Stryker Sports Medicine Suture Portfolio — Brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/xbraidttsurgicalsuturetape/resources/XBraidTT%20quick%20guide.pdf  # XBraidTT Suture Tape — Quick Guide
+
+# --- Iconix instability constructs ---
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/iconixallsutureanchorsystem/resources/Instability%20Procedural%20Guide%20Brochure.pdf  # Iconix Shoulder Instability — Procedural Guide
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/iconixallsutureanchorsystem/resources/Instability%20repair%20platform%20brochure.pdf  # Stryker Shoulder Instability Repair Platform — Brochure

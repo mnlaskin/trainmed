@@ -16,7 +16,8 @@
   "category": "anchor",
   "technique": [
     "all_suture",
-    "knotless"
+    "knotless",
+    "instability"
   ],
   "advantages": [],
   "disadvantages": [],
