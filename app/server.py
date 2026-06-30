@@ -34,6 +34,7 @@ from fastapi.responses import FileResponse, Response, StreamingResponse  # noqa:
 from trainmed import companies as co  # noqa: E402
 from trainmed import stt, tts  # noqa: E402
 from trainmed import rag  # noqa: E402
+from trainmed import specs  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 app = FastAPI(title="TrainMed — Surgical Sales Assistant")
@@ -189,6 +190,15 @@ def meta(company: str | None = None):
     }
 
 
+@app.get("/api/specs")
+def specs_for(company: str | None = None):
+    """The structured product-spec registry for a company (firewall-scoped)."""
+    company = resolve_company(company)
+    recs = specs.load_specs(company)
+    return {"company": company, "company_label": co.display_name(company),
+            "products": len(recs), "specs": recs}
+
+
 @app.get("/api/ask")
 def ask(q: str, k: int = 4, company: str | None = None):
     company = resolve_company(company)
@@ -224,12 +234,17 @@ def ask(q: str, k: int = 4, company: str | None = None):
                 retrieved.append(c)
                 cites.append(rag.citation(len(retrieved), c, s))
 
+    # Spec-heavy question → prepend the validated structured-spec block (company-scoped) so the
+    # model answers exact figures from clean data. Additive: citations + retrieval are unchanged.
+    spec_records = specs.match_specs(company, q) if specs.is_spec_query(q) else []
+    specs_block = specs.format_specs_block(spec_records)
+
     def events():
         yield _sse("sources", cites)  # render the citations panel immediately
-        for delta in rag.stream_answer(q, retrieved, GEN_BACKEND, company=company):
+        for delta in rag.stream_answer(q, retrieved, GEN_BACKEND, company=company, specs_block=specs_block):
             yield _sse("token", delta)
         yield _sse("done", {"company": company, "embed": EMBED_BACKEND, "gen": GEN_BACKEND,
-                            "competitive": competitive})
+                            "competitive": competitive, "specs": len(spec_records)})
 
     return StreamingResponse(events(), media_type="text/event-stream")
 
