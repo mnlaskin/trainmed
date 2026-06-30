@@ -201,18 +201,35 @@ def ask(q: str, k: int = 4, company: str | None = None):
             "company": company,
         }
 
-    # retrieve() returns chunk dicts directly (no positional indexing into a global
-    # list); the guard then fail-closes on any chunk that isn't this company's.
-    hits = retriever.retrieve(q, k)
-    retrieved = rag.enforce_company([c for c, _ in hits], company)
-    cites = [rag.citation(n, c, s) for n, (c, s) in enumerate(hits, 1)
-             if c.get("company") == company]
+    # retrieve() returns chunk dicts directly (no positional indexing into a global list).
+    # Build the model context and the UI citations TOGETHER, sharing one [n] numbering, so an
+    # inline [n] in the answer always maps to cites[n-1]. The company guard fail-closes on any
+    # chunk that isn't this company's before it can be cited.
+    retrieved: list[dict] = []
+    cites: list[dict] = []
+    for c, s in retriever.retrieve(q, k):
+        if c.get("company") != company:
+            continue
+        retrieved.append(c)
+        cites.append(rag.citation(len(retrieved), c, s))
+
+    # Competitive question → ALSO add the curated cross-company comparison notes (sentinel
+    # company="_competitive"). This is the ONLY cross-brand data the chatbot ever sees; the
+    # other company's raw product corpus is never pulled in, so the firewall holds.
+    competitive = rag.is_competitive_query(q, company)
+    if competitive:
+        comp = get_competitive_retriever()
+        if comp is not None:
+            for c, s in comp.retrieve(q, 2):
+                retrieved.append(c)
+                cites.append(rag.citation(len(retrieved), c, s))
 
     def events():
         yield _sse("sources", cites)  # render the citations panel immediately
         for delta in rag.stream_answer(q, retrieved, GEN_BACKEND, company=company):
             yield _sse("token", delta)
-        yield _sse("done", {"company": company, "embed": EMBED_BACKEND, "gen": GEN_BACKEND})
+        yield _sse("done", {"company": company, "embed": EMBED_BACKEND, "gen": GEN_BACKEND,
+                            "competitive": competitive})
 
     return StreamingResponse(events(), media_type="text/event-stream")
 
