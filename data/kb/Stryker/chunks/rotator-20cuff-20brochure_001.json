@@ -17,7 +17,8 @@
   "technique": [
     "all_suture",
     "knotless",
-    "double_row"
+    "double_row",
+    "instability"
   ],
   "advantages": [],
   "disadvantages": [],

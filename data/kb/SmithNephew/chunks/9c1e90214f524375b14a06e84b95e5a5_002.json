@@ -15,6 +15,7 @@
   "product_name": "HEALICOIL",
   "category": "anchor",
   "technique": [
+    "instability",
     "double_row",
     "knotless"
   ],

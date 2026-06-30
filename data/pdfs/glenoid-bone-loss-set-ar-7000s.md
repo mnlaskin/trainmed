@@ -1,0 +1,82 @@
+---
+title: Glenoid Bone Loss Set (AR-7000S)
+doc_id: glenoid-bone-loss-set-ar-7000s
+company: Arthrex
+source_url: https://www.arthrex.com/resources/DOC1-000083-en-US/glenoid-bone-loss-set-ar-7000s
+source_type: pdf
+procedure_family: rotator_cuff
+page_count: 3
+source: pdf
+---
+
+# Glenoid Bone Loss Set (AR-7000S)
+
+Glenoid Bone Loss Set
+AR-7000S
+Glenoid Bone Loss Set
+Pic. Item Number Qty. Description
+1 AR-2961 Osteotome Handle
+2 AR-7000-01 Osteotome Blade, Latarjet (x2)
+3 AR-7000-02 Osteotome Blade Shield
+4 AR-9215-1-01 Drill Guide Handle
+5 AR-7000-16 “No Offset” Parallel Drill Guide
+6 AR-7000-03 Parallel Drill Guide, 4 mm offset
+7 AR-7000-04 Parallel Drill Guide, 6 mm offset
+8 AR-7000-05 Parallel Drill Guide, 8 mm offset
+9 AR-7000-07 Coracoid Drill Guide
+10 AR-7000-13 Cannulated Hex Driver, 2.5 mm
+11 AR-1204D Drill, 4 mm
+12 AR-7000-14 Cannulated Drill, 2.75 mm
+13 AR-7000-06 Screw Length Sizer
+14 AR-8941-6 0.062 in Guidewire, 6 in long (x2)
+15 AR-8941-7 0.062 in Guidewire, 7 in long (x2)
+16 AR-8941-12 0.062 in Guidewire, 12 in long (x2)
+17 AR-13221AOC Cannulated Driver Handle w/ AO Connection
+Page 01 of 02
+© 2019 Arthrex, Inc. All rights reserved. DOC1-000083-en-US_B
+5
+10
+2
+1
+146
+11
+7
+12
+13
+16
+15
+24A
+17
+3
+8
+4
+9
+
+Page 02 of 02
+© 2019 Arthrex, Inc. All rights reserved. DOC1-000083-en-US_B
+18 AR-7000SC-1 Screw Caddy, 3.75 mm, fully threaded screw
+19 AR-7000SC-2 Screw Caddy, 3.75 mm, partially threaded screw
+20 AR-7000-09 Kolbel Glenoid Retractor
+21 AR-7000-08 Fukuda Retractor, small
+22 AR-8104 Gelpi Subscapularis Retractor
+23 AR-7000-12 Nesting Guide Sleeves
+24 A&B AR-7000C Glenoid Bone Loss Instrument Case
+18
+19
+20
+21
+22
+23
+24B
+
+To obtain a copy of a product’s directions for use (DFU), which includes sterilization 
+instructions, please visit our website at www.arthrex.com/edfu or contact your local 
+representative.
+www.arthrex.com
+© 2019 Arthrex, Inc. All rights reserved.
+Date of Surgery:
+Surgeon Name:
+Account:
+Representative Contact Information:
+Set Total:
+Miscellaneous Notes:

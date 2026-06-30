@@ -14,7 +14,9 @@
   "product_family": "REGENESORB",
   "product_name": "REGENESORB",
   "category": "technique_guide",
-  "technique": [],
+  "technique": [
+    "instability"
+  ],
   "advantages": [],
   "disadvantages": [],
   "clinical_references": [],

@@ -1,0 +1,13 @@
+# Stryker spec gap-fill round 2 (2026-06-29) — verified official PDFs from parallel discovery workflow.
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/alphavent/1000900464.pdf  # AlphaVent PEEK suture anchor platform brochure (1000900464)
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/alphavent/AlphaVent-ProductNumber_guide.pdf  # AlphaVent hard-body screw-in suture anchor platform - product number / spec guide
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/alphavent-knotless/resources/AlphaVent%20Knotless%20Brochure.pdf  # AlphaVent Knotless self-punching knotless anchor brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/procedures/instability---shoulder/brochures/Instability%20Procedural%20Guide%20Brochure.pdf  # Shoulder Instability Procedural Guide Brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/procedures/instability---shoulder/brochures/1.4mm%20Instability%20Repair%20Platform%20Brochure.pdf  # 1.4mm Instability Repair Platform Brochure (Iconix 1 + NanoTack TT)
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/iconix-knotless/resources/Iconix%20Knotless%20Brochure.pdf  # Iconix Knotless all-suture knotless anchor brochure
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/knotilusknotlessanchorsystem/resources/Knotilus%20Anchor%20Technique%20Guide.pdf  # Knotilus Anchor - Instability Repair (Single Portal) Surgical Technique Guide
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/xbraidttsurgicalsuturetape/resources/SutureKit_QuickGuide_1000904522revB.pdf  # Suture Kit Quick Guide (XBraid TT soft-tissue repair kits)
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/xbraidttsurgicalsuturetape/resources/Suture%20Kit%20Step%20by%20Step%20guide%20Brochure.pdf  # Suture Kit Step-by-Step Guide Brochure (XBraid TT)
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/inspace/images/InSpace_Brochure_1000903813RevB.pdf  # InSpace Balloon Implant Physician Brochure (Rev B)
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/inspace/apac/india/resources/is-surgical-technique-brochure.pdf  # InSpace Balloon Implant Surgical Technique Guide
+https://www.stryker.com/content/dam/stryker/sports-medicine/products/inspace/apac/india/resources/inspace-balloon-implant-brochure.pdf  # InSpace Balloon Implant Brochure

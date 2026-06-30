@@ -14,6 +14,31 @@ Two product surfaces, both company-scoped:
 
 ---
 
+## Current coverage (as of 2026-06-29, post spec gap-fill)
+
+| Company | Chunks | Source PDFs | Product families covered |
+| --- | --- | --- | --- |
+| **Arthrex** | **242** | 63 PDF + 15 video | SpeedBridge, Instability (Bankart/SLAP/remplissage/Latarjet/glenoid bone loss), FiberTak, ArthroFLEX, FiberTape/FiberWire/SutureTape, SCR, SutureBridge, Biceps Tenodesis, PushLock, Corkscrew, CuffMend, SutureTak, SpeedFix, SwiveLock |
+| **Stryker** | **80** | 43 PDF | InSpace, AlphaVent (hard-body + knotless), Cobra, Instability (Iconix/NanoTack 1.4 mm platform), Omega Knotless, XBraidTT/Force Fiber, Iconix, Cinchlock, Champion Slingshot, Knotilus+, PEEK IntraLine, PEEK Zip, ReelX STT |
+| **Smith & Nephew** | **103** | 37 PDF | REGENETEN, Q-FIX, Instability (SUTUREFIX/Latarjet/Bankart), HEALICOIL, FOOTPRINT Ultra, MULTIFIX, MICRORAPTOR, REGENESORB, TWINFIX Ultra |
+| Cross-company | 8 | — | `competitive_insights` (sentinel `_competitive`) |
+| **Total** | **425 + 8** | | |
+
+**Spec coverage filled:** anchor diameters/lengths/drill sizes & materials (PEEK / all-suture /
+BioComposite / HA), suture & tape widths and types (FiberTape 1.7 & 2 mm, SutureTape 1.3 mm,
+XBraid TT 1.4/1.8/2.2 mm, Force Fiber #2), fixation methods (knotless, self-punching,
+tensionable, double-row/TOE), design/biomechanical features, and clinical/evidence summaries.
+
+**Gap-fill method (reproducible, conservative):** official manufacturer PDFs only (no video
+streams). Stryker via deterministic `pdf_ingest.scrape_pdf_links` over stryker.com product
+pages; Arthrex via WebFetch of arthrex.com product pages → `/resources/LT1-*` & `/DOC1-*`
+technique-guide/evidence PDFs; Smith & Nephew via search of smith-nephew.com +
+`smith-nephew.stylelabs.cloud` CDN. Every candidate was `%PDF`-gated, deduped by URL and by
+extracted-text SHA, and scope-checked (knee/ACL/hip/foot/arthroplasty excluded). Seed lists:
+`data/urls/{arthrex,stryker,smithnephew}_shoulder_gap*.txt`.
+
+---
+
 ## 1. The chunk schema
 
 Every chunk is one JSON file carrying the original fields **plus** the multi-company

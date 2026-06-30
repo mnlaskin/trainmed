@@ -1,5 +1,5 @@
 ---
-title: 1.4mm Shoulder Instability Repair Platform brochure
+title: 1.4mm Instability Repair Platform Brochure (Iconix 1 + NanoTack TT)
 doc_id: 1-4mm-20instability-20repair-20platform-20brochure
 company: Stryker
 source_url: https://www.stryker.com/content/dam/stryker/sports-medicine/procedures/instability---shoulder/brochures/1.4mm%20Instability%20Repair%20Platform%20Brochure.pdf
@@ -9,7 +9,7 @@ page_count: 3
 source: pdf
 ---
 
-# 1.4mm Shoulder Instability Repair Platform brochure
+# 1.4mm Instability Repair Platform Brochure (Iconix 1 + NanoTack TT)
 
 1.4mm instability 
 repair platform
