@@ -1011,23 +1011,63 @@
   "company": "Arthrex",
   "product_family": "SwiveLock",
   "product_name": "SwiveLock",
-  "anchor_diameter_mm": [],
-  "anchor_length_mm": [],
+  "anchor_diameter_mm": [
+   3.5,
+   4.75,
+   5.5,
+   6.25
+  ],
+  "anchor_length_mm": [
+   19.1,
+   19.5,
+   22.0,
+   24.5
+  ],
   "drill_size_mm": [],
   "suture_tape_width_mm": [],
-  "material": [],
-  "fixation_type": [],
-  "key_features": [],
+  "material": [
+   "BioComposite",
+   "PEEK"
+  ],
+  "fixation_type": [
+   "fully threaded",
+   "knotless",
+   "screw-in",
+   "self-punching",
+   "tensionable"
+  ],
+  "key_features": [
+   "fully threaded anchor body",
+   "forked eyelet",
+   "closed eyelet",
+   "self-punching",
+   "vented"
+  ],
   "advantages": [],
   "disadvantages": [],
   "clinical_references": [],
   "sources": [
    {
+    "title": "SpeedBridge Knotless Rotator Cuff Repair (technique guide)",
+    "url": "https://www.arthrex.com/resources/LT1-000170-en-US/speedbridge-knotless-rotator-cuff-repair#page=13",
+    "chunk_id": "speedbridge-knotless-rotator-cuff-repair_003"
+   },
+   {
     "title": "Shoulder and Elbow: Next Generation in Repair and Reconstruction",
-    "url": "https://www.arthrex.com/resources/LB1-0220-EN/shoulder-and-elbow-next-generation-in-repair-and-reconstruction#page=99",
-    "chunk_id": "shoulder-and-elbow-next-generation-in-repair-and-reconstruction_038"
+    "url": "https://www.arthrex.com/resources/LB1-0220-EN/shoulder-and-elbow-next-generation-in-repair-and-reconstruction#page=104",
+    "chunk_id": "shoulder-and-elbow-next-generation-in-repair-and-reconstruction_040"
+   },
+   {
+    "title": "Shoulder and Elbow: Next Generation in Repair and Reconstruction",
+    "url": "https://www.arthrex.com/resources/LB1-0220-EN/shoulder-and-elbow-next-generation-in-repair-and-reconstruction#page=107",
+    "chunk_id": "shoulder-and-elbow-next-generation-in-repair-and-reconstruction_041"
+   },
+   {
+    "title": "Shoulder and Elbow: Next Generation in Repair and Reconstruction",
+    "url": "https://www.arthrex.com/resources/LB1-0220-EN/shoulder-and-elbow-next-generation-in-repair-and-reconstruction#page=102",
+    "chunk_id": "shoulder-and-elbow-next-generation-in-repair-and-reconstruction_039"
    }
   ],
-  "n_chunks": 1
+  "n_chunks": "(specs aggregated from SwiveLock mentions across the Arthrex corpus)"
  }
 ]
