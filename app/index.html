@@ -145,7 +145,10 @@
   .answer code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.92em; background:var(--blue-soft); padding:1px 5px; border-radius:5px; }
   .answer a { color:var(--blue-d); text-decoration:underline; text-underline-offset:2px; }
   .answer a:hover { color:var(--blue); }
-  .answer .cmark { color:var(--blue); font-weight:700; }
+  /* inline citation markers — now clickable links to the source; styled as a tappable chip */
+  .answer .cmark { color:var(--blue-d); font-weight:800; text-decoration:none; padding:0 4px; border-radius:6px;
+                   background:var(--blue-soft); white-space:nowrap; }
+  a.cmark { cursor:pointer; } a.cmark:hover { background:var(--blue); color:#fff; }
   .empty { color:var(--muted); font-size:13px; }
   .loc { color:var(--muted); font-size:12px; }
   .barform { display:flex; gap:10px; padding:16px 24px; border-top:1px solid var(--line); background:var(--surface); }
@@ -162,14 +165,24 @@
   .btn-green { background:var(--green); }
   .btn-green:hover:not(:disabled) { background:var(--green-d); }
   /* citations */
-  .cite { display:block; border:1px solid var(--line); border-radius:12px; padding:12px 13px; margin:0 0 11px;
+  .cite { position:relative; display:block; border:1px solid var(--line); border-radius:12px; padding:12px 28px 12px 13px; margin:0 0 11px;
           text-decoration:none; color:inherit; background:var(--surface); box-shadow:var(--shadow-sm); transition:all .14s ease; }
   .cite:hover { border-color:var(--blue); transform:translateY(-1px); box-shadow:var(--shadow); }
+  .cite::after { content:'↗'; position:absolute; top:11px; right:12px; color:var(--muted); font-size:13px; font-weight:700; }
+  .cite:hover::after { color:var(--blue); }
   .cite .row { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
   .badge { font-size:9.5px; font-weight:800; letter-spacing:.04em; padding:3px 8px; border-radius:6px; color:#fff; }
-  .badge.video { background:var(--video); } .badge.pdf { background:var(--guide); }
+  .badge.video { background:var(--video); } .badge.pdf { background:var(--guide); } .badge.compare { background:#6b54c6; }
   .cite .n { font-weight:800; color:var(--blue-d); } .cite .title { font-size:13.5px; font-weight:500; color:var(--text); }
   .cite .loc { color:var(--muted); font-size:12px; margin-top:3px; }
+  /* mobile-only collapsible sources attached to each answer (the side panel is hidden on phones) */
+  .answer-sources { display:none; margin-top:16px; }
+  .answer-sources > summary { cursor:pointer; list-style:none; font-size:13.5px; font-weight:700; color:var(--blue-d);
+    padding:12px 14px; background:var(--panel); border:1px solid var(--line); border-radius:11px; }
+  .answer-sources > summary::-webkit-details-marker { display:none; }
+  .answer-sources > summary::before { content:'📎 '; }
+  .answer-sources[open] > summary { border-radius:11px 11px 0 0; border-bottom:0; }
+  .as-body { border:1px solid var(--line); border-top:0; border-radius:0 0 11px 11px; padding:12px 12px 2px; background:var(--surface); }
 
   /* ============ ROLEPLAY SETUP ============ */
   .step-h { display:flex; align-items:center; gap:11px; margin:30px 0 14px; }
@@ -356,19 +369,29 @@
     .stats{ grid-template-columns:repeat(2,1fr); } .cards2{ grid-template-columns:1fr; }
     .scen-grid{ grid-template-columns:1fr; } .cols2{ grid-template-columns:1fr; }
     .kn-side{ display:none; } .stage-side{ display:none; }
+    .answer-sources{ display:block; }   /* side panel hidden → expose sources inline per answer */
   }
   @media (max-width:760px){
     body{ flex-direction:column; }
     .sidebar{ width:100%; flex-direction:row; align-items:center; padding:8px 12px; border-right:0; border-bottom:1px solid var(--line); gap:8px; overflow-x:auto; }
     .brand{ padding:0; } .brand-sub{ display:none; }
     .nav{ flex-direction:row; margin:0 0 0 6px; } .nav-sec{ display:none; }
-    .nav-item{ padding:8px 11px; } .nav-item span{ display:none; }
+    .nav-item{ padding:10px 12px; } .nav-item span{ display:none; }   /* icon-only, ≥44px touch target */
     .side-spacer{ flex:1; }
     .representing{ border-top:0; padding-top:0; } .rep-meta{ display:none; } .rep-caret{ display:none; }
     .rep-current{ padding:6px; } .rep-menu{ bottom:auto; top:calc(100% + 8px); left:auto; right:0; width:240px; }
     .diff-grid{ grid-template-columns:1fr; } .prospect{ flex-direction:column; }
-    .wrap{ padding:24px 18px 44px; } .thread{ padding:20px 16px; } .barform{ padding:12px 14px calc(12px + env(safe-area-inset-bottom)); }
+    .wrap{ padding:24px 18px 44px; } .thread{ padding:18px 15px; } .barform{ padding:12px 14px calc(12px + env(safe-area-inset-bottom)); }
     .debrief-top{ flex-direction:column; text-align:center; } .pros-grid{ grid-template-columns:1fr; }
+    /* Knowledge readability on phones: larger body + steps, roomier spacing */
+    .answer{ font-size:16px; line-height:1.7; }
+    .answer p{ margin:0 0 14px; } .answer li{ margin:8px 0; } .answer ol, .answer ul{ padding-left:24px; }
+    .msg{ margin-bottom:24px; }
+    .answer a.cmark{ padding:3px 8px; }                 /* fat-finger-friendly citation chips */
+    /* ≥16px inputs stop iOS Safari from zooming the page on focus; bigger tap targets */
+    .barform input{ font-size:16px; padding:15px; } .barform .btn{ padding:15px 18px; }
+    .cite{ padding:15px 14px; } .chip{ font-size:14px; padding:12px 15px; }
+    .kn-hero .h1{ font-size:25px; } .lead{ font-size:15px; }
   }
 </style>
 </head>
@@ -798,37 +821,54 @@ function applyCompanyCopy(){
 }
 // Markdown → safe HTML (escape first, then re-introduce a fixed safe tag set).
 function mdEscape(s){ return s.replace(/[&<>]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[ch])); }
-function mdInline(t){
+function mdInline(t, cites){
   t=t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,(m,txt,url)=>'<a href="'+url.replace(/"/g,'%22')+'" target="_blank" rel="noopener">'+txt+'</a>');
-  t=t.replace(/\[(\d+)\]/g,'<span class="cmark">[$1]</span>');
+  // [n] citation markers → clickable links to the source (PDF / video timestamp / note) in a new tab.
+  t=t.replace(/\[(\d+)\]/g,(m,nn)=>{ const c=cites&&cites[+nn-1];
+    if(c&&c.url) return '<a class="cmark" href="'+String(c.url).replace(/"/g,'%22')+'" target="_blank" rel="noopener" title="'+esc(c.title).replace(/"/g,'&quot;')+'">['+nn+']</a>';
+    return '<span class="cmark">['+nn+']</span>'; });
   t=t.replace(/\*\*([^*]+?)\*\*/g,'<strong>$1</strong>');
   t=t.replace(/(^|[^*])\*([^*\n]+?)\*/g,'$1<em>$2</em>');
   t=t.replace(/`([^`]+?)`/g,'<code>$1</code>');
   return t;
 }
-function renderMarkdown(raw){
+function renderMarkdown(raw, cites){
   const lines=mdEscape(raw).split(/\r?\n/);
   let html='', list=null, para=[];
   const closeList=()=>{ if(list){ html+='</'+list+'>'; list=null; } };
-  const flushPara=()=>{ if(para.length){ html+='<p>'+para.map(mdInline).join('<br>')+'</p>'; para=[]; } };
+  const flushPara=()=>{ if(para.length){ html+='<p>'+para.map(l=>mdInline(l,cites)).join('<br>')+'</p>'; para=[]; } };
   for(const line of lines){
     const b=/^\s*[-*]\s+(.*)$/.exec(line); const n=/^\s*(\d+)\.\s+(.*)$/.exec(line);
-    if(b){ flushPara(); if(list!=='ul'){ closeList(); html+='<ul>'; list='ul'; } html+='<li>'+mdInline(b[1])+'</li>'; }
+    if(b){ flushPara(); if(list!=='ul'){ closeList(); html+='<ul>'; list='ul'; } html+='<li>'+mdInline(b[1],cites)+'</li>'; }
     // Honor the model's explicit step number via <li value="N"> so numbering can't visually
     // restart at 1 when a step spans blocks or the list is interrupted (the "restart" bug).
-    else if(n){ flushPara(); if(list!=='ol'){ closeList(); html+='<ol>'; list='ol'; } html+='<li value="'+n[1]+'">'+mdInline(n[2])+'</li>'; }
+    else if(n){ flushPara(); if(list!=='ol'){ closeList(); html+='<ol>'; list='ol'; } html+='<li value="'+n[1]+'">'+mdInline(n[2],cites)+'</li>'; }
     else if(line.trim()===''){ flushPara(); closeList(); }
     else { closeList(); para.push(line); }
   }
   flushPara(); closeList(); return html;
 }
-function renderAnswer(el,text){ el.innerHTML=renderMarkdown(text); }
+function renderAnswer(el,text,cites){ el.innerHTML=renderMarkdown(text,cites); }
+function citeMeta(c){
+  if(c.type==='youtube') return {cls:'video', lbl:'▶ VIDEO'};
+  if(c.type==='competitive_insight') return {cls:'compare', lbl:'⚖ COMPARE'};
+  return {cls:'pdf', lbl:'📄 GUIDE'};
+}
+function citationCardHTML(c){ const t=citeMeta(c);
+  return `<a class="cite" href="${String(c.url||'#').replace(/"/g,'%22')}" target="_blank" rel="noopener">`+
+    `<div class="row"><span class="badge ${t.cls}">${t.lbl}</span><span class="n">[${c.n}]</span>`+
+    `<span class="loc">${esc(c.loc)} · ${c.score}</span></div><div class="title">${esc(c.title)}</div></a>`;
+}
 function renderCitations(list){
-  citesEl.innerHTML='';
   if(!list.length){ citesEl.innerHTML='<div class="empty">No sources for this answer.</div>'; return; }
-  list.forEach(c=>{ const isVid=c.type==='youtube'; const a=document.createElement('a'); a.className='cite'; a.href=c.url; a.target='_blank'; a.rel='noopener';
-    a.innerHTML=`<div class="row"><span class="badge ${isVid?'video':'pdf'}">${isVid?'▶ VIDEO':'📄 GUIDE'}</span><span class="n">[${c.n}]</span><span class="loc">${c.loc} · ${c.score}</span></div><div class="title">${c.title}</div>`;
-    citesEl.appendChild(a); });
+  citesEl.innerHTML=list.map(citationCardHTML).join('');
+}
+// Mobile: the side panel is hidden, so attach a collapsible Sources block to the answer itself.
+function attachMobileSources(am, list){
+  let d=am.querySelector('.answer-sources');
+  if(!list||!list.length){ if(d) d.remove(); return; }
+  if(!d){ d=document.createElement('details'); d.className='answer-sources'; am.appendChild(d); }
+  d.innerHTML=`<summary>Sources (${list.length})</summary><div class="as-body">${list.map(citationCardHTML).join('')}</div>`;
 }
 let lastKnowledgeQ='';
 function askChat(){
@@ -838,9 +878,9 @@ function askChat(){
   const ansEl=document.createElement('div'); ansEl.className='answer'; ansEl.textContent='…'; am.appendChild(ansEl);
   thread.appendChild(am); thread.scrollTop=thread.scrollHeight;
   citesEl.innerHTML='<div class="empty">Retrieving…</div>';
-  let answer=''; const es=new EventSource('/api/ask?q='+encodeURIComponent(q)+'&k=4&company='+encodeURIComponent(COMPANY));
-  es.addEventListener('sources',ev=>renderCitations(JSON.parse(ev.data)));
-  es.addEventListener('token',ev=>{ answer+=JSON.parse(ev.data); renderAnswer(ansEl,answer); thread.scrollTop=thread.scrollHeight; });
+  let answer='', cites=[]; const es=new EventSource('/api/ask?q='+encodeURIComponent(q)+'&k=4&company='+encodeURIComponent(COMPANY));
+  es.addEventListener('sources',ev=>{ cites=JSON.parse(ev.data); renderCitations(cites); attachMobileSources(am, cites); });
+  es.addEventListener('token',ev=>{ answer+=JSON.parse(ev.data); renderAnswer(ansEl,answer,cites); thread.scrollTop=thread.scrollHeight; });
   es.addEventListener('done',()=>{ es.close(); chatSend.disabled=false; qInput.focus(); if(answer) saveEvent({type:'knowledge', q:lastKnowledgeQ, ts:Date.now()}); });
   es.onerror=()=>{ es.close(); chatSend.disabled=false; if(!answer) ansEl.textContent='Error contacting server.'; };
   qInput.value='';

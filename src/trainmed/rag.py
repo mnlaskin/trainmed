@@ -473,11 +473,19 @@ def system_prompt(company: str = co.DEFAULT_COMPANY) -> str:
         "to answer it. Tie tips to the excerpts where you can; generic technique/selling reminders are okay "
         "but must NOT introduce new specs or clinical claims.\n"
         "   - **Why choose this technique** — 2-3 short selling points built from the advantages the "
-        "excerpts state (cite them), then one concrete next step the rep can ask for (a trial case, an "
-        "in-service).\n\n"
+        "excerpts state (cite them), including why a surgeon would pick it over the alternative they're "
+        "using when the excerpts support that, then one concrete next step the rep can ask for (a trial "
+        "case, an in-service).\n\n"
         "B) QUICK FACT (a single spec, a comparison, a 'what is X') — skip the step list: lead with the "
         "direct answer in one bolded, cited line; add 2-4 tight bullets only if they help; then one "
         "practical rep tip if a source supports it.\n\n"
+        f"COMPETITIVE — when the excerpts include cross-company comparison notes, or the question names "
+        f"another company or product: give a BALANCED, grounded comparison. State {name}'s documented "
+        "advantages (cite them), represent the competitor ONLY as the notes describe — never invent a "
+        "competitor spec, number, or claim — and acknowledge where they are legitimately strong. If the "
+        f"data doesn't cover a head-to-head point, say so plainly and pivot to {name}'s documented "
+        "strengths rather than guessing. End with the single strongest, evidence-backed reason to "
+        f"choose {name}.\n\n"
         "STYLE: No preamble, no restating the question, no empty marketing adjectives. Specific over vague. "
         "Sound like a rep who has been in the OR a thousand times."
     )
@@ -492,11 +500,17 @@ def _loc(c: dict) -> str:
         return c["timestamp_range"]["label"]
     if c.get("source_type") == "pdf":
         return f"PDF, {c.get('page_count') or '?'} pp"
+    if c.get("source_type") == "competitive_insight":
+        return "cross-company note"
     return "n/a"
 
 
 def _kind(c: dict) -> str:
-    return "video" if c.get("source_type") == "youtube" else "surgical guide"
+    if c.get("source_type") == "youtube":
+        return "video"
+    if c.get("source_type") == "competitive_insight":
+        return "cross-company comparison note"
+    return "surgical guide"
 
 
 def _context_block(retrieved: list[dict]) -> str:
@@ -596,8 +610,25 @@ def _extractive_answer(retrieved: list[dict]) -> str:
 # ── citations / output helpers ────────────────────────────────────────────────
 
 
+def _estimate_pdf_page(c: dict) -> int | None:
+    """Best-effort page for a PDF chunk, used only as a navigation jump (#page=N).
+
+    Ingestion stored the chunk's position (chunk_index / chunk_count) and the document's
+    total page_count, but NOT exact per-chunk page spans — so this lands the reader NEAR the
+    cited passage rather than on page 1, clamped into range. Returns None when there isn't
+    enough info to estimate (so we just open the file). It is deliberately a silent nav aid:
+    we never DISPLAY this as "page N", to avoid implying a precision the data doesn't have.
+    """
+    pages = c.get("page_count") or 0
+    cnt = c.get("chunk_count") or 0
+    idx = c.get("chunk_index")
+    if pages < 2 or cnt < 2 or idx is None:
+        return None
+    return max(1, min(pages, int(idx / cnt * pages) + 1))
+
+
 def deep_link(c: dict) -> str:
-    """YouTube → exact-timestamp link; PDF → its source URL."""
+    """YouTube → exact-timestamp link; PDF → file URL (+ best-effort #page jump)."""
     url = c.get("source_url") or ""
     if c.get("source_type") == "youtube" and c.get("timestamp_range"):
         start = int(c["timestamp_range"]["start_seconds"])
@@ -606,6 +637,10 @@ def deep_link(c: dict) -> str:
             return f"https://www.youtube.com/watch?v={vid}&t={start}s"
         sep = "&" if "?" in url else "?"
         return f"{url}{sep}t={start}s"
+    if c.get("source_type") == "pdf" and url and "#" not in url:
+        page = _estimate_pdf_page(c)
+        if page:
+            return f"{url}#page={page}"  # honored by inline PDF viewers; ignored on download
     return url
 
 
@@ -629,6 +664,48 @@ def format_sources(retrieved: list[dict], scores: list[float]) -> str:
             f"  [{n}] ({typ}) {c['source_title']}  ·  {_loc(c)}  ·  score {s:.3f}\n      {deep_link(c)}"
         )
     return "\n".join(lines)
+
+
+# ── competitive-question detection ────────────────────────────────────────────
+#
+# Distinctive (brand-specific) product names per company — used ONLY to detect when a
+# query references a DIFFERENT company so the chatbot can pull the curated cross-company
+# comparison notes. Deliberately excludes generic technique words shared across brands
+# (knotless, double-row, anchor, all-suture, footprint, scr, tensionable, …) so a generic
+# question never gets mis-flagged as competitive.
+_BRAND_PRODUCTS: dict[str, set[str]] = {
+    co.ARTHREX: {"speedbridge", "suturebridge", "speedfix", "fibertak", "swivelock", "fibertape",
+                 "fiberwire", "pushlock", "suturetak", "corkscrew", "arthroflex", "cuffmend"},
+    co.STRYKER: {"reelx", "iconix", "alphavent", "omega", "knotilus", "nanotack", "inspace",
+                 "twinfix", "citrelock", "citrenak"},
+    co.SMITH_NEPHEW: {"healicoil", "qfix", "footprintultra", "regenesorb", "regeneten", "multifix",
+                      "bioraptor", "ultrabraid", "ultratape"},
+}
+_BRAND_NAMES: dict[str, set[str]] = {
+    co.ARTHREX: {"arthrex"}, co.STRYKER: {"stryker"}, co.SMITH_NEPHEW: {"smithnephew"},
+}
+_COMP_WORDS = re.compile(r"\b(competitor|competitors|competition|rival|rivals|head[- ]?to[- ]?head)\b", re.I)
+
+
+def is_competitive_query(q: str, company: str = co.DEFAULT_COMPANY) -> bool:
+    """True when a Knowledge question is really asking for a cross-company comparison.
+
+    Fires on explicit competitor words, or on a mention of ANY company (name or distinctive
+    product) other than the one currently selected. Generic shared technique terms never
+    trigger it — so single-brand questions stay single-brand.
+    """
+    if not q:
+        return False
+    if _COMP_WORDS.search(q):
+        return True
+    flat = re.sub(r"[^a-z0-9]+", "", q.lower())  # "Q-FIX" -> "qfix", "Smith & Nephew" -> "smithnephew"
+    for c in co.COMPANIES:
+        if c == company:
+            continue
+        for term in _BRAND_NAMES.get(c, set()) | _BRAND_PRODUCTS.get(c, set()):
+            if term and term in flat:
+                return True
+    return False
 
 
 # ── roleplay trainer ──────────────────────────────────────────────────────────
